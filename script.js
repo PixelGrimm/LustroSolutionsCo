@@ -8,17 +8,20 @@ function showAlert(title, message) {
     if (alertModal && alertTitle && alertMessage) {
         alertTitle.textContent = title;
         alertMessage.textContent = message;
+        alertModal.classList.add('show');
         alertModal.style.display = 'block';
         console.log('Alert modal should be visible now');
     } else {
         console.error('Alert modal elements not found:', { alertModal, alertTitle, alertMessage });
-        // Fallback to browser alert if custom modal fails
-        alert(title + ': ' + message);
+        // No fallback - force custom modal to work
+        console.error('Custom modal failed - please check HTML structure');
     }
 }
 
 function closeAlertModal() {
-    document.getElementById('alertModal').style.display = 'none';
+    const alertModal = document.getElementById('alertModal');
+    alertModal.style.display = 'none';
+    alertModal.classList.remove('show');
 }
 
 function showSuccess(title, message) {
@@ -30,17 +33,20 @@ function showSuccess(title, message) {
     if (successModal && successTitle && successMessage) {
         successTitle.textContent = title;
         successMessage.textContent = message;
+        successModal.classList.add('show');
         successModal.style.display = 'block';
         console.log('Success modal should be visible now');
     } else {
         console.error('Success modal elements not found:', { successModal, successTitle, successMessage });
-        // Fallback to browser alert if custom modal fails
-        alert(title + ': ' + message);
+        // No fallback - force custom modal to work
+        console.error('Custom modal failed - please check HTML structure');
     }
 }
 
 function closeSuccessModal() {
-    document.getElementById('successModal').style.display = 'none';
+    const successModal = document.getElementById('successModal');
+    successModal.style.display = 'none';
+    successModal.classList.remove('show');
 }
 
 // Modal functionality

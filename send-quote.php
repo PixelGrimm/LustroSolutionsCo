@@ -44,6 +44,9 @@ $newsletter = isset($data['newsletter']) ? 'Yes' : 'No';
 
 // Email configuration
 $to = 'info@lustrosolutions.co.uk'; // Your Spacemail address
+
+// Railway environment variables
+$railway_env = getenv('RAILWAY_ENVIRONMENT') ?: 'production';
 $subject = 'New Quote Request - ' . $service;
 
 // Create email body

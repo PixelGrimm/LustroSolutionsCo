@@ -1,0 +1,16 @@
+{
+  "name": "lustro-solutions-co/website",
+  "description": "Lustro Solutions Co - Professional Cleaning Services Landing Page",
+  "type": "project",
+  "require": {
+    "php": ">=8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "LustroSolutionsCo\\": "src/"
+    }
+  },
+  "scripts": {
+    "start": "php -S 0.0.0.0:$PORT"
+  }
+}

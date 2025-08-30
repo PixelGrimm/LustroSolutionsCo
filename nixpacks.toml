@@ -1,5 +1,14 @@
 [phases.setup]
-nixPkgs = ["php", "php-curl", "php-mbstring"]
+nixPkgs = ["php"]
+
+[phases.install]
+cmds = ["echo 'PHP environment ready'"]
+
+[phases.build]
+cmds = ["echo 'Build complete'"]
+
+[start]
+cmd = "php -S 0.0.0.0:$PORT"
 
 [phases.install]
 cmds = ["echo 'PHP environment ready'"]

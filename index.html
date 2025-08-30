@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lustro Solutions Co - Professional Cleaning Services in London</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMM00EF4G0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SMM00EF4G0');
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-sparkles"></i>
+                <span>Lustro Solutions Co</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="quote-btn" onclick="openQuoteModal()">Get Free Quote</button></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Turn your space into a
+                    <span class="highlight">clean story.</span>
+                </h1>
+                <p class="hero-description">
+                    More than just cleaning—Lustro Solutions Co is your trusted partner for pristine spaces across London and surrounding areas. Professional, reliable, and eco-friendly cleaning services that transform your environment.
+                </p>
+                <button class="cta-button" onclick="openQuoteModal()">
+                    <i class="fas fa-rocket"></i>
+                    Get Your Free Quote
+                </button>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-star"></i>
+                    <span>4.9/5 Rating</span>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-clock"></i>
+                    <span>24/7 Service</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive cleaning solutions for every need</p>
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up" onclick="openServiceModal('residential')">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Residential Cleaning</h3>
+                    <p>Complete home cleaning services tailored to your lifestyle and schedule.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100" onclick="openServiceModal('office')">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Office Cleaning</h3>
+                    <p>Professional workplace cleaning to maintain a productive and healthy environment.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200" onclick="openServiceModal('deep')">
+                    <div class="service-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3>Deep Cleaning</h3>
+                    <p>Thorough cleaning services that reach every corner and surface of your space.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300" onclick="openServiceModal('carpet')">
+                    <div class="service-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <h3>Furniture/Carpet Cleaning</h3>
+                    <p>Professional carpet and upholstery cleaning to restore freshness and appearance.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400" onclick="openServiceModal('window')">
+                    <div class="service-icon">
+                        <div class="window-icon"></div>
+                    </div>
+                    <h3>Window Cleaning</h3>
+                    <p>Crystal clear windows with our specialized cleaning techniques and equipment.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="500" onclick="openServiceModal('bin')">
+                    <div class="service-icon">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                    <h3>Bin Cleaning</h3>
+                    <p>Sanitize and deodorize your bins to eliminate odors and bacteria.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="600" onclick="openServiceModal('fire')">
+                    <div class="service-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>After Fire Clean</h3>
+                    <p>Specialized cleaning and restoration services after fire damage incidents.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="700" onclick="openServiceModal('specialist')">
+                    <div class="service-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Specialist Cleaning</h3>
+                    <p>Professional cleaning services for challenging situations with complete discretion and compassionate care.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="800" onclick="openServiceModal('rubbish')">
+                    <div class="service-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Rubbish Collection</h3>
+                    <p>Efficient waste removal and rubbish collection services for homes and businesses across London.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Before & After Results</h2>
+            <p class="section-subtitle">See the transformation with our professional cleaning services</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="fade-up">
+                    <div class="before-after">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop" alt="Before - Dirty Office">
+                            <span class="label">Before</span>
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop" alt="After - Clean Office">
+                            <span class="label">After</span>
+                        </div>
+                    </div>
+                    <h4>Office Deep Clean</h4>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="before-after">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop" alt="Before - Dirty Carpet">
+                            <span class="label">Before</span>
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop" alt="After - Clean Carpet">
+                            <span class="label">After</span>
+                        </div>
+                    </div>
+                    <h4>Carpet Restoration</h4>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="before-after">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop" alt="Before - Dirty Windows">
+                            <span class="label">Before</span>
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop" alt="After - Clean Windows">
+                            <span class="label">After</span>
+                        </div>
+                    </div>
+                    <h4>Window Cleaning</h4>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="before-after">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop" alt="Before - Dirty Kitchen">
+                            <span class="label">Before</span>
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop" alt="After - Clean Kitchen">
+                            <span class="label">After</span>
+                        </div>
+                    </div>
+                    <h4>Kitchen Deep Clean</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <h2>Why Choose Lustro Solutions Co?</h2>
+                    <p>With years of experience serving London and surrounding areas, we've built our reputation on quality, reliability, and customer satisfaction. Our team of trained professionals uses eco-friendly products and advanced cleaning techniques to deliver exceptional results. We work with a network of trusted partners to ensure every job is completed as soon as possible, providing you with the fastest and most reliable service available.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Eco-friendly cleaning products</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Fully insured and bonded</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Flexible scheduling options</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>100% satisfaction guarantee</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats" data-aos="fade-left">
+                    <div class="stat">
+                        <h3 data-target="500">0+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat">
+                        <h3 data-target="1000">0+</h3>
+                        <p>Jobs Completed</p>
+                    </div>
+                    <div class="stat">
+                        <h3 data-target="5">0+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat">
+                        <h3 data-target="24">0</h3>
+                        <p>Customer Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <h3>Ready to transform your space?</h3>
+                    <p>Contact us today for a free consultation and quote. We serve London and all surrounding areas.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@lustrosolutions.co.uk</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>London, UK</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form" data-aos="fade-left">
+                    <button class="quote-btn-large" onclick="openQuoteModal()">
+                        <i class="fas fa-envelope"></i>
+                        Get Your Free Quote
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-sparkles"></i>
+                        <span>Lustro Solutions Co</span>
+                    </div>
+                    <p>Professional cleaning services across London and surrounding areas.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Residential Cleaning</a></li>
+                        <li><a href="#services">Office Cleaning</a></li>
+                        <li><a href="#services">Deep Cleaning</a></li>
+                        <li><a href="#services">Furniture/Carpet Cleaning</a></li>
+                        <li><a href="#services">Window Cleaning</a></li>
+                        <li><a href="#services">Bin Cleaning</a></li>
+                        <li><a href="#services">After Fire Clean</a></li>
+                        <li><a href="#services">Specialist Cleaning</a></li>
+                        <li><a href="#services">Rubbish Collection</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>info@lustrosolutions.co.uk</li>
+                        <li>London, UK</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Lustro Solutions Co. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quote Modal -->
+    <div id="quoteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Get Your Free Quote</h2>
+                <span class="close" onclick="closeQuoteModal()">&times;</span>
+            </div>
+            <p class="modal-description">Tell us about your cleaning needs and we'll provide a detailed quote within 24 hours.</p>
+            <form class="quote-form">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="service">Service Required *</label>
+                    <select id="service" name="service" required>
+                        <option value="">Select a service</option>
+                        <option value="residential">Residential Cleaning</option>
+                        <option value="office">Office Cleaning</option>
+                        <option value="deep">Deep Cleaning</option>
+                        <option value="carpet">Furniture/Carpet Cleaning</option>
+                        <option value="window">Window Cleaning</option>
+                        <option value="bin">Bin Cleaning</option>
+                        <option value="fire">After Fire Clean</option>
+                        <option value="specialist">Specialist Cleaning</option>
+                        <option value="rubbish">Rubbish Collection</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timeframe">When do you need this?</label>
+                    <select id="timeframe" name="timeframe">
+                        <option value="">Select timeframe</option>
+                        <option value="asap">As soon as possible</option>
+                        <option value="this-week">This week</option>
+                        <option value="next-week">Next week</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="preferred-date">Preferred Date (Optional)</label>
+                    <input type="date" id="preferred-date" name="preferred-date" min="">
+                </div>
+                <div class="form-group">
+                    <label for="address">Property Address</label>
+                    <input type="text" id="address" name="address" placeholder="London address for service location">
+                </div>
+                <div class="form-group">
+                    <label for="details">Additional Details</label>
+                    <textarea id="details" name="details" placeholder="Tell us about the size of your property, specific cleaning requirements, or any special requests..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-envelope"></i>
+                    Get My Free Quote
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Service Modal -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="serviceModalTitle">Service Details</h2>
+                <span class="close" onclick="closeServiceModal()">&times;</span>
+            </div>
+            <div class="service-modal-content">
+                <div class="service-modal-icon">
+                    <i id="serviceModalIcon" class="fas fa-home"></i>
+                </div>
+                <div class="service-modal-description" id="serviceModalDescription">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+                <div class="service-modal-features" id="serviceModalFeatures">
+                    <!-- Features will be populated by JavaScript -->
+                </div>
+                <div class="service-modal-cta">
+                    <button class="quote-btn-large" onclick="openQuoteFromService()">
+                        <i class="fas fa-envelope"></i>
+                        Get Quote for This Service
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

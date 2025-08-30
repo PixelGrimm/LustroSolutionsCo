@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lustro Solutions Co - Professional Cleaning Services in London</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMM00EF4G0"></script>
@@ -414,6 +415,36 @@
                         Get Quote for This Service
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content alert-modal">
+            <div class="modal-header">
+                <h3 id="alertTitle">Alert</h3>
+                <span class="close" onclick="closeAlertModal()">&times;</span>
+            </div>
+            <div class="alert-content">
+                <div class="alert-icon">⚠️</div>
+                <p id="alertMessage">This is an alert message.</p>
+                <button onclick="closeAlertModal()" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="modal-header">
+                <h3 id="successTitle">Success!</h3>
+                <span class="close" onclick="closeSuccessModal()">&times;</span>
+            </div>
+            <div class="success-content">
+                <div class="success-icon">✅</div>
+                <p id="successMessage">Your request has been submitted successfully.</p>
+                <button onclick="closeSuccessModal()" class="btn btn-primary">OK</button>
             </div>
         </div>
     </div>

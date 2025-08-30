@@ -926,3 +926,50 @@ body {
         margin-left: 0 !important;
     }
 }
+
+/* Alert Modal Styles */
+.alert-modal {
+    max-width: 400px;
+    text-align: center;
+}
+
+.alert-content {
+    padding: 2rem 0;
+}
+
+.alert-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.alert-content h3 {
+    color: #f59e0b;
+    margin-bottom: 1rem;
+}
+
+.alert-content p {
+    color: #b0b0b0;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+/* Success Modal Styles */
+.success-modal {
+    max-width: 400px;
+    text-align: center;
+}
+
+.success-content {
+    padding: 2rem 0;
+}
+
+.success-content h3 {
+    color: #10b981;
+    margin-bottom: 1rem;
+}
+
+.success-content p {
+    color: #b0b0b0;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}

@@ -1,3 +1,24 @@
+// Custom modal functions
+function showAlert(title, message) {
+    document.getElementById('alertTitle').textContent = title;
+    document.getElementById('alertMessage').textContent = message;
+    document.getElementById('alertModal').style.display = 'block';
+}
+
+function closeAlertModal() {
+    document.getElementById('alertModal').style.display = 'none';
+}
+
+function showSuccess(title, message) {
+    document.getElementById('successTitle').textContent = title;
+    document.getElementById('successMessage').textContent = message;
+    document.getElementById('successModal').style.display = 'block';
+}
+
+function closeSuccessModal() {
+    document.getElementById('successModal').style.display = 'none';
+}
+
 // Modal functionality
 function openQuoteModal() {
     const modal = document.getElementById('quoteModal');
@@ -19,9 +40,22 @@ function closeQuoteModal() {
 
 // Close modal when clicking outside
 window.onclick = function(event) {
-    const modal = document.getElementById('quoteModal');
-    if (event.target === modal) {
+    const quoteModal = document.getElementById('quoteModal');
+    const serviceModal = document.getElementById('serviceModal');
+    const alertModal = document.getElementById('alertModal');
+    const successModal = document.getElementById('successModal');
+    
+    if (event.target === quoteModal) {
         closeQuoteModal();
+    }
+    if (event.target === serviceModal) {
+        closeServiceModal();
+    }
+    if (event.target === alertModal) {
+        closeAlertModal();
+    }
+    if (event.target === successModal) {
+        closeSuccessModal();
     }
 }
 
@@ -87,21 +121,21 @@ document.querySelector('.quote-form').addEventListener('submit', function(e) {
     
     // Simple validation
     if (!data.fullName || !data.phone || !data.email || !data.service) {
-        alert('Please fill in all required fields.');
+        showAlert('Missing Information', 'Please fill in all required fields.');
         return;
     }
     
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-        alert('Please enter a valid email address.');
+        showAlert('Invalid Email', 'Please enter a valid email address.');
         return;
     }
     
     // Phone validation
     const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
     if (!phoneRegex.test(data.phone.replace(/\s/g, ''))) {
-        alert('Please enter a valid phone number.');
+        showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
         return;
     }
     
@@ -123,16 +157,16 @@ document.querySelector('.quote-form').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            alert(result.message);
+            showSuccess('Quote Request Sent!', result.message);
             closeQuoteModal();
             this.reset();
         } else {
-            alert('Error: ' + result.message);
+            showAlert('Error', 'Error: ' + result.message);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Sorry, there was an error sending your request. Please try again or contact us directly.');
+        showAlert('Error', 'Sorry, there was an error sending your request. Please try again or contact us directly.');
     })
     .finally(() => {
         submitBtn.innerHTML = originalText;

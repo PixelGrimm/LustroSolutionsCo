@@ -15,6 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
+// Fallback for JSON decode failure
+if (json_last_error() !== JSON_ERROR_NONE) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid JSON data']);
+    exit;
+}
+
 // Validate required fields
 $required_fields = ['fullName', 'phone', 'email', 'service'];
 foreach ($required_fields as $field) {

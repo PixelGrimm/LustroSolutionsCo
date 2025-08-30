@@ -1,8 +1,5 @@
 FROM php:8.1-cli
 
-# Install PHP extensions
-RUN docker-php-ext-install curl mbstring
-
 # Set working directory
 WORKDIR /app
 

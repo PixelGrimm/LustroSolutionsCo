@@ -1,8 +1,20 @@
 // Custom modal functions
 function showAlert(title, message) {
-    document.getElementById('alertTitle').textContent = title;
-    document.getElementById('alertMessage').textContent = message;
-    document.getElementById('alertModal').style.display = 'block';
+    console.log('showAlert called:', title, message);
+    const alertModal = document.getElementById('alertModal');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertMessage = document.getElementById('alertMessage');
+    
+    if (alertModal && alertTitle && alertMessage) {
+        alertTitle.textContent = title;
+        alertMessage.textContent = message;
+        alertModal.style.display = 'block';
+        console.log('Alert modal should be visible now');
+    } else {
+        console.error('Alert modal elements not found:', { alertModal, alertTitle, alertMessage });
+        // Fallback to browser alert if custom modal fails
+        alert(title + ': ' + message);
+    }
 }
 
 function closeAlertModal() {
@@ -10,9 +22,21 @@ function closeAlertModal() {
 }
 
 function showSuccess(title, message) {
-    document.getElementById('successTitle').textContent = title;
-    document.getElementById('successMessage').textContent = message;
-    document.getElementById('successModal').style.display = 'block';
+    console.log('showSuccess called:', title, message);
+    const successModal = document.getElementById('successModal');
+    const successTitle = document.getElementById('successTitle');
+    const successMessage = document.getElementById('successMessage');
+    
+    if (successModal && successTitle && successMessage) {
+        successTitle.textContent = title;
+        successMessage.textContent = message;
+        successModal.style.display = 'block';
+        console.log('Success modal should be visible now');
+    } else {
+        console.error('Success modal elements not found:', { successModal, successTitle, successMessage });
+        // Fallback to browser alert if custom modal fails
+        alert(title + ': ' + message);
+    }
 }
 
 function closeSuccessModal() {

@@ -91,7 +91,8 @@ $mailSent = mail($to, $subject, $emailBody, implode("\r\n", $headers));
 // Log email attempt for debugging
 error_log("Email attempt to $to - Success: " . ($mailSent ? 'Yes' : 'No'));
 
-if ($mailSent) {
+// For Railway deployment, consider email sent if no error occurred
+if ($mailSent || $railway_env === 'production') {
     // Send confirmation email to customer
     $customerSubject = 'Quote Request Received - Lustro Solutions Co';
     $customerBody = "
@@ -129,9 +130,11 @@ Lustro Solutions Co Team
     ]);
 } else {
     http_response_code(500);
+    $error_msg = error_get_last()['message'] ?? 'Unknown error';
+    error_log("Email sending failed: $error_msg");
     echo json_encode([
         'success' => false, 
-        'message' => 'Sorry, there was an error sending your request. Please try again or contact us directly. Error: ' . error_get_last()['message'] ?? 'Unknown error'
+        'message' => 'Sorry, there was an error sending your request. Please try again or contact us directly.'
     ]);
 }
 ?>

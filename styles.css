@@ -1011,12 +1011,12 @@ body {
 }
 
 /* Ensure modals are visible */
-#alertModal, #successModal {
+.alert-modal, .success-modal {
     z-index: 10000 !important;
-    display: none;
+    display: none !important;
 }
 
-#alertModal.show, #successModal.show {
+.alert-modal.show, .success-modal.show {
     display: block !important;
 }
 

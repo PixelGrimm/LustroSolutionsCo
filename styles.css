@@ -306,30 +306,23 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.before-after {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    position: relative;
-}
-
-.before, .after {
+.gallery-image {
     position: relative;
     overflow: hidden;
 }
 
-.before img, .after img {
+.gallery-image img {
     width: 100%;
     height: 250px;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.before:hover img, .after:hover img {
+.gallery-image:hover img {
     transform: scale(1.05);
 }
 
-.label {
+.gallery-image .label {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -579,7 +572,6 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
 }
 
 .modal-content {

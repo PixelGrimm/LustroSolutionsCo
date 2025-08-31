@@ -1095,3 +1095,34 @@ body {
     box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
     background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
 }
+
+/* Image Modal Styles */
+.image-modal {
+    max-width: 90% !important;
+    width: auto !important;
+}
+
+.image-modal .modal-content {
+    background: #1a1a1a !important;
+    border: 2px solid #00d4aa !important;
+    border-radius: 15px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.image-content {
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+.image-content img {
+    max-width: 100% !important;
+    max-height: 80vh !important;
+    object-fit: contain !important;
+    border-radius: 0 0 13px 13px !important;
+}
+
+/* Gallery Image Cursor */
+.gallery-image {
+    cursor: pointer !important;
+}

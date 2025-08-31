@@ -49,6 +49,26 @@ function closeSuccessModal() {
     successModal.classList.remove('show');
 }
 
+// Image Modal Functions
+function openImageModal(imageSrc, title) {
+    const imageModal = document.getElementById('imageModal');
+    const imageModalImg = document.getElementById('imageModalImg');
+    const imageModalTitle = document.getElementById('imageModalTitle');
+    
+    imageModalImg.src = imageSrc;
+    imageModalTitle.textContent = title;
+    imageModal.style.display = 'block';
+    imageModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+    const imageModal = document.getElementById('imageModal');
+    imageModal.style.display = 'none';
+    imageModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
 // Modal functionality
 function openQuoteModal() {
     const modal = document.getElementById('quoteModal');
@@ -74,6 +94,7 @@ window.onclick = function(event) {
     const serviceModal = document.getElementById('serviceModal');
     const alertModal = document.getElementById('alertModal');
     const successModal = document.getElementById('successModal');
+    const imageModal = document.getElementById('imageModal');
     
     if (event.target === quoteModal) {
         closeQuoteModal();
@@ -86,6 +107,9 @@ window.onclick = function(event) {
     }
     if (event.target === successModal) {
         closeSuccessModal();
+    }
+    if (event.target === imageModal) {
+        closeImageModal();
     }
 }
 
@@ -144,13 +168,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // Form submission handling
 document.querySelector('.quote-form').addEventListener('submit', function(e) {
     e.preventDefault();
+    console.log('Form submitted!');
     
     // Get form data
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
+    console.log('Form data:', data);
     
     // Simple validation
     if (!data.fullName || !data.phone || !data.email || !data.service) {
+        console.log('Validation failed - missing fields');
         showAlert('Missing Information', 'Please fill in all required fields.');
         return;
     }
@@ -177,6 +204,7 @@ document.querySelector('.quote-form').addEventListener('submit', function(e) {
     submitBtn.disabled = true;
     
     // Send data to PHP backend
+    console.log('Sending data to PHP...');
     fetch('send-quote.php', {
         method: 'POST',
         headers: {
@@ -184,8 +212,12 @@ document.querySelector('.quote-form').addEventListener('submit', function(e) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Response received:', response);
+        return response.json();
+    })
     .then(result => {
+        console.log('Result:', result);
         if (result.success) {
             showSuccess('Quote Request Sent!', result.message);
             closeQuoteModal();

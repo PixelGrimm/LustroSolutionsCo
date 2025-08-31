@@ -74,13 +74,29 @@ function openQuoteModal() {
     console.log('Opening quote modal...');
     const modal = document.getElementById('quoteModal');
     if (modal) {
+        // Force modal to be visible
         modal.style.display = 'block';
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
+        
         console.log('Modal should be visible now');
         console.log('Modal display style:', modal.style.display);
+        console.log('Modal visibility:', modal.style.visibility);
+        console.log('Modal opacity:', modal.style.opacity);
         console.log('Modal classes:', modal.className);
         console.log('Modal z-index:', window.getComputedStyle(modal).zIndex);
+        
+        // Test if modal content is visible
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            console.log('Modal content found:', modalContent);
+            console.log('Modal content display:', window.getComputedStyle(modalContent).display);
+            console.log('Modal content z-index:', window.getComputedStyle(modalContent).zIndex);
+        } else {
+            console.error('Modal content not found!');
+        }
     } else {
         console.error('Quote modal not found!');
     }
@@ -189,77 +205,90 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Form submission handling
-document.querySelector('.quote-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    console.log('Form submitted!');
-    
-    // Get form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-    console.log('Form data:', data);
-    
-    // Simple validation
-    if (!data.fullName || !data.phone || !data.email || !data.service) {
-        console.log('Validation failed - missing fields');
-        showAlert('Missing Information', 'Please fill in all required fields.');
-        return;
+    // Add debugging for phone input
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            console.log('Phone input changed:', e.target.value);
+        });
     }
     
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        showAlert('Invalid Email', 'Please enter a valid email address.');
-        return;
+    // Form submission handling
+    const quoteForm = document.querySelector('.quote-form');
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted!');
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            console.log('Form data:', data);
+            
+            // Simple validation
+            if (!data.fullName || !data.phone || !data.email || !data.service) {
+                console.log('Validation failed - missing fields');
+                showAlert('Missing Information', 'Please fill in all required fields.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                showAlert('Invalid Email', 'Please enter a valid email address.');
+                return;
+            }
+            
+            // Phone validation - more flexible
+            const phoneRegex = /^[\+]?[\d\s\-\(\)]{7,}$/;
+            if (!phoneRegex.test(data.phone)) {
+                console.log('Phone validation failed for:', data.phone);
+                showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
+                return;
+            }
+            
+            // Update submit button
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Send data to PHP backend
+            console.log('Sending data to PHP...');
+            fetch('send-quote.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                console.log('Response received:', response);
+                return response.json();
+            })
+            .then(result => {
+                console.log('Result:', result);
+                if (result.success) {
+                    showSuccess('Quote Request Sent!', result.message);
+                    closeQuoteModal();
+                    this.reset();
+                } else {
+                    showAlert('Error', 'Error: ' + result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('Error', 'Sorry, there was an error sending your request. Please try again or contact us directly.');
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    } else {
+        console.error('Quote form not found!');
     }
-    
-    // Phone validation - more flexible
-    const phoneRegex = /^[\+]?[\d\s\-\(\)]{7,}$/;
-    if (!phoneRegex.test(data.phone)) {
-        console.log('Phone validation failed for:', data.phone);
-        showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
-        return;
-    }
-    
-    // Update submit button
-    const submitBtn = this.querySelector('.submit-btn');
-    const originalText = submitBtn.innerHTML;
-    
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    submitBtn.disabled = true;
-    
-    // Send data to PHP backend
-    console.log('Sending data to PHP...');
-    fetch('send-quote.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        console.log('Response received:', response);
-        return response.json();
-    })
-    .then(result => {
-        console.log('Result:', result);
-        if (result.success) {
-            showSuccess('Quote Request Sent!', result.message);
-            closeQuoteModal();
-            this.reset();
-        } else {
-            showAlert('Error', 'Error: ' + result.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showAlert('Error', 'Sorry, there was an error sending your request. Please try again or contact us directly.');
-    })
-    .finally(() => {
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    });
-});
 
 // Parallax effect for hero section
 window.addEventListener('scroll', function() {

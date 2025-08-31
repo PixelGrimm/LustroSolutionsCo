@@ -1,3 +1,7 @@
+// Test if JavaScript is loading
+console.log('JavaScript file loaded successfully!');
+alert('JavaScript is working!');
+
 // Custom modal functions
 function showAlert(title, message) {
     console.log('showAlert called:', title, message);
@@ -71,6 +75,7 @@ function closeImageModal() {
 
 // Modal functionality
 function openQuoteModal() {
+    alert('openQuoteModal function called!'); // Simple test
     console.log('Opening quote modal...');
     const modal = document.getElementById('quoteModal');
     if (modal) {

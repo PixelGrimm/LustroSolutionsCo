@@ -85,8 +85,11 @@ $headers = [
     'X-Mailer: PHP/' . phpversion()
 ];
 
-// Send email
+// Send email with error checking
 $mailSent = mail($to, $subject, $emailBody, implode("\r\n", $headers));
+
+// Log email attempt for debugging
+error_log("Email attempt to $to - Success: " . ($mailSent ? 'Yes' : 'No'));
 
 if ($mailSent) {
     // Send confirmation email to customer
@@ -115,7 +118,10 @@ Lustro Solutions Co Team
         'X-Mailer: PHP/' . phpversion()
     ];
 
-    mail($email, $customerSubject, $customerBody, implode("\r\n", $customerHeaders));
+    $customerMailSent = mail($email, $customerSubject, $customerBody, implode("\r\n", $customerHeaders));
+    
+    // Log customer email attempt
+    error_log("Customer confirmation email to $email - Success: " . ($customerMailSent ? 'Yes' : 'No'));
 
     echo json_encode([
         'success' => true, 
@@ -125,7 +131,7 @@ Lustro Solutions Co Team
     http_response_code(500);
     echo json_encode([
         'success' => false, 
-        'message' => 'Sorry, there was an error sending your request. Please try again or contact us directly.'
+        'message' => 'Sorry, there was an error sending your request. Please try again or contact us directly. Error: ' . error_get_last()['message'] ?? 'Unknown error'
     ]);
 }
 ?>

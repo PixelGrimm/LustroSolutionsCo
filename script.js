@@ -78,6 +78,9 @@ function openQuoteModal() {
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
         console.log('Modal should be visible now');
+        console.log('Modal display style:', modal.style.display);
+        console.log('Modal classes:', modal.className);
+        console.log('Modal z-index:', window.getComputedStyle(modal).zIndex);
     } else {
         console.error('Quote modal not found!');
     }
@@ -176,6 +179,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('DOM loaded, quote buttons found:', quoteButtons.length);
+    
+    // Add debugging for phone input
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            console.log('Phone input changed:', e.target.value);
+        });
+    }
 });
 
 // Form submission handling
@@ -202,9 +213,10 @@ document.querySelector('.quote-form').addEventListener('submit', function(e) {
         return;
     }
     
-    // Phone validation
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-    if (!phoneRegex.test(data.phone.replace(/\s/g, ''))) {
+    // Phone validation - more flexible
+    const phoneRegex = /^[\+]?[\d\s\-\(\)]{7,}$/;
+    if (!phoneRegex.test(data.phone)) {
+        console.log('Phone validation failed for:', data.phone);
         showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
         return;
     }

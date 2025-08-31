@@ -1003,12 +1003,21 @@ body {
 }
 
 /* Ensure modals are visible */
-.alert-modal, .success-modal {
+.alert-modal, .success-modal, .image-modal {
     z-index: 10000 !important;
     display: none !important;
 }
 
-.alert-modal.show, .success-modal.show {
+.alert-modal.show, .success-modal.show, .image-modal.show {
+    display: block !important;
+}
+
+/* Quote Modal specific styles */
+#quoteModal {
+    z-index: 2000 !important;
+}
+
+#quoteModal.show {
     display: block !important;
 }
 

@@ -71,15 +71,16 @@ function closeImageModal() {
 
 // Modal functionality
 function openQuoteModal() {
+    console.log('Opening quote modal...');
     const modal = document.getElementById('quoteModal');
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    
-    // Add animation class
-    setTimeout(() => {
-        modal.querySelector('.modal-content').style.transform = 'scale(1)';
-        modal.querySelector('.modal-content').style.opacity = '1';
-    }, 10);
+    if (modal) {
+        modal.style.display = 'block';
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        console.log('Modal should be visible now');
+    } else {
+        console.error('Quote modal not found!');
+    }
 }
 
 function closeQuoteModal() {
@@ -163,6 +164,18 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+    
+    // Add event listeners for quote buttons
+    const quoteButtons = document.querySelectorAll('.quote-btn, .quote-btn-large');
+    quoteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Quote button clicked!');
+            openQuoteModal();
+        });
+    });
+    
+    console.log('DOM loaded, quote buttons found:', quoteButtons.length);
 });
 
 // Form submission handling

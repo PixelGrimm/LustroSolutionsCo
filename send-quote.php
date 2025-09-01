@@ -1,6 +1,19 @@
 <?php
 // Simple email solution without external dependencies
 
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', 'php_errors.log');
+
+// Log script execution start
+error_log("=== send-quote.php started ===");
+error_log("PHP Version: " . phpversion());
+error_log("Server: " . ($_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'));
+error_log("Request Method: " . $_SERVER['REQUEST_METHOD']);
+error_log("Content Type: " . ($_SERVER['CONTENT_TYPE'] ?? 'Not set'));
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
@@ -102,6 +115,15 @@ try {
     $smtpPassword = getenv('SMTP_PASSWORD');
     $smtpEncryption = getenv('SMTP_ENCRYPTION');
     
+    // Debug: Log all environment variables
+    error_log("=== SMTP Environment Variables ===");
+    error_log("SMTP_HOST: " . ($smtpHost ?: 'NOT SET'));
+    error_log("SMTP_PORT: " . ($smtpPort ?: 'NOT SET'));
+    error_log("SMTP_USERNAME: " . ($smtpUsername ?: 'NOT SET'));
+    error_log("SMTP_PASSWORD: " . ($smtpPassword ? 'SET (length: ' . strlen($smtpPassword) . ')' : 'NOT SET'));
+    error_log("SMTP_ENCRYPTION: " . ($smtpEncryption ?: 'NOT SET'));
+    error_log("================================");
+    
     if ($smtpHost && $smtpUsername && $smtpPassword) {
         // We have SMTP credentials, send real email via direct SMTP connection
         error_log("Spacemail SMTP credentials detected - sending real email via direct SMTP");
@@ -120,13 +142,15 @@ try {
     } else {
         $mailError = 'SMTP credentials not configured';
         $mailSent = false;
-        error_log("No SMTP credentials found");
+        error_log("No SMTP credentials found - missing required variables");
+        error_log("Required: SMTP_HOST, SMTP_USERNAME, SMTP_PASSWORD");
     }
     
 } catch (Exception $e) {
     $mailError = $e->getMessage();
     $mailSent = false;
     error_log("Email error: " . $mailError);
+    error_log("Stack trace: " . $e->getTraceAsString());
 }
 
 /**

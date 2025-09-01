@@ -8,21 +8,7 @@ echo "Current directory: $(pwd)"
 echo "Files in directory:"
 ls -la
 
-# Install Composer dependencies if composer.json exists
-if [ -f "composer.json" ]; then
-    echo "Installing Composer dependencies..."
-    if command -v composer &> /dev/null; then
-        composer install --no-dev --optimize-autoloader
-        echo "Composer dependencies installed successfully"
-    else
-        echo "Composer not found, trying to install it..."
-        curl -sS https://getcomposer.org/installer | php
-        php composer.phar install --no-dev --optimize-autoloader
-        echo "Composer dependencies installed via composer.phar"
-    fi
-else
-    echo "No composer.json found, skipping dependency installation"
-fi
+echo "No external dependencies required"
 
 echo "Waiting for server to be ready..."
 

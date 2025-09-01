@@ -3,7 +3,8 @@
   "description": "Lustro Solutions Co - Professional Cleaning Services Landing Page",
   "type": "project",
   "require": {
-    "php": ">=8.0"
+    "php": ">=8.0",
+    "phpmailer/phpmailer": "^6.8"
   },
   "autoload": {
     "psr-4": {

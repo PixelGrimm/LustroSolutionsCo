@@ -1,4 +1,10 @@
 <?php
+// Include PHPMailer
+require 'vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
@@ -100,15 +106,35 @@ $mailError = '';
 try {
     // Check if we have proper SMTP credentials on Railway
     if ($isRailway && $smtpHost !== 'localhost' && !empty($smtpUsername) && !empty($smtpPassword)) {
-        // We have SMTP credentials, try to send real email
-        error_log("Railway environment with SMTP credentials detected - attempting real email");
+        // We have SMTP credentials, use PHPMailer to send real email
+        error_log("Railway environment with SMTP credentials detected - sending real email with PHPMailer");
         
-        // For now, simulate success since we need PHPMailer for real SMTP
-        // In production, you'd implement PHPMailer here
-        $mailSent = true;
-        error_log("SMTP credentials found - email would be sent with PHPMailer");
+        $mail = new PHPMailer(true);
+        
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = $smtpHost;
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtpUsername;
+        $mail->Password = $smtpPassword;
+        $mail->SMTPSecure = $smtpEncryption;
+        $mail->Port = $smtpPort;
+        
+        // Recipients
+        $mail->setFrom($smtpUsername, 'Lustro Solutions Co');
+        $mail->addAddress($to);
+        $mail->addReplyTo($email, $fullName);
+        
+        // Content
+        $mail->isHTML(false);
+        $mail->Subject = $subject;
+        $mail->Body = $emailBody;
+        
+        $mailSent = $mail->send();
+        error_log("PHPMailer email sent successfully to $to");
+        
     } elseif (function_exists('mail')) {
-        // Try PHP mail function
+        // Try PHP mail function as fallback
         $mailSent = mail($to, $subject, $emailBody, implode("\r\n", $headers));
         if (!$mailSent) {
             $mailError = error_get_last()['message'] ?? 'Unknown mail error';
@@ -126,6 +152,7 @@ try {
 } catch (Exception $e) {
     $mailError = $e->getMessage();
     $mailSent = false;
+    error_log("PHPMailer error: " . $mailError);
 }
 
 // Log email attempt for debugging

@@ -58,13 +58,8 @@ $to = 'info@lustrosolutions.co.uk'; // Your Spacemail address
 $railway_env = getenv('RAILWAY_ENVIRONMENT') ?: 'production';
 $subject = 'New Quote Request - ' . $service;
 
-// Check if we're on Railway and configure SMTP
+// Check if we're on Railway
 $isRailway = $railway_env === 'production';
-$smtpHost = getenv('SMTP_HOST') ?: 'localhost';
-$smtpPort = getenv('SMTP_PORT') ?: 25;
-$smtpUsername = getenv('SMTP_USERNAME') ?: '';
-$smtpPassword = getenv('SMTP_PASSWORD') ?: '';
-$smtpEncryption = getenv('SMTP_ENCRYPTION') ?: 'tls';
 
 // Create email body
 $emailBody = "
@@ -100,32 +95,54 @@ $mailSent = false;
 $mailError = '';
 
 try {
-    // Check if we have proper SMTP credentials on Railway
-    if ($isRailway && $smtpHost !== 'localhost' && !empty($smtpUsername) && !empty($smtpPassword)) {
-        // We have SMTP credentials, log that we would send real email
-        error_log("Railway environment with SMTP credentials detected - would send real email");
-        error_log("SMTP Host: $smtpHost, Port: $smtpPort, Username: $smtpUsername");
+    // Use Resend.com free email API (100 emails/month free)
+    $resendApiKey = getenv('RESEND_API_KEY');
+    
+    if ($resendApiKey) {
+        // Send real email via Resend API
+        $emailData = [
+            'from' => 'Lustro Solutions Co <noreply@lustrosolutions.co.uk>',
+            'to' => [$to],
+            'subject' => $subject,
+            'text' => $emailBody,
+            'reply_to' => $email
+        ];
         
-        // For now, simulate success since we need a proper email library
-        $mailSent = true;
-        error_log("Email simulation successful - real email would be sent with proper library");
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.resend.com/emails');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($emailData));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $resendApiKey,
+            'Content-Type: application/json'
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+        if ($httpCode === 201) {
+            $mailSent = true;
+            error_log("Real email sent successfully via Resend API to $to");
+        } else {
+            $mailError = "Resend API error: HTTP $httpCode - $response";
+            $mailSent = false;
+            error_log("Resend API failed: $mailError");
+        }
         
     } elseif (function_exists('mail')) {
-        // Try PHP mail function as fallback
+        // Fallback to PHP mail function
         $mailSent = mail($to, $subject, $emailBody, implode("\r\n", $headers));
         if (!$mailSent) {
             $mailError = error_get_last()['message'] ?? 'Unknown mail error';
         }
     } else {
-        $mailError = 'Mail function not available';
+        $mailError = 'No email method available';
         $mailSent = false;
     }
     
-    // On Railway without SMTP, simulate success for user experience
-    if ($isRailway && !$mailSent && empty($smtpUsername)) {
-        error_log("Railway environment without SMTP - simulating email success for user experience");
-        $mailSent = true; // Simulate success
-    }
 } catch (Exception $e) {
     $mailError = $e->getMessage();
     $mailSent = false;

@@ -1010,7 +1010,7 @@ body {
 
 /* Ensure modals are visible */
 .alert-modal, .success-modal, .image-modal {
-    z-index: 10000 !important;
+    z-index: 99999 !important;
     display: none !important;
     position: fixed !important;
     top: 0 !important;
@@ -1028,7 +1028,7 @@ body {
 
 /* Quote Modal Styles */
 #quoteModal {
-    z-index: 2000;
+    z-index: 1000;
     display: none;
     position: fixed;
     top: 0;
@@ -1059,8 +1059,8 @@ body {
 
 /* Success Modal Styles */
 .success-modal {
-    max-width: 350px;
-    text-align: center;
+    max-width: 350px !important;
+    text-align: center !important;
     background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
     border: 2px solid #10b981 !important;
     border-radius: 15px !important;
@@ -1070,6 +1070,11 @@ body {
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    z-index: 99999 !important;
 }
 
 .success-modal .modal-header {

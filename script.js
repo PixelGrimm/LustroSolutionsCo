@@ -4,19 +4,17 @@
 function showAlert(title, message) {
     console.log('showAlert called:', title, message);
     const alertModal = document.getElementById('alertModal');
-    const alertTitle = document.getElementById('alertTitle');
-    const alertMessage = document.getElementById('alertMessage');
     
-    if (alertModal && alertTitle && alertMessage) {
-        alertTitle.textContent = title;
-        alertMessage.textContent = message;
-        alertModal.classList.add('show');
+    if (alertModal) {
+        // Force the alert modal to work like the test div
+        alertModal.innerHTML = '<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;"><h2 style="margin: 0 0 20px 0; color: white;">' + title + '</h2><p style="margin: 0 0 20px 0; font-size: 16px;">' + message + '</p><button onclick="closeAlertModal()" style="background: white; color: #ef4444; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">OK</button></div>';
         alertModal.style.display = 'block';
-        console.log('Alert modal should be visible now');
+        alertModal.style.zIndex = '999999';
+        console.log('Alert modal forced to display with custom HTML');
     } else {
-        console.error('Alert modal elements not found:', { alertModal, alertTitle, alertMessage });
-        // No fallback - force custom modal to work
-        console.error('Custom modal failed - please check HTML structure');
+        console.error('Alert modal not found');
+        // Fallback to browser alert
+        alert('Alert: ' + title + ' - ' + message);
     }
 }
 
@@ -35,12 +33,10 @@ function showSuccess(title, message) {
     if (successModal && successTitle && successMessage) {
         successTitle.textContent = title;
         successMessage.textContent = message;
-        successModal.classList.add('show');
+        // Force the success modal to work with custom HTML
+        successModal.innerHTML = '<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;"><h2 style="margin: 0 0 20px 0; color: white;">' + title + '</h2><p style="margin: 0 0 20px 0; font-size: 16px;">' + message + '</p><button onclick="closeSuccessModal()" style="background: white; color: #10b981; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">OK</button></div>';
         successModal.style.display = 'block';
-        console.log('Success modal should be visible now');
-        console.log('Success modal display:', successModal.style.display);
-        console.log('Success modal classes:', successModal.className);
-        console.log('Success modal z-index:', window.getComputedStyle(successModal).zIndex);
+        successModal.style.zIndex = '999999';
     } else {
         console.error('Success modal elements not found:', { successModal, successTitle, successMessage });
         // Fallback to browser alert

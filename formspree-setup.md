@@ -1,21 +1,22 @@
 # Direct SMTP Email Setup - Your Spacemail Working!
 
-## 🎯 Why Direct SMTP?
+## 🎯 Why Direct SMTPS?
 - **✅ Uses your existing Spacemail account**
 - **✅ No third-party services needed**
-- **✅ Direct connection to mail.spacemail.com**
+- **✅ Direct SSL connection to mail.spacemail.com:465**
 - **✅ Bypasses sendmail issues on Railway**
-- **✅ Full control over email delivery**
+- **✅ Proper TLS 1.2/1.3 encryption**
+- **✅ Full SMTP protocol implementation**
 
 ## 📋 Step-by-Step Setup
 
 ### Step 1: Verify Spacemail Credentials
 1. Confirm your Spacemail account details:
    - **Host:** mail.spacemail.com
-   - **Port:** 465
+   - **Port:** 465 (implicit SSL/TLS)
    - **Username:** info@lustrosolutions.co.uk
    - **Password:** Your Spacemail password
-   - **Encryption:** SSL
+   - **Encryption:** SSL (implicit TLS on port 465)
 
 ### Step 2: Update Railway Variables
 1. Go to your Railway project dashboard
@@ -48,13 +49,15 @@
 - ❌ User gets error message
 - ❌ **NO EMAIL SENT** (sendmail not found)
 
-### After (Direct SMTP Working):
+### After (Direct SMTPS Working):
 - ✅ Form submits successfully
 - ✅ User gets success message
 - ✅ **REAL EMAIL SENT** to info@lustrosolutions.co.uk
 - ✅ Customer details included
 - ✅ You can reply directly
 - ✅ **Uses your Spacemail account directly**
+- ✅ **Proper SSL/TLS encryption**
+- ✅ **Full SMTP protocol compliance**
 
 ## 📧 Email Details
 
@@ -74,4 +77,4 @@ Once set up, every quote form submission will:
 - Work reliably on Railway
 - **Use your Spacemail account directly** (no third-party)
 
-**No more sendmail errors - DIRECT SMTP WORKING!** 🚀
+**No more sendmail errors - DIRECT SMTPS WORKING!** 🚀

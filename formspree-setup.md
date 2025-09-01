@@ -1,12 +1,12 @@
-# Direct SMTP Email Setup - Your Spacemail Working!
+# PHPMailer + Spacemail Email Setup - Professional & Reliable!
 
-## 🎯 Why Direct SMTPS?
+## 🎯 Why PHPMailer + Spacemail?
 - **✅ Uses your existing Spacemail account**
 - **✅ No third-party services needed**
-- **✅ Direct SSL connection to mail.spacemail.com:465**
-- **✅ Bypasses sendmail issues on Railway**
-- **✅ Proper TLS 1.2/1.3 encryption**
-- **✅ Full SMTP protocol implementation**
+- **✅ Professional-grade email library**
+- **✅ Proper SSL/TLS encryption on port 465**
+- **✅ Detailed SMTP debugging and logging**
+- **✅ Industry-standard email solution**
 
 ## 📋 Step-by-Step Setup
 
@@ -18,7 +18,12 @@
    - **Password:** Your Spacemail password
    - **Encryption:** SSL (implicit TLS on port 465)
 
-### Step 2: Update Railway Variables
+### Step 2: PHPMailer Installation
+1. PHPMailer will be automatically installed during Railway deployment
+2. The `composer install` command runs automatically
+3. No manual installation needed
+
+### Step 3: Update Railway Variables
 1. Go to your Railway project dashboard
 2. Click "Variables" tab
 3. Set these exact variables:
@@ -30,13 +35,13 @@
    SMTP_ENCRYPTION: ssl
    ```
 
-### Step 3: Deploy and Test
+### Step 4: Deploy and Test
 1. Railway will automatically redeploy
 2. Submit a quote form
 3. Check Railway logs for SMTP connection details
 4. Verify email arrives at info@lustrosolutions.co.uk
 
-### Step 4: Test Real Email
+### Step 5: Test Real Email
 1. Deploy changes to Railway
 2. Submit a quote form
 3. Check if email arrives at `info@lustrosolutions.co.uk`
@@ -49,15 +54,15 @@
 - ❌ User gets error message
 - ❌ **NO EMAIL SENT** (sendmail not found)
 
-### After (Direct SMTPS Working):
+### After (PHPMailer + Spacemail Working):
 - ✅ Form submits successfully
 - ✅ User gets success message
 - ✅ **REAL EMAIL SENT** to info@lustrosolutions.co.uk
 - ✅ Customer details included
 - ✅ You can reply directly
 - ✅ **Uses your Spacemail account directly**
-- ✅ **Proper SSL/TLS encryption**
-- ✅ **Full SMTP protocol compliance**
+- ✅ **Professional PHPMailer library**
+- ✅ **Detailed SMTP debugging**
 
 ## 📧 Email Details
 
@@ -77,4 +82,4 @@ Once set up, every quote form submission will:
 - Work reliably on Railway
 - **Use your Spacemail account directly** (no third-party)
 
-**No more sendmail errors - DIRECT SMTPS WORKING!** 🚀
+**No more sendmail errors - PHPMailer + Spacemail WORKING!** 🚀

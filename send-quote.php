@@ -1,5 +1,7 @@
 <?php
-// Simple email solution without external dependencies
+// PHPMailer solution for Spacemail SMTP
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 // Enable error reporting for debugging
 error_reporting(E_ALL);
@@ -8,11 +10,18 @@ ini_set('log_errors', 1);
 ini_set('error_log', 'php_errors.log');
 
 // Log script execution start
-error_log("=== send-quote.php started ===");
+error_log("=== send-quote.php started with PHPMailer ===");
 error_log("PHP Version: " . phpversion());
-error_log("Server: " . ($_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'));
-error_log("Request Method: " . $_SERVER['REQUEST_METHOD']);
-error_log("Content Type: " . ($_SERVER['CONTENT_TYPE'] ?? 'Not set'));
+
+// Check if PHPMailer is available
+if (!file_exists('vendor/autoload.php')) {
+    error_log("ERROR: PHPMailer not installed. Run: composer install");
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Email service not configured']);
+    exit;
+}
+
+require 'vendor/autoload.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -62,17 +71,10 @@ $service = htmlspecialchars($data['service']);
 $timeframe = htmlspecialchars($data['timeframe'] ?? 'Not specified');
 $address = htmlspecialchars($data['address'] ?? 'Not provided');
 $details = htmlspecialchars($data['details'] ?? 'No additional details');
-$newsletter = isset($data['newsletter']) ? 'Yes' : 'No';
 
 // Email configuration
 $to = 'info@lustrosolutions.co.uk'; // Your Spacemail address
-
-// Railway environment variables
-$railway_env = getenv('RAILWAY_ENVIRONMENT') ?: 'production';
 $subject = 'New Quote Request - ' . $service;
-
-// Check if we're on Railway
-$isRailway = $railway_env === 'production';
 
 // Create email body
 $emailBody = "
@@ -90,247 +92,91 @@ Property Address: $address
 Additional Details:
 $details
 
-Newsletter Subscription: $newsletter
-
 Submitted on: " . date('Y-m-d H:i:s') . "
 ";
 
-// Email headers
-$headers = [
-    'From: noreply@lustrosolutions.co.uk',
-    'Reply-To: ' . $email,
-    'Content-Type: text/plain; charset=UTF-8',
-    'X-Mailer: PHP/' . phpversion()
-];
-
-// Try to send email with better error handling
+// Try to send email with PHPMailer
 $mailSent = false;
 $mailError = '';
 
 try {
-    // Use Spacemail SMTP credentials for real email
-    $smtpHost = getenv('SMTP_HOST');
-    $smtpPort = getenv('SMTP_PORT');
-    $smtpUsername = getenv('SMTP_USERNAME');
+    // Get SMTP credentials from environment
+    $smtpHost = getenv('SMTP_HOST') ?: 'mail.spacemail.com';
+    $smtpPort = getenv('SMTP_PORT') ?: '465';
+    $smtpUsername = getenv('SMTP_USERNAME') ?: 'info@lustrosolutions.co.uk';
     $smtpPassword = getenv('SMTP_PASSWORD');
-    $smtpEncryption = getenv('SMTP_ENCRYPTION');
+    $smtpEncryption = getenv('SMTP_ENCRYPTION') ?: 'ssl';
     
     // Debug: Log all environment variables
     error_log("=== SMTP Environment Variables ===");
-    error_log("SMTP_HOST: " . ($smtpHost ?: 'NOT SET'));
-    error_log("SMTP_PORT: " . ($smtpPort ?: 'NOT SET'));
-    error_log("SMTP_USERNAME: " . ($smtpUsername ?: 'NOT SET'));
+    error_log("SMTP_HOST: " . $smtpHost);
+    error_log("SMTP_PORT: " . $smtpPort);
+    error_log("SMTP_USERNAME: " . $smtpUsername);
     error_log("SMTP_PASSWORD: " . ($smtpPassword ? 'SET (length: ' . strlen($smtpPassword) . ')' : 'NOT SET'));
-    error_log("SMTP_ENCRYPTION: " . ($smtpEncryption ?: 'NOT SET'));
+    error_log("SMTP_ENCRYPTION: " . $smtpEncryption);
     error_log("================================");
     
-    if ($smtpHost && $smtpUsername && $smtpPassword) {
-        // We have SMTP credentials, send real email via direct SMTP connection
-        error_log("Spacemail SMTP credentials detected - sending real email via direct SMTP");
-        error_log("SMTP: $smtpHost:$smtpPort, User: $smtpUsername");
+    if ($smtpPassword) {
+        // Create PHPMailer instance
+        $mail = new PHPMailer(true);
         
-        // Send email using direct SMTP connection (no sendmail needed)
-        $mailSent = sendEmailViaSMTP($smtpHost, $smtpPort, $smtpUsername, $smtpPassword, $smtpEncryption, $to, $subject, $emailBody, $email, $fullName);
+        // Enable debug logging
+        $mail->SMTPDebug = 2; // Verbose debug output
+        $mail->Debugoutput = function($str, $level) {
+            error_log("PHPMailer Debug: $str");
+        };
         
-        if ($mailSent) {
-            error_log("Real email sent successfully via Spacemail SMTP to $to");
-        } else {
-            $mailError = 'SMTP connection failed';
-            error_log("Spacemail SMTP failed: $mailError");
-        }
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = $smtpHost;
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtpUsername;
+        $mail->Password = $smtpPassword;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // implicit TLS for port 465
+        $mail->Port = $smtpPort;
+        $mail->Timeout = 30;
+        
+        // Sender & recipient
+        $mail->setFrom($smtpUsername, 'Lustro Solutions Co');
+        $mail->addAddress($to, 'Lustro Solutions');
+        $mail->addReplyTo($email, $fullName);
+        
+        // Content
+        $mail->isHTML(false);
+        $mail->Subject = $subject;
+        $mail->Body = $emailBody;
+        
+        // Send email
+        $mail->send();
+        $mailSent = true;
+        error_log("PHPMailer: Email sent successfully to $to");
         
     } else {
-        $mailError = 'SMTP credentials not configured';
-        $mailSent = false;
-        error_log("No SMTP credentials found - missing required variables");
-        error_log("Required: SMTP_HOST, SMTP_USERNAME, SMTP_PASSWORD");
+        $mailError = 'SMTP password not configured';
+        error_log("ERROR: SMTP_PASSWORD environment variable not set");
     }
     
 } catch (Exception $e) {
     $mailError = $e->getMessage();
     $mailSent = false;
-    error_log("Email error: " . $mailError);
-    error_log("Stack trace: " . $e->getTraceAsString());
+    error_log("PHPMailer Error: " . $mailError);
 }
 
-/**
- * Robust SMTPS (port 465) sender for PHP 8.1+
- * - Works with implicit TLS (no STARTTLS needed on port 465)
- * - Verifies server certificate (SNI + CA)
- * - Logs full transcript for debugging
- */
-function sendEmailViaSMTP($host, $port, $username, $password, $encryption, $to, $subject, $message, $fromEmail, $fromName) {
-    try {
-        // For port 465, we need implicit TLS (ssl:// transport)
-        if ($port == 465) {
-            return sendEmailViaSMTPS($host, $port, $username, $password, $to, $subject, $message, $fromEmail, $fromName);
-        } else {
-            // Fallback for other ports
-            return sendEmailViaSMTPTLS($host, $port, $username, $password, $encryption, $to, $subject, $message, $fromEmail, $fromName);
-        }
-    } catch (Exception $e) {
-        error_log("SMTP error: " . $e->getMessage());
-        return false;
-    }
-}
+// Log email attempt for debugging
+error_log("Email attempt to $to - Success: " . ($mailSent ? 'Yes' : 'No') . ($mailError ? " - Error: $mailError" : ''));
 
-function sendEmailViaSMTPS($host, $port, $username, $password, $to, $subject, $message, $fromEmail, $fromName) {
-    // Find CA certificate file
-    $cafiles = [
-        '/etc/ssl/certs/ca-certificates.crt', // Debian/Ubuntu
-        '/etc/ssl/cert.pem'                   // Alpine/macOS images
-    ];
-    $cafile = null;
-    foreach ($cafiles as $c) { 
-        if (is_readable($c)) { 
-            $cafile = $c; 
-            break; 
-        } 
-    }
-
-    // Create SSL context for implicit TLS
-    $ctx = stream_context_create([
-        'ssl' => [
-            'verify_peer'       => true,
-            'verify_peer_name'  => true,
-            'peer_name'         => $host, // SNI
-            'allow_self_signed' => false,
-            'disable_compression' => true,
-            'crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT,
-            'cafile' => $cafile
-        ]
+// Send response back to client
+if ($mailSent) {
+    echo json_encode([
+        'success' => true,
+        'message' => 'Thank you! Your quote request has been sent successfully. We will contact you soon.'
     ]);
-
-    // Connect with implicit TLS (ssl:// transport)
-    $fp = @stream_socket_client("ssl://{$host}:{$port}", $errno, $errstr, 20, STREAM_CLIENT_CONNECT, $ctx);
-    if (!$fp) {
-        error_log("SMTPS connection failed: {$errstr} ({$errno})");
-        return false;
-    }
-    stream_set_timeout($fp, 20);
-
-    $log = [];
-    $read = function($expect = null) use ($fp, &$log) {
-        $lines = [];
-        $code  = null;
-        while (($line = fgets($fp, 4096)) !== false) {
-            $lines[] = rtrim($line, "\r\n");
-            if (preg_match('/^(\d{3})([ -])/', $line, $m)) {
-                $code = (int)$m[1];
-                if ($m[2] === ' ') break; // end of multi-line reply
-            } else break;
-        }
-        $log[] = ['in' => $lines];
-        error_log("SMTP Response: " . implode(" | ", $lines));
-        if ($expect !== null && $code !== $expect) {
-            error_log("Unexpected SMTP response {$code}: " . implode("\n", $lines));
-            return false;
-        }
-        return $code;
-    };
-    
-    $send = function($cmd) use ($fp, &$log) {
-        fwrite($fp, $cmd . "\r\n");
-        $log[] = ['out' => $cmd];
-        error_log("SMTP Command: " . $cmd);
-    };
-
-    try {
-        // 1) Read server banner
-        $code = $read(220);
-        if ($code === false) throw new Exception("Failed to read server banner");
-
-        // 2) EHLO
-        $send("EHLO " . ($_SERVER['HTTP_HOST'] ?? 'localhost'));
-        $code = $read(250);
-        if ($code === false) throw new Exception("EHLO failed");
-
-        // 3) AUTH LOGIN (implicit TLS, so it's safe to auth now)
-        $send("AUTH LOGIN");
-        $code = $read(334);
-        if ($code === false) throw new Exception("AUTH LOGIN failed");
-        
-        $send(base64_encode($username));
-        $code = $read(334);
-        if ($code === false) throw new Exception("Username auth failed");
-        
-        $send(base64_encode($password));
-        $code = $read();
-        if ($code !== 235) throw new Exception("Password auth failed (code: {$code})");
-
-        // 4) MAIL FROM
-        $send("MAIL FROM:<{$username}>");
-        $code = $read(250);
-        if ($code === false) throw new Exception("MAIL FROM failed");
-
-        // 5) RCPT TO
-        $send("RCPT TO:<{$to}>");
-        $code = $read();
-        if ($code !== 250 && $code !== 251) throw new Exception("RCPT TO failed (code: {$code})");
-
-        // 6) DATA
-        $send("DATA");
-        $code = $read(354);
-        if ($code === false) throw new Exception("DATA command failed");
-
-        // Headers + body (with dot-stuffing)
-        $headers = [
-            "From: {$fromName} <{$username}>",
-            "To: <{$to}>",
-            "Subject: {$subject}",
-            "Reply-To: {$fromEmail}",
-            "MIME-Version: 1.0",
-            "Content-Type: text/plain; charset=UTF-8",
-            "Content-Transfer-Encoding: 8bit",
-            "X-Mailer: PHP/" . phpversion()
-        ];
-        $safeBody = preg_replace('/^\./m', '..', $message);
-        $emailContent = implode("\r\n", $headers) . "\r\n\r\n" . $safeBody . "\r\n.";
-
-        fwrite($fp, $emailContent . "\r\n");
-        $log[] = ['out' => '[message body]'];
-        $code = $read(250);
-        if ($code === false) throw new Exception("Message sending failed");
-
-        // 7) QUIT
-        $send("QUIT");
-        $read(221);
-        fclose($fp);
-
-        error_log("SMTPS email sent successfully via {$host}:{$port}");
-        return true;
-
-    } catch (Exception $e) {
-        error_log("SMTPS error: " . $e->getMessage());
-        if (isset($fp)) {
-            fclose($fp);
-        }
-        return false;
-    }
-}
-
-function sendEmailViaSMTPTLS($host, $port, $username, $password, $encryption, $to, $subject, $message, $fromEmail, $fromName) {
-    // Fallback for non-465 ports (STARTTLS)
-    try {
-        $socket = fsockopen($host, $port, $errno, $errstr, 30);
-        if (!$socket) {
-            error_log("SMTP connection failed: $errstr ($errno)");
-            return false;
-        }
-        
-        // Basic SMTP implementation for other ports
-        // ... (existing code for non-465 ports)
-        error_log("Non-465 port SMTP not fully implemented");
-        fclose($socket);
-        return false;
-        
-    } catch (Exception $e) {
-        error_log("SMTPTLS error: " . $e->getMessage());
-        if (isset($socket)) {
-            fclose($socket);
-        }
-        return false;
-    }
+} else {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Sorry, there was an error sending your request. Please try again or contact us directly.'
+    ]);
 }
 
 // Log email attempt for debugging

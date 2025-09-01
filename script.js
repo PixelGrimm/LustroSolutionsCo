@@ -78,6 +78,7 @@ function openQuoteModal() {
     const modal = document.getElementById('quoteModal');
     if (modal) {
         modal.style.display = 'block';
+        modal.classList.add('show');
         document.body.style.overflow = 'hidden';
     }
 }
@@ -86,6 +87,7 @@ function closeQuoteModal() {
     const modal = document.getElementById('quoteModal');
     if (modal) {
         modal.style.display = 'none';
+        modal.classList.remove('show');
         document.body.style.overflow = 'auto';
     }
 }

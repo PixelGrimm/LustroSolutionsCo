@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 Test Page</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMM00EF4G0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Enhanced GA4 configuration
+      gtag('config', 'G-SMM00EF4G0', {
+        'page_title': 'GA4 Test Page',
+        'page_location': window.location.href,
+        'send_page_view': true,
+        'anonymize_ip': true,
+        'cookie_flags': 'SameSite=None;Secure'
+      });
+      
+      console.log('Google Analytics initialized with ID: G-SMM00EF4G0');
+    </script>
+</head>
+<body>
+    <h1>Google Analytics Test Page</h1>
+    <p>This page is used to test GA4 tracking.</p>
+    <button onclick="testEvent()">Test Event</button>
+    <button onclick="testPageView()">Test Page View</button>
+    
+    <script>
+        function testEvent() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'test_button_click', {
+                    'event_category': 'test',
+                    'event_label': 'button_click'
+                });
+                console.log('Test event sent to GA4');
+                alert('Test event sent! Check console and GA4 dashboard.');
+            } else {
+                alert('GA4 not loaded!');
+            }
+        }
+        
+        function testPageView() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    'page_title': 'GA4 Test Page',
+                    'page_location': window.location.href
+                });
+                console.log('Test page view sent to GA4');
+                alert('Test page view sent! Check console and GA4 dashboard.');
+            } else {
+                alert('GA4 not loaded!');
+            }
+        }
+        
+        // Track page load
+        window.addEventListener('load', function() {
+            console.log('Page loaded, GA4 status:', typeof gtag !== 'undefined' ? 'Loaded' : 'Not loaded');
+        });
+    </script>
+</body>
+</html>

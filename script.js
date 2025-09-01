@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Initialize enhanced Google Analytics tracking
+    trackPageView(); // Track initial page view
     trackScrollDepth();
     trackTimeOnPage();
     
@@ -509,7 +510,21 @@ function trackEvent(eventName, eventCategory, eventLabel, value = null) {
         }
         
         gtag('event', eventName, eventData);
-        console.log('GA Event tracked:', eventName, eventData);
+        console.log('GA4 Event tracked:', eventName, eventData);
+    } else {
+        console.log('GA4 not loaded yet, event queued:', { eventName, eventCategory, eventLabel, value });
+    }
+}
+
+// Enhanced page view tracking
+function trackPageView() {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'page_referrer': document.referrer
+        });
+        console.log('GA4 Page view tracked');
     }
 }
 

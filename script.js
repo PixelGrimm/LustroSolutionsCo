@@ -183,6 +183,10 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.min = today;
     }
     
+    // Initialize enhanced Google Analytics tracking
+    trackScrollDepth();
+    trackTimeOnPage();
+    
     // Add form submission handler
     const quoteForm = document.querySelector('.quote-form');
     if (quoteForm) {
@@ -193,8 +197,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
+            // Track form validation attempts
+            trackEvent('form_validation', 'quote_request', 'validation_start', 1);
+            
             // Simple validation
             if (!data.fullName || !data.phone || !data.email || !data.service) {
+                trackEvent('form_validation', 'quote_request', 'validation_failed_missing_fields', 1);
                 showAlert('Missing Information', 'Please fill in all required fields.');
                 return;
             }
@@ -398,6 +406,60 @@ document.querySelectorAll('.form-group input, .form-group select, .form-group te
     });
 });
 
+// Track scroll depth for better engagement metrics
+let maxScrollDepth = 0;
+let scrollTrackingEnabled = false;
+
+function trackScrollDepth() {
+    if (scrollTrackingEnabled) return;
+    
+    scrollTrackingEnabled = true;
+    const trackScroll = () => {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+        
+        if (scrollPercent > maxScrollDepth) {
+            maxScrollDepth = scrollPercent;
+            
+            // Track scroll milestones
+            if (scrollPercent >= 25 && maxScrollDepth < 50) {
+                trackEvent('scroll_depth', 'engagement', '25_percent', 25);
+            } else if (scrollPercent >= 50 && maxScrollDepth < 75) {
+                trackEvent('scroll_depth', 'engagement', '50_percent', 50);
+            } else if (scrollPercent >= 75 && maxScrollDepth < 100) {
+                trackEvent('scroll_depth', 'engagement', '75_percent', 75);
+            } else if (scrollPercent >= 90) {
+                trackEvent('scroll_depth', 'engagement', '90_percent', 90);
+            }
+        }
+    };
+    
+    window.addEventListener('scroll', trackScroll);
+}
+
+// Track time on page
+let startTime = Date.now();
+let timeTrackingEnabled = false;
+
+function trackTimeOnPage() {
+    if (timeTrackingEnabled) return;
+    
+    timeTrackingEnabled = true;
+    
+    // Track time milestones
+    setTimeout(() => trackEvent('time_on_page', 'engagement', '30_seconds', 30), 30000);
+    setTimeout(() => trackEvent('time_on_page', 'engagement', '1_minute', 60), 60000);
+    setTimeout(() => trackEvent('time_on_page', 'engagement', '2_minutes', 120), 120000);
+    setTimeout(() => trackEvent('time_on_page', 'engagement', '5_minutes', 300), 300000);
+    
+    // Track when user leaves page
+    window.addEventListener('beforeunload', () => {
+        const totalTime = Math.round((Date.now() - startTime) / 1000);
+        trackEvent('time_on_page', 'engagement', 'total_time', totalTime);
+    });
+}
+
 // Add ripple effect to buttons
 function createRipple(event) {
     const button = event.currentTarget;
@@ -425,20 +487,32 @@ document.querySelectorAll('button').forEach(button => {
 });
 
 // Google Analytics Event Tracking
-function trackEvent(eventName, eventCategory, eventLabel) {
+function trackEvent(eventName, eventCategory, eventLabel, value = null) {
     if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, {
+        const eventData = {
             event_category: eventCategory,
             event_label: eventLabel
-        });
+        };
+        
+        if (value !== null) {
+            eventData.value = value;
+        }
+        
+        gtag('event', eventName, eventData);
+        console.log('GA Event tracked:', eventName, eventData);
     }
 }
 
 // Track quote form submissions
 document.querySelector('.quote-form').addEventListener('submit', function(e) {
-    // Existing form handling code will run first
-    // Then track the event
-    trackEvent('form_submit', 'quote_request', 'quote_modal');
+    // Track form submission
+    trackEvent('form_submit', 'quote_request', 'quote_modal', 1);
+    
+    // Track which service was selected
+    const serviceSelect = this.querySelector('#service');
+    if (serviceSelect && serviceSelect.value) {
+        trackEvent('service_selected', 'quote_request', serviceSelect.value, 1);
+    }
 });
 
 // Track service modal opens
@@ -479,7 +553,7 @@ function openServiceModal(serviceType) {
 
 // Track quote modal opens
 function openQuoteModal() {
-    trackEvent('modal_open', 'quote_request', 'quote_modal');
+    trackEvent('modal_open', 'quote_request', 'quote_modal', 1);
     
     const modal = document.getElementById('quoteModal');
     modal.style.display = 'block';

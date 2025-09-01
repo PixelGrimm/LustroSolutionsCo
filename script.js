@@ -73,13 +73,34 @@ function closeImageModal() {
 
 
 
+// Quote Modal Functions
+function openQuoteModal() {
+    const modal = document.getElementById('quoteModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeQuoteModal() {
+    const modal = document.getElementById('quoteModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
 // Close modal when clicking outside
 window.onclick = function(event) {
+    const quoteModal = document.getElementById('quoteModal');
     const serviceModal = document.getElementById('serviceModal');
     const alertModal = document.getElementById('alertModal');
     const successModal = document.getElementById('successModal');
     const imageModal = document.getElementById('imageModal');
     
+    if (event.target === quoteModal) {
+        closeQuoteModal();
+    }
     if (event.target === serviceModal) {
         closeServiceModal();
     }
@@ -146,22 +167,86 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Add event listeners for quote buttons
-    const quoteButtons = document.querySelectorAll('.quote-btn, .quote-btn-large');
+    const quoteButtons = document.querySelectorAll('.quote-btn, .quote-btn-large, .cta-button');
     quoteButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Quote button clicked!');
             openQuoteModal();
         });
     });
     
-    console.log('DOM loaded, quote buttons found:', quoteButtons.length);
+    // Set minimum date for date picker to today
+    const dateInput = document.getElementById('preferred-date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+    }
     
-    // Add debugging for phone input
-    const phoneInput = document.getElementById('phone');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function(e) {
-            console.log('Phone input changed:', e.target.value);
+    // Add form submission handler
+    const quoteForm = document.querySelector('.quote-form');
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.fullName || !data.phone || !data.email || !data.service) {
+                showAlert('Missing Information', 'Please fill in all required fields.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                showAlert('Invalid Email', 'Please enter a valid email address.');
+                return;
+            }
+            
+            // Phone validation - more flexible
+            const phoneRegex = /^[\+]?[\d\s\-\(\)]{7,}$/;
+            if (!phoneRegex.test(data.phone)) {
+                showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
+                return;
+            }
+            
+            // Update submit button
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Send data to PHP backend
+            fetch('send-quote.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(result => {
+                if (result.success) {
+                    showSuccess('Quote Request Sent!', result.message);
+                    closeQuoteModal();
+                    this.reset();
+                } else {
+                    showAlert('Error', 'Error: ' + result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('Error', 'Sorry, there was an error sending your request. Please try again or contact us directly.');
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
         });
     }
 });

@@ -1020,6 +1020,11 @@ body {
 
 
 
+/* Quote Modal Styles */
+#quoteModal {
+    z-index: 2000;
+}
+
 /* Success Modal Styles */
 .success-modal {
     max-width: 350px;

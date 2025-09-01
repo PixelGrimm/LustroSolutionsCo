@@ -1,45 +1,45 @@
-# Formspree Email Setup - Simple & Reliable!
+# Direct SMTP Email Setup - Your Spacemail Working!
 
-## 🎯 Why Formspree?
-- **✅ 100 emails/month FREE**
-- **✅ No SMTP configuration needed**
-- **✅ Works perfectly on Railway**
-- **✅ Sends emails to your Spacemail account**
-- **✅ No sendmail issues**
+## 🎯 Why Direct SMTP?
+- **✅ Uses your existing Spacemail account**
+- **✅ No third-party services needed**
+- **✅ Direct connection to mail.spacemail.com**
+- **✅ Bypasses sendmail issues on Railway**
+- **✅ Full control over email delivery**
 
 ## 📋 Step-by-Step Setup
 
-### Step 1: Create Formspree Account
-1. Go to [formspree.io](https://formspree.io)
-2. Click "Get Started" → "Sign Up"
-3. Create account with your email
-4. Verify your email address
+### Step 1: Verify Spacemail Credentials
+1. Confirm your Spacemail account details:
+   - **Host:** mail.spacemail.com
+   - **Port:** 465
+   - **Username:** info@lustrosolutions.co.uk
+   - **Password:** Your Spacemail password
+   - **Encryption:** SSL
 
-### Step 2: Create New Form
-1. In Formspree dashboard, click "New Form"
-2. Name it "Lustro Solutions Quote Form"
-3. Copy the form ID (looks like: `xrgkqjab`)
-
-### Step 3: Set Email Destination
-1. In your form settings, go to "Email"
-2. Set "Send emails to" to: `info@lustrosolutions.co.uk`
-3. Set "From name" to: `Lustro Solutions Co`
-4. Set "Reply-to" to: `{{email}}` (customer's email)
-
-### Step 4: Update Railway Variables
+### Step 2: Update Railway Variables
 1. Go to your Railway project dashboard
 2. Click "Variables" tab
-3. Replace SMTP variables with:
+3. Set these exact variables:
    ```
-   Variable Name: FORMSPREE_ID
-   Value: your-actual-formspree-form-id
+   SMTP_HOST: mail.spacemail.com
+   SMTP_PORT: 465
+   SMTP_USERNAME: info@lustrosolutions.co.uk
+   SMTP_PASSWORD: your-actual-spacemail-password
+   SMTP_ENCRYPTION: ssl
    ```
 
-### Step 5: Test Real Email
+### Step 3: Deploy and Test
+1. Railway will automatically redeploy
+2. Submit a quote form
+3. Check Railway logs for SMTP connection details
+4. Verify email arrives at info@lustrosolutions.co.uk
+
+### Step 4: Test Real Email
 1. Deploy changes to Railway
 2. Submit a quote form
 3. Check if email arrives at `info@lustrosolutions.co.uk`
-4. Check Railway logs for success
+4. Check Railway logs for SMTP connection details
 
 ## 🔧 What Happens Now
 
@@ -48,20 +48,22 @@
 - ❌ User gets error message
 - ❌ **NO EMAIL SENT** (sendmail not found)
 
-### After (Formspree Working):
+### After (Direct SMTP Working):
 - ✅ Form submits successfully
 - ✅ User gets success message
 - ✅ **REAL EMAIL SENT** to info@lustrosolutions.co.uk
 - ✅ Customer details included
 - ✅ You can reply directly
+- ✅ **Uses your Spacemail account directly**
 
 ## 📧 Email Details
 
-**From:** `Lustro Solutions Co <noreply@formspree.io>`
+**From:** `Lustro Solutions Co <info@lustrosolutions.co.uk>`
 **To:** `info@lustrosolutions.co.uk`
 **Subject:** `New Quote Request - [Service Name]`
 **Reply-To:** Customer's email address
 **Content:** All form fields included
+**SMTP Server:** `mail.spacemail.com:465`
 
 ## 🎉 Expected Result
 
@@ -70,5 +72,6 @@ Once set up, every quote form submission will:
 - Include all customer details
 - Allow you to reply directly to customers
 - Work reliably on Railway
+- **Use your Spacemail account directly** (no third-party)
 
-**No more sendmail errors - REAL EMAILS WORKING!** 🚀
+**No more sendmail errors - DIRECT SMTP WORKING!** 🚀

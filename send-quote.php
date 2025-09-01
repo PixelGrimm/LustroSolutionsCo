@@ -95,60 +95,135 @@ $mailSent = false;
 $mailError = '';
 
 try {
-    // Use Formspree.io free email service (100 emails/month free)
-    $formspreeId = getenv('FORMSPREE_ID');
+    // Use Spacemail SMTP credentials for real email
+    $smtpHost = getenv('SMTP_HOST');
+    $smtpPort = getenv('SMTP_PORT');
+    $smtpUsername = getenv('SMTP_USERNAME');
+    $smtpPassword = getenv('SMTP_PASSWORD');
+    $smtpEncryption = getenv('SMTP_ENCRYPTION');
     
-    if ($formspreeId) {
-        // Send real email via Formspree
-        error_log("Formspree email service detected - sending real email");
+    if ($smtpHost && $smtpUsername && $smtpPassword) {
+        // We have SMTP credentials, send real email via direct SMTP connection
+        error_log("Spacemail SMTP credentials detected - sending real email via direct SMTP");
+        error_log("SMTP: $smtpHost:$smtpPort, User: $smtpUsername");
         
-        $emailData = [
-            'email' => $email,
-            'name' => $fullName,
-            'phone' => $phone,
-            'service' => $service,
-            'timeframe' => $timeframe,
-            'address' => $address,
-            'details' => $details,
-            'subject' => $subject,
-            'message' => $emailBody
-        ];
+        // Send email using direct SMTP connection (no sendmail needed)
+        $mailSent = sendEmailViaSMTP($smtpHost, $smtpPort, $smtpUsername, $smtpPassword, $smtpEncryption, $to, $subject, $emailBody, $email, $fullName);
         
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://formspree.io/f/' . $formspreeId);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($emailData));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/x-www-form-urlencoded',
-            'Accept: application/json'
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        
-        if ($httpCode === 200) {
-            $mailSent = true;
-            error_log("Real email sent successfully via Formspree to $to");
+        if ($mailSent) {
+            error_log("Real email sent successfully via Spacemail SMTP to $to");
         } else {
-            $mailError = "Formspree error: HTTP $httpCode - $response";
-            $mailSent = false;
-            error_log("Formspree failed: $mailError");
+            $mailError = 'SMTP connection failed';
+            error_log("Spacemail SMTP failed: $mailError");
         }
         
     } else {
-        // Fallback: simulate success for user experience
-        error_log("No email service configured - simulating success");
-        $mailSent = true;
-        $mailError = 'Email service not configured';
+        $mailError = 'SMTP credentials not configured';
+        $mailSent = false;
+        error_log("No SMTP credentials found");
     }
     
 } catch (Exception $e) {
     $mailError = $e->getMessage();
     $mailSent = false;
     error_log("Email error: " . $mailError);
+}
+
+// Function to send email via direct SMTP connection
+function sendEmailViaSMTP($host, $port, $username, $password, $encryption, $to, $subject, $message, $fromEmail, $fromName) {
+    try {
+        // Create SMTP connection
+        $socket = fsockopen($host, $port, $errno, $errstr, 30);
+        if (!$socket) {
+            error_log("SMTP connection failed: $errstr ($errno)");
+            return false;
+        }
+        
+        // Read server greeting
+        $response = fgets($socket, 515);
+        error_log("SMTP Server: " . trim($response));
+        
+        // EHLO command
+        fputs($socket, "EHLO " . $_SERVER['HTTP_HOST'] . "\r\n");
+        $response = fgets($socket, 515);
+        error_log("SMTP EHLO: " . trim($response));
+        
+        // Start TLS if SSL/TLS is required
+        if ($encryption === 'ssl' || $encryption === 'tls') {
+            fputs($socket, "STARTTLS\r\n");
+            $response = fgets($socket, 515);
+            error_log("SMTP STARTTLS: " . trim($response));
+            
+            // Enable crypto
+            if (!stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+                error_log("TLS negotiation failed");
+                fclose($socket);
+                return false;
+            }
+            
+            // EHLO again after TLS
+            fputs($socket, "EHLO " . $_SERVER['HTTP_HOST'] . "\r\n");
+            $response = fgets($socket, 515);
+            error_log("SMTP EHLO after TLS: " . trim($response));
+        }
+        
+        // Authentication
+        fputs($socket, "AUTH LOGIN\r\n");
+        $response = fgets($socket, 515);
+        error_log("SMTP AUTH: " . trim($response));
+        
+        fputs($socket, base64_encode($username) . "\r\n");
+        $response = fgets($socket, 515);
+        error_log("SMTP Username: " . trim($response));
+        
+        fputs($socket, base64_encode($password) . "\r\n");
+        $response = fgets($socket, 515);
+        error_log("SMTP Password: " . trim($response));
+        
+        // MAIL FROM
+        fputs($socket, "MAIL FROM: <$username>\r\n");
+        $response = fgets($socket, 515);
+        error_log("SMTP MAIL FROM: " . trim($response));
+        
+        // RCPT TO
+        fputs($socket, "RCPT TO: <$to>\r\n");
+        $response = fgets($socket, 515);
+        error_log("SMTP RCPT TO: " . trim($response));
+        
+        // DATA
+        fputs($socket, "DATA\r\n");
+        $response = fgets($socket, 515);
+        error_log("SMTP DATA: " . trim($response));
+        
+        // Email headers and body
+        $emailContent = "From: $fromName <$username>\r\n";
+        $emailContent .= "To: $to\r\n";
+        $emailContent .= "Subject: $subject\r\n";
+        $emailContent .= "Reply-To: $fromEmail\r\n";
+        $emailContent .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $emailContent .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+        $emailContent .= "\r\n";
+        $emailContent .= $message . "\r\n";
+        $emailContent .= ".\r\n";
+        
+        fputs($socket, $emailContent);
+        $response = fgets($socket, 515);
+        error_log("SMTP Content: " . trim($response));
+        
+        // QUIT
+        fputs($socket, "QUIT\r\n");
+        fclose($socket);
+        
+        error_log("SMTP email sent successfully");
+        return true;
+        
+    } catch (Exception $e) {
+        error_log("SMTP error: " . $e->getMessage());
+        if (isset($socket)) {
+            fclose($socket);
+        }
+        return false;
+    }
 }
 
 // Log email attempt for debugging

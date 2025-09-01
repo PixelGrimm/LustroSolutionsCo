@@ -14,7 +14,11 @@
     "production": {
       "variables": {
         "RAILWAY_ENVIRONMENT": "production",
-        "FORMSPREE_ID": "your-formspree-form-id-here"
+        "SMTP_HOST": "mail.spacemail.com",
+        "SMTP_PORT": "465",
+        "SMTP_USERNAME": "info@lustrosolutions.co.uk",
+        "SMTP_PASSWORD": "your-spacemail-password",
+        "SMTP_ENCRYPTION": "ssl"
       }
     }
   }

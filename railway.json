@@ -14,9 +14,11 @@
     "production": {
       "variables": {
         "RAILWAY_ENVIRONMENT": "production",
-        "PHP_SENDMAIL_PATH": "/usr/sbin/sendmail",
-        "SMTP_HOST": "localhost",
-        "SMTP_PORT": "25"
+        "SMTP_HOST": "smtp.gmail.com",
+        "SMTP_PORT": "587",
+        "SMTP_USERNAME": "your-email@gmail.com",
+        "SMTP_PASSWORD": "your-app-password",
+        "SMTP_ENCRYPTION": "tls"
       }
     }
   }

@@ -1,6 +1,4 @@
-// Test if JavaScript is loading
-console.log('JavaScript file loaded successfully!');
-alert('JavaScript is working!');
+
 
 // Custom modal functions
 function showAlert(title, message) {
@@ -75,35 +73,11 @@ function closeImageModal() {
 
 // Modal functionality
 function openQuoteModal() {
-    alert('openQuoteModal function called!'); // Simple test
-    console.log('Opening quote modal...');
     const modal = document.getElementById('quoteModal');
     if (modal) {
-        // Force modal to be visible
         modal.style.display = 'block';
-        modal.style.visibility = 'visible';
-        modal.style.opacity = '1';
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
-        
-        console.log('Modal should be visible now');
-        console.log('Modal display style:', modal.style.display);
-        console.log('Modal visibility:', modal.style.visibility);
-        console.log('Modal opacity:', modal.style.opacity);
-        console.log('Modal classes:', modal.className);
-        console.log('Modal z-index:', window.getComputedStyle(modal).zIndex);
-        
-        // Test if modal content is visible
-        const modalContent = modal.querySelector('.modal-content');
-        if (modalContent) {
-            console.log('Modal content found:', modalContent);
-            console.log('Modal content display:', window.getComputedStyle(modalContent).display);
-            console.log('Modal content z-index:', window.getComputedStyle(modalContent).zIndex);
-        } else {
-            console.error('Modal content not found!');
-        }
-    } else {
-        console.error('Quote modal not found!');
     }
 }
 
@@ -210,29 +184,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-    // Add debugging for phone input
-    const phoneInput = document.getElementById('phone');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function(e) {
-            console.log('Phone input changed:', e.target.value);
+    // Add event listeners for quote buttons
+    const quoteButtons = document.querySelectorAll('.quote-btn, .quote-btn-large');
+    quoteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            openQuoteModal();
         });
-    }
+    });
     
     // Form submission handling
     const quoteForm = document.querySelector('.quote-form');
     if (quoteForm) {
         quoteForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log('Form submitted!');
             
             // Get form data
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-            console.log('Form data:', data);
             
             // Simple validation
             if (!data.fullName || !data.phone || !data.email || !data.service) {
-                console.log('Validation failed - missing fields');
                 showAlert('Missing Information', 'Please fill in all required fields.');
                 return;
             }
@@ -247,7 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Phone validation - more flexible
             const phoneRegex = /^[\+]?[\d\s\-\(\)]{7,}$/;
             if (!phoneRegex.test(data.phone)) {
-                console.log('Phone validation failed for:', data.phone);
                 showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
                 return;
             }
@@ -260,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             
             // Send data to PHP backend
-            console.log('Sending data to PHP...');
             fetch('send-quote.php', {
                 method: 'POST',
                 headers: {
@@ -269,11 +239,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(data)
             })
             .then(response => {
-                console.log('Response received:', response);
                 return response.json();
             })
             .then(result => {
-                console.log('Result:', result);
                 if (result.success) {
                     showSuccess('Quote Request Sent!', result.message);
                     closeQuoteModal();
@@ -291,8 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = false;
             });
         });
-    } else {
-        console.error('Quote form not found!');
     }
 
 // Parallax effect for hero section

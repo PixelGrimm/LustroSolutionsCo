@@ -71,33 +71,15 @@ function closeImageModal() {
     document.body.style.overflow = 'auto';
 }
 
-// Modal functionality
-function openQuoteModal() {
-    const modal = document.getElementById('quoteModal');
-    if (modal) {
-        modal.style.display = 'block';
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-}
 
-function closeQuoteModal() {
-    const modal = document.getElementById('quoteModal');
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
 
 // Close modal when clicking outside
 window.onclick = function(event) {
-    const quoteModal = document.getElementById('quoteModal');
     const serviceModal = document.getElementById('serviceModal');
     const alertModal = document.getElementById('alertModal');
     const successModal = document.getElementById('successModal');
     const imageModal = document.getElementById('imageModal');
     
-    if (event.target === quoteModal) {
-        closeQuoteModal();
-    }
     if (event.target === serviceModal) {
         closeServiceModal();
     }
@@ -184,82 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-    // Add event listeners for quote buttons
-    const quoteButtons = document.querySelectorAll('.quote-btn, .quote-btn-large');
-    quoteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            openQuoteModal();
-        });
-    });
-    
-    // Form submission handling
-    const quoteForm = document.querySelector('.quote-form');
-    if (quoteForm) {
-        quoteForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Simple validation
-            if (!data.fullName || !data.phone || !data.email || !data.service) {
-                showAlert('Missing Information', 'Please fill in all required fields.');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(data.email)) {
-                showAlert('Invalid Email', 'Please enter a valid email address.');
-                return;
-            }
-            
-            // Phone validation - more flexible
-            const phoneRegex = /^[\+]?[\d\s\-\(\)]{7,}$/;
-            if (!phoneRegex.test(data.phone)) {
-                showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
-                return;
-            }
-            
-            // Update submit button
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            
-            // Send data to PHP backend
-            fetch('send-quote.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                return response.json();
-            })
-            .then(result => {
-                if (result.success) {
-                    showSuccess('Quote Request Sent!', result.message);
-                    closeQuoteModal();
-                    this.reset();
-                } else {
-                    showAlert('Error', 'Error: ' + result.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showAlert('Error', 'Sorry, there was an error sending your request. Please try again or contact us directly.');
-            })
-            .finally(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            });
-        });
-    }
+
 
 // Parallax effect for hero section
 window.addEventListener('scroll', function() {
@@ -392,15 +299,7 @@ window.addEventListener('load', function() {
     }, 100);
 });
 
-// Keyboard navigation for modal
-document.addEventListener('keydown', function(e) {
-    const modal = document.getElementById('quoteModal');
-    if (modal.style.display === 'block') {
-        if (e.key === 'Escape') {
-            closeQuoteModal();
-        }
-    }
-});
+
 
 // Form field focus effects
 document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(field => {
@@ -692,12 +591,7 @@ function closeServiceModal() {
     document.body.style.overflow = 'auto';
 }
 
-function openQuoteFromService() {
-    closeServiceModal();
-    setTimeout(() => {
-        openQuoteModal();
-    }, 300);
-}
+
 
 // Close service modal when clicking outside
 window.addEventListener('click', function(event) {

@@ -1018,10 +1018,7 @@ body {
     display: block !important;
 }
 
-/* Quote Modal specific styles */
-#quoteModal {
-    z-index: 2000;
-}
+
 
 /* Success Modal Styles */
 .success-modal {

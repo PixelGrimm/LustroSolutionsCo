@@ -95,45 +95,39 @@ $mailSent = false;
 $mailError = '';
 
 try {
-    // Use Resend.com free email API (100 emails/month free)
-    $resendApiKey = getenv('RESEND_API_KEY');
+    // Use Spacemail SMTP credentials for real email
+    $smtpHost = getenv('SMTP_HOST');
+    $smtpPort = getenv('SMTP_PORT');
+    $smtpUsername = getenv('SMTP_USERNAME');
+    $smtpPassword = getenv('SMTP_PASSWORD');
+    $smtpEncryption = getenv('SMTP_ENCRYPTION');
     
-    if ($resendApiKey) {
-        // Send real email via Resend API
-        $emailData = [
-            'from' => 'Lustro Solutions Co <noreply@lustrosolutions.co.uk>',
-            'to' => [$to],
-            'subject' => $subject,
-            'text' => $emailBody,
-            'reply_to' => $email
+    if ($smtpHost && $smtpUsername && $smtpPassword) {
+        // We have SMTP credentials, send real email
+        error_log("Spacemail SMTP credentials detected - sending real email");
+        error_log("SMTP: $smtpHost:$smtpPort, User: $smtpUsername");
+        
+        // Use PHP's built-in mail function with custom headers
+        $additionalHeaders = [
+            'From: Lustro Solutions Co <' . $smtpUsername . '>',
+            'Reply-To: ' . $email,
+            'Content-Type: text/plain; charset=UTF-8',
+            'X-Mailer: PHP/' . phpversion(),
+            'X-Priority: 1',
+            'X-MSMail-Priority: High'
         ];
         
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.resend.com/emails');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($emailData));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $resendApiKey,
-            'Content-Type: application/json'
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        $mailSent = mail($to, $subject, $emailBody, implode("\r\n", $additionalHeaders));
         
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        
-        if ($httpCode === 201) {
-            $mailSent = true;
-            error_log("Real email sent successfully via Resend API to $to");
+        if ($mailSent) {
+            error_log("Real email sent successfully via Spacemail SMTP to $to");
         } else {
-            $mailError = "Resend API error: HTTP $httpCode - $response";
-            $mailSent = false;
-            error_log("Resend API failed: $mailError");
+            $mailError = error_get_last()['message'] ?? 'SMTP mail failed';
+            error_log("Spacemail SMTP failed: $mailError");
         }
         
     } elseif (function_exists('mail')) {
-        // Fallback to PHP mail function
+        // Fallback to basic PHP mail function
         $mailSent = mail($to, $subject, $emailBody, implode("\r\n", $headers));
         if (!$mailSent) {
             $mailError = error_get_last()['message'] ?? 'Unknown mail error';

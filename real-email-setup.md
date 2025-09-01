@@ -1,45 +1,40 @@
-# Real Email Setup Guide - No More Simulation!
+# Real Email Setup Guide - Using Your Spacemail!
 
 ## 🎯 Goal
-Set up **REAL EMAIL** functionality so quote requests actually get sent to `info@lustrosolutions.co.uk`
+Set up **REAL EMAIL** functionality using your existing Spacemail account for `info@lustrosolutions.co.uk`
 
-## 🚀 Solution: Resend.com Email API
-- **100 emails/month FREE**
-- **No SMTP configuration needed**
-- **Works perfectly on Railway**
-- **Professional delivery**
+## 🚀 Solution: Spacemail SMTP
+- **✅ Already configured** - you have the credentials
+- **✅ No API keys needed** - uses your existing setup
+- **✅ Works with Railway** - direct SMTP connection
+- **✅ Professional delivery** - from your domain email
 
 ## 📋 Step-by-Step Setup
 
-### Step 1: Sign Up for Resend
-1. Go to [resend.com](https://resend.com)
-2. Click "Get Started" → "Sign Up"
-3. Create account with your email
-4. Verify your email address
-
-### Step 2: Get API Key
-1. In Resend dashboard, go to "API Keys"
-2. Click "Create API Key"
-3. Name it "Lustro Solutions Co"
-4. Copy the API key (starts with `re_`)
-
-### Step 3: Add Domain (Optional but Recommended)
-1. In Resend dashboard, go to "Domains"
-2. Click "Add Domain"
-3. Enter `lustrosolutions.co.uk`
-4. Follow DNS verification steps
-
-### Step 4: Update Railway Variables
+### Step 1: Update Railway Variables
 1. Go to your Railway project dashboard
 2. Click "Variables" tab
-3. Add new variable:
-   ```
-   Variable Name: RESEND_API_KEY
-   Value: re_your-actual-api-key-here
-   ```
+3. Add these variables:
 
-### Step 5: Test Real Email
-1. Deploy changes to Railway
+```
+Variable Name: SMTP_HOST
+Value: mail.spacemail.com
+
+Variable Name: SMTP_PORT  
+Value: 465
+
+Variable Name: SMTP_USERNAME
+Value: info@lustrosolutions.co.uk
+
+Variable Name: SMTP_PASSWORD
+Value: your-actual-spacemail-password
+
+Variable Name: SMTP_ENCRYPTION
+Value: ssl
+```
+
+### Step 2: Deploy and Test
+1. Railway will automatically redeploy
 2. Submit a quote form
 3. Check if email arrives at `info@lustrosolutions.co.uk`
 4. Check Railway logs for success
@@ -60,17 +55,18 @@ Set up **REAL EMAIL** functionality so quote requests actually get sent to `info
 
 ## 📧 Email Details
 
-**From:** `Lustro Solutions Co <noreply@lustrosolutions.co.uk>`
+**From:** `Lustro Solutions Co <info@lustrosolutions.co.uk>`
 **To:** `info@lustrosolutions.co.uk`
 **Subject:** `New Quote Request - [Service Name]`
 **Reply-To:** Customer's email address
+**Server:** `mail.spacemail.com:465` (SSL)
 
 ## 🆘 If Something Goes Wrong
 
 1. **Check Railway logs** for error messages
-2. **Verify API key** is correct in Railway variables
-3. **Test Resend API** in their dashboard
-4. **Check spam folder** for test emails
+2. **Verify SMTP credentials** are correct in Railway variables
+3. **Check spam folder** for test emails
+4. **Verify Spacemail account** is active
 
 ## 🎉 Expected Result
 
@@ -78,6 +74,6 @@ Once set up, every quote form submission will:
 - Send real email to your business email
 - Include all customer details
 - Allow you to reply directly to customers
-- Track delivery status in Resend dashboard
+- Use your professional domain email
 
-**No more simulation - REAL PROFESSIONAL EMAILS!** 🚀
+**No more simulation - REAL PROFESSIONAL EMAILS using your Spacemail!** 🚀

@@ -14,7 +14,11 @@
     "production": {
       "variables": {
         "RAILWAY_ENVIRONMENT": "production",
-        "RESEND_API_KEY": "your-resend-api-key-here"
+        "SMTP_HOST": "mail.spacemail.com",
+        "SMTP_PORT": "465",
+        "SMTP_USERNAME": "info@lustrosolutions.co.uk",
+        "SMTP_PASSWORD": "your-spacemail-password",
+        "SMTP_ENCRYPTION": "ssl"
       }
     }
   }

@@ -33,10 +33,20 @@ function showSuccess(title, message) {
     if (successModal && successTitle && successMessage) {
         successTitle.textContent = title;
         successMessage.textContent = message;
-        // Force the success modal to work with custom HTML
-        successModal.innerHTML = '<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;"><h2 style="margin: 0 0 20px 0; color: white;">' + title + '</h2><p style="margin: 0 0 20px 0; font-size: 16px;">' + message + '</p><button onclick="closeSuccessModal()" style="background: white; color: #10b981; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">OK</button></div>';
-        successModal.style.display = 'block';
-        successModal.style.zIndex = '999999';
+        // Use the existing success modal structure with custom content
+        const successTitle = successModal.querySelector('#successTitle');
+        const successMessage = successModal.querySelector('#successMessage');
+        
+        if (successTitle && successMessage) {
+            successTitle.textContent = title;
+            successMessage.textContent = message;
+            successModal.style.display = 'block';
+            successModal.classList.add('show');
+        } else {
+            // Fallback to custom HTML if elements not found
+            successModal.innerHTML = '<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;"><h2 style="margin: 0 0 20px 0; color: white;">' + title + '</h2><p style="margin: 0 0 20px 0; font-size: 16px;">' + message + '</p><button onclick="closeSuccessModal()" style="background: white; color: #10b981; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">OK</button></div>';
+            successModal.style.display = 'block';
+        }
     } else {
         console.error('Success modal elements not found:', { successModal, successTitle, successMessage });
         // Fallback to browser alert

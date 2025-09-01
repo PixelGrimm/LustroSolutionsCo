@@ -3,6 +3,8 @@
 ## Current Status
 Your quote form is working but emails are not being sent on the live Railway deployment.
 
+**Note**: Google Analytics tracking ID has been updated to: G-LXWS39M4C4
+
 ## Why This Happens
 Railway doesn't have SMTP configured by default, so PHP's `mail()` function doesn't work.
 

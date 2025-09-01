@@ -38,10 +38,13 @@ function showSuccess(title, message) {
         successModal.classList.add('show');
         successModal.style.display = 'block';
         console.log('Success modal should be visible now');
+        console.log('Success modal display:', successModal.style.display);
+        console.log('Success modal classes:', successModal.className);
+        console.log('Success modal z-index:', window.getComputedStyle(successModal).zIndex);
     } else {
         console.error('Success modal elements not found:', { successModal, successTitle, successMessage });
-        // No fallback - force custom modal to work
-        console.error('Custom modal failed - please check HTML structure');
+        // Fallback to browser alert
+        alert('Success: ' + title + ' - ' + message);
     }
 }
 

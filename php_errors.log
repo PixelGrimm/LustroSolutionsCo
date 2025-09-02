@@ -1,0 +1,96 @@
+[02-Sep-2025 20:34:27 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:34:27 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:34:27 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:34:27 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:34:27 UTC] =============================
+[02-Sep-2025 20:34:27 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:34:27 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:34:27 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 20:36:04 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:36:04 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:36:04 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:36:04 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:36:04 UTC] =============================
+[02-Sep-2025 20:36:04 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:36:04 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:36:04 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 20:37:34 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:37:34 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:37:34 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:37:34 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:37:34 UTC] =============================
+[02-Sep-2025 20:37:34 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:37:34 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:37:34 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 20:40:01 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:40:01 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:40:01 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:40:01 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:40:01 UTC] =============================
+[02-Sep-2025 20:40:01 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:40:01 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:40:01 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 20:40:41 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:40:41 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:40:41 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:40:41 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:40:41 UTC] =============================
+[02-Sep-2025 20:40:41 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:40:41 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:40:41 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 20:56:08 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:56:08 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:56:08 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:56:08 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:56:08 UTC] =============================
+[02-Sep-2025 20:56:08 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:56:08 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:56:08 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 20:58:25 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:58:25 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:58:25 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:58:25 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:58:25 UTC] =============================
+[02-Sep-2025 20:58:25 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:58:25 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:58:25 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 20:59:51 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 20:59:51 UTC] PHP Version: 8.4.12
+[02-Sep-2025 20:59:51 UTC] === Formspree Configuration ===
+[02-Sep-2025 20:59:51 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 20:59:51 UTC] =============================
+[02-Sep-2025 20:59:51 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 20:59:51 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 20:59:51 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 21:00:48 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 21:00:48 UTC] PHP Version: 8.4.12
+[02-Sep-2025 21:00:48 UTC] === Formspree Configuration ===
+[02-Sep-2025 21:00:48 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 21:00:48 UTC] =============================
+[02-Sep-2025 21:00:48 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 21:00:48 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 21:00:48 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 21:02:33 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 21:02:33 UTC] PHP Version: 8.4.12
+[02-Sep-2025 21:02:33 UTC] === Formspree Configuration ===
+[02-Sep-2025 21:02:33 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 21:02:33 UTC] =============================
+[02-Sep-2025 21:02:33 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 21:02:33 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 21:02:33 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 21:05:39 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 21:05:39 UTC] PHP Version: 8.4.12
+[02-Sep-2025 21:05:39 UTC] === Formspree Configuration ===
+[02-Sep-2025 21:05:39 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 21:05:39 UTC] =============================
+[02-Sep-2025 21:05:39 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 21:05:39 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 21:05:39 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 21:06:34 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 21:06:34 UTC] PHP Version: 8.4.12
+[02-Sep-2025 21:06:34 UTC] === Formspree Configuration ===
+[02-Sep-2025 21:06:34 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 21:06:34 UTC] =============================
+[02-Sep-2025 21:06:34 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 21:06:34 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 21:06:34 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}

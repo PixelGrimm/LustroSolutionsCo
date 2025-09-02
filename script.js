@@ -43,9 +43,48 @@ function showSuccess(title, message) {
             if (successTitle && successMessage) {
                 successTitle.textContent = title;
                 successMessage.textContent = message;
+                
+                // Force the modal to show with inline styles
                 successModal.style.display = 'block';
+                successModal.style.position = 'fixed';
+                successModal.style.top = '0';
+                successModal.style.left = '0';
+                successModal.style.width = '100%';
+                successModal.style.height = '100%';
+                successModal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                successModal.style.zIndex = '999999';
+                
+                // Force the modal content to be centered
+                const modalContent = successModal.querySelector('.modal-content');
+                if (modalContent) {
+                    modalContent.style.position = 'fixed';
+                    modalContent.style.top = '50%';
+                    modalContent.style.left = '50%';
+                    modalContent.style.transform = 'translate(-50%, -50%)';
+                    modalContent.style.zIndex = '999999';
+                    modalContent.style.maxWidth = '400px';
+                    modalContent.style.width = '90%';
+                    
+                    // Force content visibility with !important
+                    modalContent.setAttribute('style', modalContent.getAttribute('style') + '; visibility: visible !important; opacity: 1 !important; display: block !important;');
+                    
+                    console.log('Modal content styles applied');
+                }
+                
                 successModal.classList.add('show');
-                console.log('Success modal displayed successfully');
+                console.log('Success modal displayed successfully with forced styles');
+                
+                // Debug: Check modal visibility
+                console.log('Modal display style:', successModal.style.display);
+                console.log('Modal visibility:', successModal.style.visibility);
+                console.log('Modal opacity:', successModal.style.opacity);
+                console.log('Modal z-index:', successModal.style.zIndex);
+                console.log('Modal position:', successModal.style.position);
+                console.log('Modal top:', successModal.style.top);
+                console.log('Modal left:', successModal.style.left);
+                
+                // Force visibility with !important
+                successModal.setAttribute('style', successModal.getAttribute('style') + '; visibility: visible !important; opacity: 1 !important; display: block !important;');
             } else {
                 // Fallback to custom HTML if elements not found
                 console.log('Using fallback HTML for success modal');
@@ -71,6 +110,12 @@ function closeSuccessModal() {
     successModal.classList.remove('show');
 }
 
+// Test Modal Function
+function testModal() {
+    console.log('Testing modal display...');
+    showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
+}
+
 // Image Modal Functions
 function openImageModal(imageSrc, title) {
     const imageModal = document.getElementById('imageModal');
@@ -90,6 +135,8 @@ function closeImageModal() {
     imageModal.classList.remove('show');
     document.body.style.overflow = 'auto';
 }
+
+
 
 
 

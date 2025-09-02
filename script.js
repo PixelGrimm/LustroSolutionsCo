@@ -114,7 +114,7 @@ function testModal() {
     showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
 }
 
-// Reviews Carousel Functionality - Production Safe
+// Reviews Carousel Functionality
 function initReviewsCarousel() {
     const carousel = document.getElementById('reviewsCarousel');
     if (!carousel) {
@@ -123,21 +123,64 @@ function initReviewsCarousel() {
     }
     
     console.log('Initializing reviews carousel...');
+    console.log('Carousel element:', carousel);
+    console.log('Carousel computed styles:', window.getComputedStyle(carousel));
     
-    // Get all review items
-    const reviews = Array.from(carousel.children);
+    // Clone reviews for seamless loop
+    const reviews = carousel.querySelectorAll('.review-item');
     console.log('Found reviews:', reviews.length);
     
-    // Duplicate reviews to make infinite scroll
+    // Clear any existing clones
+    const existingClones = carousel.querySelectorAll('.review-item[data-cloned]');
+    existingClones.forEach(clone => clone.remove());
+    
+    // Clone and mark as cloned
     reviews.forEach((review, index) => {
         const clone = review.cloneNode(true);
+        clone.setAttribute('data-cloned', 'true');
         carousel.appendChild(clone);
         console.log(`Cloned review ${index + 1}`);
     });
     
-    // Ensure animation is applied
+    // Force animation with inline styles to override any CSS conflicts
     carousel.style.animation = 'scrollReviews 60s linear infinite';
-    console.log('Animation applied: scrollReviews 60s linear infinite');
+    carousel.style.animationPlayState = 'running';
+    carousel.style.display = 'flex';
+    carousel.style.flexDirection = 'column';
+    
+    // Force the animation to work by ensuring all properties are set
+    carousel.style.animationDuration = '60s';
+    carousel.style.animationTimingFunction = 'linear';
+    carousel.style.animationIterationCount = 'infinite';
+    carousel.style.animationDirection = 'normal';
+    carousel.style.animationFillMode = 'forwards';
+    
+    // Additional debugging for reviews
+    console.log('Reviews container height:', carousel.parentElement.offsetHeight);
+    console.log('Reviews carousel height:', carousel.offsetHeight);
+    console.log('Total review items:', carousel.children.length);
+    
+    // Also check if CSS keyframes are available
+    const styleSheets = Array.from(document.styleSheets);
+    let keyframesFound = false;
+    styleSheets.forEach(sheet => {
+        try {
+            const rules = Array.from(sheet.cssRules || []);
+            rules.forEach(rule => {
+                if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === 'scrollReviews') {
+                    keyframesFound = true;
+                    console.log('scrollReviews keyframes found in:', sheet.href || 'inline styles');
+                }
+            });
+        } catch (e) {
+            // Cross-origin stylesheets may throw errors
+        }
+    });
+    console.log('scrollReviews keyframes found:', keyframesFound);
+    
+    console.log('Animation applied:', carousel.style.animation);
+    console.log('Display style:', carousel.style.display);
+    console.log('Flex direction:', carousel.style.flexDirection);
     
     // Pause on hover
     carousel.addEventListener('mouseenter', () => {
@@ -150,16 +193,64 @@ function initReviewsCarousel() {
         console.log('Animation resumed on mouse leave');
     });
     
+    // Verify animation is working
+    setTimeout(() => {
+        const computedStyle = window.getComputedStyle(carousel);
+        console.log('Final computed animation:', computedStyle.animation);
+        console.log('Final computed display:', computedStyle.display);
+        console.log('Final computed transform:', computedStyle.transform);
+    }, 100);
+    
     console.log('Reviews carousel initialized successfully');
+    
+    // Manual test: try to trigger animation manually
+    setTimeout(() => {
+        console.log('Manual animation test...');
+        carousel.style.animation = 'none';
+        carousel.offsetHeight; // Force reflow
+        carousel.style.animation = 'scrollReviews 60s linear infinite';
+        console.log('Animation reset and reapplied');
+        
+        // If CSS animation still doesn't work, create JavaScript fallback
+        setTimeout(() => {
+            const computedStyle = window.getComputedStyle(carousel);
+            if (computedStyle.animationName === 'none' || computedStyle.animationName === '') {
+                console.log('CSS animation failed, using JavaScript fallback');
+                createJavaScriptAnimation(carousel);
+            }
+        }, 1000);
+    }, 500);
+}
+
+// JavaScript fallback animation function
+function createJavaScriptAnimation(carousel) {
+    let startTime = Date.now();
+    const duration = 60000; // 60 seconds
+    
+    function animate() {
+        const elapsed = Date.now() - startTime;
+        const progress = (elapsed % duration) / duration;
+        
+        // Calculate transform value
+        const translateY = -1000 * progress;
+        carousel.style.transform = `translateY(${translateY}px)`;
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+    console.log('JavaScript animation started');
 }
 
 
 
-// Initialize reviews carousel when window fully loads
-window.addEventListener('load', initReviewsCarousel);
+// Initialize reviews carousel when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initReviewsCarousel();
+});
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.7 - Production-Safe Modal & Reviews Rebuild');
+        console.log('Script loaded - version 3.7 - Enhanced Animation & JavaScript Fallback');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

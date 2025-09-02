@@ -26,7 +26,7 @@ function closeAlertModal() {
 
 function showSuccess(title, message) {
     console.log('showSuccess called:', title, message);
-    console.log('showSuccess function version: 2.4 - Enhanced Debugging');
+    console.log('showSuccess function version: 3.2 - Fixed Modal Display');
     
     try {
         const successModal = document.getElementById('successModal');
@@ -83,7 +83,7 @@ function closeSuccessModal() {
 // Test Modal Function
 function testModal() {
     console.log('Testing modal display...');
-    console.log('testModal function loaded successfully - version 2.3');
+    console.log('testModal function loaded successfully - version 3.2');
     showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
 }
 
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.2 - Rebuilt Reviews Section');
+        console.log('Script loaded - version 3.3 - Fixed Modal & Reviews');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions
@@ -665,14 +665,11 @@ function openQuoteModal() {
     trackEvent('modal_open', 'quote_request', 'quote_modal', 1);
     
     const modal = document.getElementById('quoteModal');
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    
-    // Add animation class
-    setTimeout(() => {
-        modal.querySelector('.modal-content').style.transform = 'scale(1)';
-        modal.querySelector('.modal-content').style.opacity = '1';
-    }, 10);
+    if (modal) {
+        modal.style.display = 'block';
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 // Track phone number clicks

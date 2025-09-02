@@ -44,9 +44,10 @@ function showSuccess(title, message) {
                 successTitle.textContent = title;
                 successMessage.textContent = message;
                 
-                // Simple working modal - just show an alert for now
-                alert('SUCCESS: ' + title + ' - ' + message);
-                console.log('Success modal displayed as alert');
+                // Display the actual success modal
+                successModal.style.display = 'block';
+                successModal.classList.add('show');
+                console.log('Success modal displayed successfully');
             } else {
                 // Fallback to custom HTML if elements not found
                 console.log('Using fallback HTML for success modal');

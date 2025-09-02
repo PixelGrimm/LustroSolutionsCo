@@ -110,8 +110,20 @@ function closeSuccessModal() {
 // Test Modal Function
 function testModal() {
     console.log('Testing modal display...');
-    console.log('testModal function loaded successfully - version 3.2');
+    console.log('testModal function loaded successfully - version 3.8');
     showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
+}
+
+// Test Reviews Animation Function
+function testReviewsAnimation() {
+    console.log('Test Reviews Animation button clicked - version 3.8');
+    const carousel = document.getElementById('reviewsCarousel');
+    if (carousel) {
+        console.log('Forcing JavaScript animation for reviews...');
+        createJavaScriptAnimation(carousel);
+    } else {
+        console.log('Reviews carousel not found');
+    }
 }
 
 // Reviews Carousel Functionality
@@ -211,14 +223,11 @@ function initReviewsCarousel() {
         carousel.style.animation = 'scrollReviews 60s linear infinite';
         console.log('Animation reset and reapplied');
         
-        // If CSS animation still doesn't work, create JavaScript fallback
+        // Force JavaScript fallback immediately for testing
         setTimeout(() => {
-            const computedStyle = window.getComputedStyle(carousel);
-            if (computedStyle.animationName === 'none' || computedStyle.animationName === '') {
-                console.log('CSS animation failed, using JavaScript fallback');
-                createJavaScriptAnimation(carousel);
-            }
-        }, 1000);
+            console.log('Forcing JavaScript animation for testing...');
+            createJavaScriptAnimation(carousel);
+        }, 500);
     }, 500);
 }
 
@@ -226,6 +235,10 @@ function initReviewsCarousel() {
 function createJavaScriptAnimation(carousel) {
     let startTime = Date.now();
     const duration = 60000; // 60 seconds
+    
+    // Add visual indicator that JS animation is running
+    carousel.style.border = '2px solid #10b981';
+    carousel.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
     
     function animate() {
         const elapsed = Date.now() - startTime;
@@ -239,7 +252,20 @@ function createJavaScriptAnimation(carousel) {
     }
     
     animate();
-    console.log('JavaScript animation started');
+    console.log('JavaScript animation started with visual indicators');
+    
+    // Add hover pause functionality
+    carousel.addEventListener('mouseenter', () => {
+        carousel.style.animationPlayState = 'paused';
+        carousel.style.borderColor = '#ff6b6b';
+        console.log('JavaScript animation paused on hover');
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        carousel.style.animationPlayState = 'running';
+        carousel.style.borderColor = '#10b981';
+        console.log('JavaScript animation resumed on mouse leave');
+    });
 }
 
 
@@ -250,8 +276,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.8 - Fixed Modal Positioning & Smooth Animation');
+        console.log('Script loaded - version 3.9 - Enhanced Reviews Animation & Test Button');
         console.log('testModal function available:', typeof testModal);
+        console.log('testReviewsAnimation function available:', typeof testReviewsAnimation);
 
 // Image Modal Functions
 function openImageModal(imageSrc, title) {

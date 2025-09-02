@@ -108,23 +108,7 @@ function closeSuccessModal() {
 
 
 // Test Modal Function
-function testModal() {
-    console.log('Testing modal display...');
-    console.log('testModal function loaded successfully - version 3.8');
-    showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
-}
 
-// Test Reviews Animation Function
-function testReviewsAnimation() {
-    console.log('Test Reviews Animation button clicked - version 3.8');
-    const carousel = document.getElementById('reviewsCarousel');
-    if (carousel) {
-        console.log('Forcing JavaScript animation for reviews...');
-        createJavaScriptAnimation(carousel);
-    } else {
-        console.log('Reviews carousel not found');
-    }
-}
 
 // Reviews Carousel Functionality
 function initReviewsCarousel() {
@@ -134,13 +118,10 @@ function initReviewsCarousel() {
         return;
     }
     
-    console.log('Initializing reviews carousel...');
-    console.log('Carousel element:', carousel);
-    console.log('Carousel computed styles:', window.getComputedStyle(carousel));
+    // Initialize reviews carousel
     
     // Clone reviews for seamless loop
     const reviews = carousel.querySelectorAll('.review-item');
-    console.log('Found reviews:', reviews.length);
     
     // Clear any existing clones
     const existingClones = carousel.querySelectorAll('.review-item[data-cloned]');
@@ -151,7 +132,6 @@ function initReviewsCarousel() {
         const clone = review.cloneNode(true);
         clone.setAttribute('data-cloned', 'true');
         carousel.appendChild(clone);
-        console.log(`Cloned review ${index + 1}`);
     });
     
     // Force CSS animation to work
@@ -171,92 +151,34 @@ function initReviewsCarousel() {
     carousel.style.transform = 'translateY(0)';
     carousel.offsetHeight; // Force reflow
     
-    console.log('CSS animation applied:', carousel.style.animation);
-    
     // Verify animation is working after 1 second
     setTimeout(() => {
         const computedStyle = window.getComputedStyle(carousel);
-        console.log('Animation verification:', {
-            name: computedStyle.animationName,
-            duration: computedStyle.animationDuration,
-            transform: computedStyle.transform
-        });
         
         // If CSS animation fails, use JavaScript immediately
         if (computedStyle.animationName === 'none' || computedStyle.animationDuration === '0s') {
-            console.log('CSS animation failed, using JavaScript fallback');
             createJavaScriptAnimation(carousel);
         }
     }, 1000);
     
-    // Additional debugging for reviews
-    console.log('Reviews container height:', carousel.parentElement.offsetHeight);
-    console.log('Reviews carousel height:', carousel.offsetHeight);
-    console.log('Total review items:', carousel.children.length);
-    
-    // Also check if CSS keyframes are available
-    const styleSheets = Array.from(document.styleSheets);
-    let keyframesFound = false;
-    styleSheets.forEach(sheet => {
-        try {
-            const rules = Array.from(sheet.cssRules || []);
-            rules.forEach(rule => {
-                if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === 'scrollReviews') {
-                    keyframesFound = true;
-                    console.log('scrollReviews keyframes found in:', sheet.href || 'inline styles');
-                }
-            });
-        } catch (e) {
-            // Cross-origin stylesheets may throw errors
-        }
-    });
-    console.log('scrollReviews keyframes found:', keyframesFound);
-    
-    console.log('Animation applied:', carousel.style.animation);
-    console.log('Display style:', carousel.style.display);
-    console.log('Flex direction:', carousel.style.flexDirection);
+
     
     // Pause on hover
     carousel.addEventListener('mouseenter', () => {
         carousel.style.animationPlayState = 'paused';
-        console.log('Animation paused on hover');
     });
     
     carousel.addEventListener('mouseleave', () => {
         carousel.style.animationPlayState = 'running';
-        console.log('Animation resumed on mouse leave');
     });
     
-    // Verify animation is working
-    setTimeout(() => {
-        const computedStyle = window.getComputedStyle(carousel);
-        console.log('Final computed animation:', computedStyle.animation);
-        console.log('Final computed display:', computedStyle.display);
-        console.log('Final computed transform:', computedStyle.transform);
-    }, 100);
-    
-    console.log('Reviews carousel initialized successfully');
-    
-    // Manual test: try to trigger animation manually
-    setTimeout(() => {
-        console.log('Manual animation test...');
-        carousel.style.animation = 'none';
-        carousel.offsetHeight; // Force reflow
-        carousel.style.animation = 'scrollReviews 60s linear infinite';
-        console.log('Animation reset and reapplied');
-        
-        // Let CSS animation work naturally, JavaScript fallback will trigger if needed
-        console.log('CSS animation should be working now');
-    }, 500);
+    // Reviews carousel initialized successfully
 }
 
 // JavaScript fallback animation function
 function createJavaScriptAnimation(carousel) {
     let startTime = Date.now();
     const duration = 60000; // 60 seconds
-    
-    // No visual indicators - keep it clean
-    console.log('JavaScript animation started');
     
     function animate() {
         const elapsed = Date.now() - startTime;
@@ -270,17 +192,14 @@ function createJavaScriptAnimation(carousel) {
     }
     
     animate();
-    console.log('JavaScript animation started with visual indicators');
     
     // Add hover pause functionality
     carousel.addEventListener('mouseenter', () => {
         carousel.style.animationPlayState = 'paused';
-        console.log('JavaScript animation paused on hover');
     });
     
     carousel.addEventListener('mouseleave', () => {
         carousel.style.animationPlayState = 'running';
-        console.log('JavaScript animation resumed on mouse leave');
     });
 }
 
@@ -340,18 +259,16 @@ function fixDropdownStyling() {
         if (navigator.userAgent.includes('Mac') || navigator.userAgent.includes('Safari')) {
             select.style.webkitAppearance = 'none';
             select.style.appearance = 'none';
-            console.log('Mac/Safari specific dropdown fix applied');
         }
         
         // Mobile specific fix
         if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             select.style.fontSize = '16px';
             select.style.webkitAppearance = 'none';
-            console.log('Mobile specific dropdown fix applied');
         }
     });
     
-    console.log('Dropdown styling fixed for cross-platform compatibility');
+    // Dropdown styling fixed for cross-platform compatibility
     
     // Re-apply styling after a delay to ensure it sticks
     setTimeout(() => {
@@ -359,13 +276,11 @@ function fixDropdownStyling() {
             select.style.backgroundColor = '#1a1a1a';
             select.style.color = '#ffffff';
         });
-        console.log('Dropdown styling re-applied after delay');
     }, 1000);
 }
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 4.3 - Enhanced Cross-Platform Dropdown Fix');
-        console.log('testModal function available:', typeof testModal);
+        console.log('Script loaded - version 4.4 - Production Ready');
 
 // Image Modal Functions
 function openImageModal(imageSrc, title) {

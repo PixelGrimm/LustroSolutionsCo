@@ -44,13 +44,36 @@ function showSuccess(title, message) {
                 successTitle.textContent = title;
                 successMessage.textContent = message;
                 
-                // Force modal to show with proper z-index
-                successModal.style.display = 'flex';
-                successModal.style.alignItems = 'center';
-                successModal.style.justifyContent = 'center';
-                successModal.style.zIndex = '999999';
+                // Force modal to show with inline styles that can't be overridden
+                successModal.setAttribute('style', `
+                    position: fixed !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    background-color: rgba(0, 0, 0, 0.8) !important;
+                    z-index: 999999 !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                `);
+                
+                // Force modal content to be visible
+                const modalContent = successModal.querySelector('.modal-content');
+                if (modalContent) {
+                    modalContent.setAttribute('style', `
+                        position: relative !important;
+                        z-index: 1000000 !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                        display: block !important;
+                    `);
+                }
+                
                 successModal.classList.add('show');
-                console.log('Success modal displayed successfully with forced flexbox');
+                console.log('Success modal displayed successfully with forced inline styles');
             } else {
                 // Fallback to custom HTML if elements not found
                 console.log('Using fallback HTML for success modal');

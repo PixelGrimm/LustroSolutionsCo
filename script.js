@@ -276,9 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.9 - Enhanced Reviews Animation & Test Button');
+        console.log('Script loaded - version 3.9 - Fixed Quote Modal & Enhanced Reviews');
         console.log('testModal function available:', typeof testModal);
-        console.log('testReviewsAnimation function available:', typeof testReviewsAnimation);
 
 // Image Modal Functions
 function openImageModal(imageSrc, title) {

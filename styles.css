@@ -1125,12 +1125,15 @@ body {
 }
 
 #quoteModal.show {
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    animation: fadeIn 0.3s ease-out !important;
 }
 
 .modal-content {
     background: #1a1a1a;
-    margin: 5% auto;
+    margin: 0;
     padding: 0;
     border-radius: 20px;
     width: 90%;
@@ -1138,7 +1141,7 @@ body {
     max-height: 90vh;
     overflow-y: auto;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: modalSlideIn 0.3s ease-out;
+    animation: none;
     position: relative;
     z-index: 2001;
 }

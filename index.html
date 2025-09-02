@@ -339,7 +339,10 @@
                 <span class="close" onclick="closeQuoteModal()">&times;</span>
             </div>
             <p class="modal-description">Tell us about your cleaning needs and we'll provide a detailed quote within 24 hours.</p>
-            <form class="quote-form">
+            <form class="quote-form" action="https://formspree.io/f/xpzgwqjq" method="POST">
+                <input type="hidden" name="_replyto" value="info@lustrosolutions.co.uk">
+                <input type="hidden" name="_subject" value="New Quote Request - {{service}}">
+                <input type="hidden" name="_next" value="https://lustrosolutions.co.uk/thank-you">
                 <div class="form-group">
                     <label for="fullName">Full Name *</label>
                     <input type="text" id="fullName" name="fullName" required>

@@ -81,6 +81,7 @@ function closeSuccessModal() {
 // Test Modal Function
 function testModal() {
     console.log('Testing modal display...');
+    console.log('testModal function loaded successfully - version 2.2');
     showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
 }
 

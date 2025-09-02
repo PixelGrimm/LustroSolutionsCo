@@ -316,6 +316,9 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
+    /* Ensure consistent appearance across all browsers */
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .review-item:hover {

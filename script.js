@@ -154,7 +154,7 @@ function initReviewsCarousel() {
         console.log(`Cloned review ${index + 1}`);
     });
     
-    // Force animation with inline styles to override any CSS conflicts
+    // Try CSS animation first
     carousel.style.animation = 'scrollReviews 60s linear infinite';
     carousel.style.animationPlayState = 'running';
     carousel.style.display = 'flex';
@@ -166,6 +166,26 @@ function initReviewsCarousel() {
     carousel.style.animationIterationCount = 'infinite';
     carousel.style.animationDirection = 'normal';
     carousel.style.animationFillMode = 'forwards';
+    
+    // Check if CSS animation is working after 2 seconds
+    setTimeout(() => {
+        const computedStyle = window.getComputedStyle(carousel);
+        const isAnimating = computedStyle.animationName === 'scrollReviews' && 
+                           computedStyle.animationDuration !== '0s';
+        
+        console.log('CSS Animation Check:', {
+            animationName: computedStyle.animationName,
+            animationDuration: computedStyle.animationDuration,
+            isWorking: isAnimating
+        });
+        
+        if (!isAnimating) {
+            console.log('CSS animation not working, switching to JavaScript fallback');
+            createJavaScriptAnimation(carousel);
+        } else {
+            console.log('CSS animation working correctly');
+        }
+    }, 2000);
     
     // Additional debugging for reviews
     console.log('Reviews container height:', carousel.parentElement.offsetHeight);
@@ -223,11 +243,8 @@ function initReviewsCarousel() {
         carousel.style.animation = 'scrollReviews 60s linear infinite';
         console.log('Animation reset and reapplied');
         
-        // Force JavaScript fallback immediately for testing
-        setTimeout(() => {
-            console.log('Forcing JavaScript animation for testing...');
-            createJavaScriptAnimation(carousel);
-        }, 500);
+        // Let CSS animation work naturally, JavaScript fallback will trigger if needed
+        console.log('CSS animation should be working now');
     }, 500);
 }
 
@@ -276,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.9 - Fixed Quote Modal & Enhanced Reviews');
+        console.log('Script loaded - version 4.0 - Unified Local & Live Experience');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

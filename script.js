@@ -299,35 +299,72 @@ function fixDropdownStyling() {
     const selects = document.querySelectorAll('select');
     
     selects.forEach(select => {
-        // Force dark theme on all platforms
-        select.style.backgroundColor = '#1a1a1a';
-        select.style.color = '#ffffff';
-        select.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+        // Force dark theme on all platforms with maximum priority
+        select.setAttribute('style', `
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+        `);
         
         // Add event listeners for better cross-platform support
         select.addEventListener('focus', function() {
-            this.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            this.style.borderColor = '#00d4aa';
+            this.setAttribute('style', `
+                background-color: rgba(255, 255, 255, 0.1) !important;
+                border-color: #00d4aa !important;
+                color: #ffffff !important;
+            `);
         });
         
         select.addEventListener('blur', function() {
-            this.style.backgroundColor = '#1a1a1a';
-            this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            this.setAttribute('style', `
+                background-color: #1a1a1a !important;
+                border-color: rgba(255, 255, 255, 0.2) !important;
+                color: #ffffff !important;
+            `);
         });
         
-        // Force option styling
+        // Force option styling with maximum priority
         const options = select.querySelectorAll('option');
         options.forEach(option => {
-            option.style.backgroundColor = '#1a1a1a';
-            option.style.color = '#ffffff';
+            option.setAttribute('style', `
+                background-color: #1a1a1a !important;
+                color: #ffffff !important;
+                padding: 12px 15px !important;
+            `);
         });
+        
+        // Additional Mac/Safari specific fix
+        if (navigator.userAgent.includes('Mac') || navigator.userAgent.includes('Safari')) {
+            select.style.webkitAppearance = 'none';
+            select.style.appearance = 'none';
+            console.log('Mac/Safari specific dropdown fix applied');
+        }
+        
+        // Mobile specific fix
+        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            select.style.fontSize = '16px';
+            select.style.webkitAppearance = 'none';
+            console.log('Mobile specific dropdown fix applied');
+        }
     });
     
     console.log('Dropdown styling fixed for cross-platform compatibility');
+    
+    // Re-apply styling after a delay to ensure it sticks
+    setTimeout(() => {
+        selects.forEach(select => {
+            select.style.backgroundColor = '#1a1a1a';
+            select.style.color = '#ffffff';
+        });
+        console.log('Dropdown styling re-applied after delay');
+    }, 1000);
 }
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 4.2 - Cross-Platform Dropdown Fix');
+        console.log('Script loaded - version 4.3 - Enhanced Cross-Platform Dropdown Fix');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

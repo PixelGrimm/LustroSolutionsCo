@@ -52,6 +52,10 @@ function showSuccess(title, message) {
                 successModal.style.visibility = 'visible';
                 successModal.style.opacity = '1';
                 successModal.style.zIndex = '999999';
+                successModal.style.position = 'fixed';
+                successModal.style.top = '50%';
+                successModal.style.left = '50%';
+                successModal.style.transform = 'translate(-50%, -50%)';
                 successModal.classList.add('show');
                 
                 console.log('Success modal display style set to:', successModal.style.display);
@@ -144,6 +148,24 @@ function initReviewsCarousel() {
     carousel.style.display = 'flex';
     carousel.style.flexDirection = 'column';
     
+    // Also check if CSS keyframes are available
+    const styleSheets = Array.from(document.styleSheets);
+    let keyframesFound = false;
+    styleSheets.forEach(sheet => {
+        try {
+            const rules = Array.from(sheet.cssRules || []);
+            rules.forEach(rule => {
+                if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === 'scrollReviews') {
+                    keyframesFound = true;
+                    console.log('scrollReviews keyframes found in:', sheet.href || 'inline styles');
+                }
+            });
+        } catch (e) {
+            // Cross-origin stylesheets may throw errors
+        }
+    });
+    console.log('scrollReviews keyframes found:', keyframesFound);
+    
     console.log('Animation applied:', carousel.style.animation);
     console.log('Display style:', carousel.style.display);
     console.log('Flex direction:', carousel.style.flexDirection);
@@ -178,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.4 - Enhanced Debugging & Fixes');
+        console.log('Script loaded - version 3.5 - Modal Class Conflict Fix & Enhanced Reviews Debugging');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

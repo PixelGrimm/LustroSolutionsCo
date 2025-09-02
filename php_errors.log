@@ -94,3 +94,11 @@
 [02-Sep-2025 21:06:34 UTC] No Formspree ID configured - simulating success
 [02-Sep-2025 21:06:34 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
 [02-Sep-2025 21:06:34 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}
+[02-Sep-2025 22:03:13 UTC] === send-quote.php started with Formspree ===
+[02-Sep-2025 22:03:13 UTC] PHP Version: 8.4.12
+[02-Sep-2025 22:03:13 UTC] === Formspree Configuration ===
+[02-Sep-2025 22:03:13 UTC] FORMSPREE_ID: NOT SET
+[02-Sep-2025 22:03:13 UTC] =============================
+[02-Sep-2025 22:03:13 UTC] No Formspree ID configured - simulating success
+[02-Sep-2025 22:03:13 UTC] Email attempt to info@lustrosolutions.co.uk - Success: Yes - Error: Formspree not configured
+[02-Sep-2025 22:03:13 UTC] Sending success response: {"success":true,"message":"Thank you! Your quote request has been sent successfully. We will contact you soon."}

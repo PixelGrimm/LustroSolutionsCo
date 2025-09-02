@@ -92,21 +92,35 @@ function initReviewsCarousel() {
     const carousel = document.getElementById('reviewsCarousel');
     if (!carousel) return;
     
+    console.log('Initializing reviews carousel...');
+    console.log('Carousel element:', carousel);
+    
     // Clone reviews for seamless loop
     const reviews = carousel.querySelectorAll('.review-item');
-    reviews.forEach(review => {
+    console.log('Found reviews:', reviews.length);
+    
+    reviews.forEach((review, index) => {
         const clone = review.cloneNode(true);
         carousel.appendChild(clone);
+        console.log(`Cloned review ${index + 1}`);
     });
+    
+    // Force animation to start
+    carousel.style.animation = 'scrollReviews 60s linear infinite';
+    console.log('Animation style set:', carousel.style.animation);
     
     // Pause on hover
     carousel.addEventListener('mouseenter', () => {
         carousel.style.animationPlayState = 'paused';
+        console.log('Animation paused on hover');
     });
     
     carousel.addEventListener('mouseleave', () => {
         carousel.style.animationPlayState = 'running';
+        console.log('Animation resumed on mouse leave');
     });
+    
+    console.log('Reviews carousel initialized successfully');
 }
 
 
@@ -117,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.0 - Complete Reviews & Modal Fix');
+        console.log('Script loaded - version 3.1 - Fixed Reviews Animation');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

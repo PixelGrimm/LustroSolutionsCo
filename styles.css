@@ -295,8 +295,9 @@ body {
 .reviews-carousel {
     display: flex;
     flex-direction: column;
-    animation: scrollReviews 60s linear infinite;
+    animation: scrollReviews 60s linear infinite !important;
     transition: animation-play-state 0.3s ease;
+    will-change: transform;
 }
 
 .reviews-carousel:hover {
@@ -350,10 +351,10 @@ body {
 
 @keyframes scrollReviews {
     0% {
-        transform: translateY(0);
+        transform: translateY(0) !important;
     }
     100% {
-        transform: translateY(-1000px);
+        transform: translateY(-1000px) !important;
     }
 }
 

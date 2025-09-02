@@ -288,16 +288,16 @@ body {
     overflow: hidden;
     height: 400px;
     margin: 40px 0;
+    background: #0a0a0a;
+    border-radius: 20px;
+    padding: 20px;
 }
-
-
 
 .reviews-carousel {
     display: flex;
     flex-direction: column;
-    animation: scrollReviews 60s linear infinite !important;
+    animation: scrollReviews 60s linear infinite;
     transition: animation-play-state 0.3s ease;
-    will-change: transform;
 }
 
 .reviews-carousel:hover {
@@ -351,10 +351,10 @@ body {
 
 @keyframes scrollReviews {
     0% {
-        transform: translateY(0) !important;
+        transform: translateY(0);
     }
     100% {
-        transform: translateY(-1000px) !important;
+        transform: translateY(-1000px);
     }
 }
 

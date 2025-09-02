@@ -90,24 +90,32 @@ function testModal() {
 // Reviews Carousel Functionality
 function initReviewsCarousel() {
     const carousel = document.getElementById('reviewsCarousel');
-    if (!carousel) return;
+    if (!carousel) {
+        console.log('Reviews carousel not found');
+        return;
+    }
     
     console.log('Initializing reviews carousel...');
-    console.log('Carousel element:', carousel);
     
     // Clone reviews for seamless loop
     const reviews = carousel.querySelectorAll('.review-item');
     console.log('Found reviews:', reviews.length);
     
+    // Clear any existing clones
+    const existingClones = carousel.querySelectorAll('.review-item[data-cloned]');
+    existingClones.forEach(clone => clone.remove());
+    
+    // Clone and mark as cloned
     reviews.forEach((review, index) => {
         const clone = review.cloneNode(true);
+        clone.setAttribute('data-cloned', 'true');
         carousel.appendChild(clone);
         console.log(`Cloned review ${index + 1}`);
     });
     
-    // Force animation to start
+    // Ensure animation is applied
     carousel.style.animation = 'scrollReviews 60s linear infinite';
-    console.log('Animation style set:', carousel.style.animation);
+    console.log('Animation applied:', carousel.style.animation);
     
     // Pause on hover
     carousel.addEventListener('mouseenter', () => {
@@ -131,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.1 - Fixed Reviews Animation');
+        console.log('Script loaded - version 3.2 - Rebuilt Reviews Section');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

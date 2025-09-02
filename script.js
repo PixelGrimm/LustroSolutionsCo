@@ -26,7 +26,7 @@ function closeAlertModal() {
 
 function showSuccess(title, message) {
     console.log('showSuccess called:', title, message);
-    console.log('showSuccess function version: 3.2 - Fixed Modal Display');
+    console.log('showSuccess function version: 3.3 - Enhanced Modal Debugging');
     
     try {
         const successModal = document.getElementById('successModal');
@@ -47,11 +47,34 @@ function showSuccess(title, message) {
                 successTitle.textContent = title;
                 successMessage.textContent = message;
                 
-                // Display the actual success modal
+                // Force modal visibility with inline styles to override CSS conflicts
                 successModal.style.display = 'block';
+                successModal.style.visibility = 'visible';
+                successModal.style.opacity = '1';
+                successModal.style.zIndex = '999999';
                 successModal.classList.add('show');
+                
                 console.log('Success modal display style set to:', successModal.style.display);
                 console.log('Success modal classes:', successModal.className);
+                console.log('Success modal inline styles:', {
+                    display: successModal.style.display,
+                    visibility: successModal.style.visibility,
+                    opacity: successModal.style.opacity,
+                    zIndex: successModal.style.zIndex
+                });
+                
+                // Verify computed styles
+                setTimeout(() => {
+                    const computedStyle = window.getComputedStyle(successModal);
+                    console.log('Computed styles after show:', {
+                        display: computedStyle.display,
+                        visibility: computedStyle.visibility,
+                        opacity: computedStyle.opacity,
+                        zIndex: computedStyle.zIndex,
+                        position: computedStyle.position
+                    });
+                }, 50);
+                
                 console.log('Success modal displayed successfully');
             } else {
                 // Fallback to custom HTML if elements not found
@@ -96,6 +119,8 @@ function initReviewsCarousel() {
     }
     
     console.log('Initializing reviews carousel...');
+    console.log('Carousel element:', carousel);
+    console.log('Carousel computed styles:', window.getComputedStyle(carousel));
     
     // Clone reviews for seamless loop
     const reviews = carousel.querySelectorAll('.review-item');
@@ -113,9 +138,15 @@ function initReviewsCarousel() {
         console.log(`Cloned review ${index + 1}`);
     });
     
-    // Ensure animation is applied
+    // Force animation with inline styles to override any CSS conflicts
     carousel.style.animation = 'scrollReviews 60s linear infinite';
+    carousel.style.animationPlayState = 'running';
+    carousel.style.display = 'flex';
+    carousel.style.flexDirection = 'column';
+    
     console.log('Animation applied:', carousel.style.animation);
+    console.log('Display style:', carousel.style.display);
+    console.log('Flex direction:', carousel.style.flexDirection);
     
     // Pause on hover
     carousel.addEventListener('mouseenter', () => {
@@ -128,6 +159,14 @@ function initReviewsCarousel() {
         console.log('Animation resumed on mouse leave');
     });
     
+    // Verify animation is working
+    setTimeout(() => {
+        const computedStyle = window.getComputedStyle(carousel);
+        console.log('Final computed animation:', computedStyle.animation);
+        console.log('Final computed display:', computedStyle.display);
+        console.log('Final computed transform:', computedStyle.transform);
+    }, 100);
+    
     console.log('Reviews carousel initialized successfully');
 }
 
@@ -139,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.3 - Fixed Modal & Reviews');
+        console.log('Script loaded - version 3.4 - Enhanced Debugging & Fixes');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

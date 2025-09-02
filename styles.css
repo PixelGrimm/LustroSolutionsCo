@@ -1160,7 +1160,7 @@ body {
     overflow: visible !important;
     z-index: 999999 !important;
     animation: modalSlideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
-    display: none !important;
+    display: none;
 }
 
 .success-modal.show {

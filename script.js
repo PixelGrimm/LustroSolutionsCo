@@ -44,10 +44,13 @@ function showSuccess(title, message) {
                 successTitle.textContent = title;
                 successMessage.textContent = message;
                 
-                // Simple modal display - let CSS handle the styling
-                successModal.style.display = 'block';
+                // Force modal to show with proper z-index
+                successModal.style.display = 'flex';
+                successModal.style.alignItems = 'center';
+                successModal.style.justifyContent = 'center';
+                successModal.style.zIndex = '999999';
                 successModal.classList.add('show');
-                console.log('Success modal displayed successfully');
+                console.log('Success modal displayed successfully with forced flexbox');
             } else {
                 // Fallback to custom HTML if elements not found
                 console.log('Using fallback HTML for success modal');
@@ -74,6 +77,12 @@ function closeSuccessModal() {
 }
 
 
+
+// Test Modal Function
+function testModal() {
+    console.log('Testing modal display...');
+    showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
+}
 
 // Image Modal Functions
 function openImageModal(imageSrc, title) {

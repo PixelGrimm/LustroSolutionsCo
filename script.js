@@ -280,7 +280,7 @@ function fixDropdownStyling() {
 }
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 4.4 - Production Ready');
+        console.log('Script loaded - version 4.5 - Fixed Service Names in Emails');
 
 // Image Modal Functions
 function openImageModal(imageSrc, title) {

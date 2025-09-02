@@ -289,10 +289,45 @@ function createJavaScriptAnimation(carousel) {
 // Initialize reviews carousel when page loads
 document.addEventListener('DOMContentLoaded', function() {
     initReviewsCarousel();
+    
+    // Fix dropdown styling across all platforms
+    fixDropdownStyling();
 });
 
+// Fix dropdown styling for cross-platform compatibility
+function fixDropdownStyling() {
+    const selects = document.querySelectorAll('select');
+    
+    selects.forEach(select => {
+        // Force dark theme on all platforms
+        select.style.backgroundColor = '#1a1a1a';
+        select.style.color = '#ffffff';
+        select.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+        
+        // Add event listeners for better cross-platform support
+        select.addEventListener('focus', function() {
+            this.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            this.style.borderColor = '#00d4aa';
+        });
+        
+        select.addEventListener('blur', function() {
+            this.style.backgroundColor = '#1a1a1a';
+            this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+        });
+        
+        // Force option styling
+        const options = select.querySelectorAll('option');
+        options.forEach(option => {
+            option.style.backgroundColor = '#1a1a1a';
+            option.style.color = '#ffffff';
+        });
+    });
+    
+    console.log('Dropdown styling fixed for cross-platform compatibility');
+}
+
 // Debug: Log when script loads
-        console.log('Script loaded - version 4.1 - Final Fix: No Green Border & Working Reviews');
+        console.log('Script loaded - version 4.2 - Cross-Platform Dropdown Fix');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

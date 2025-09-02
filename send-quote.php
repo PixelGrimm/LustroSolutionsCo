@@ -153,17 +153,24 @@ error_log("Email attempt to $to - Success: " . ($mailSent ? 'Yes' : 'No') . ($ma
 
 // Send response back to client
 if ($mailSent) {
-    echo json_encode([
+    $response = [
         'success' => true,
         'message' => 'Thank you! Your quote request has been sent successfully. We will contact you soon.'
-    ]);
+    ];
+    error_log("Sending success response: " . json_encode($response));
+    echo json_encode($response);
 } else {
     http_response_code(500);
-    echo json_encode([
+    $response = [
         'success' => false,
         'message' => 'Sorry, there was an error sending your request. Please try again or contact us directly.'
-    ]);
+    ];
+    error_log("Sending error response: " . json_encode($response));
+    echo json_encode($response);
 }
+
+// Ensure no extra output after JSON
+exit;
 
 // Log email attempt for debugging
 error_log("Email attempt to $to - Success: " . ($mailSent ? 'Yes' : 'No') . " - Error: " . $mailError);

@@ -135,8 +135,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-console.log('Script loaded - version 2.5');
-console.log('testModal function available:', typeof testModal);
+        console.log('Script loaded - version 3.0 - Complete Reviews & Modal Fix');
+        console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions
 function openImageModal(imageSrc, title) {

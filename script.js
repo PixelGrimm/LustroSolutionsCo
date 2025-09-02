@@ -77,9 +77,13 @@ function closeSuccessModal() {
 // Test Modal Function
 function testModal() {
     console.log('Testing modal display...');
-    console.log('testModal function loaded successfully - version 2.2');
+    console.log('testModal function loaded successfully - version 2.3');
     showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
 }
+
+// Debug: Log when script loads
+console.log('Script loaded - version 2.3');
+console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions
 function openImageModal(imageSrc, title) {

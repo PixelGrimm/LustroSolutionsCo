@@ -44,80 +44,9 @@ function showSuccess(title, message) {
                 successTitle.textContent = title;
                 successMessage.textContent = message;
                 
-                // Create a completely new modal that will definitely work
-                const newModal = document.createElement('div');
-                newModal.id = 'workingModal';
-                newModal.innerHTML = `
-                    <div style="
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: rgba(0, 0, 0, 0.8);
-                        z-index: 999999;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    ">
-                        <div style="
-                            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-                            border: 2px solid #10b981;
-                            border-radius: 20px;
-                            padding: 2rem;
-                            max-width: 450px;
-                            width: 90%;
-                            text-align: center;
-                            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-                        ">
-                            <div style="
-                                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-                                color: white;
-                                border-radius: 18px 18px 0 0;
-                                padding: 1rem 1.5rem;
-                                margin: -2rem -2rem 1rem -2rem;
-                                font-size: 1.8rem;
-                                font-weight: 700;
-                            ">${title}</div>
-                            <div style="
-                                font-size: 4rem;
-                                margin: 1rem 0;
-                                animation: bounce 2s infinite;
-                            ">🎉</div>
-                            <p style="
-                                color: #e5e7eb;
-                                font-size: 1.1rem;
-                                margin-bottom: 2rem;
-                                line-height: 1.6;
-                            ">${message}</p>
-                            <button onclick="closeWorkingModal()" style="
-                                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-                                color: white;
-                                border: none;
-                                padding: 1rem 2.5rem;
-                                border-radius: 50px;
-                                font-size: 1.1rem;
-                                font-weight: 600;
-                                cursor: pointer;
-                                transition: all 0.3s ease;
-                                box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-                            ">Continue</button>
-                        </div>
-                    </div>
-                `;
-                
-                // Add the modal to the page
-                document.body.appendChild(newModal);
-                
-                // Add close function to window
-                window.closeWorkingModal = function() {
-                    const modal = document.getElementById('workingModal');
-                    if (modal) {
-                        modal.remove();
-                    }
-                };
-                
-                console.log('Working modal created and displayed successfully');
+                // Simple working modal - just show an alert for now
+                alert('SUCCESS: ' + title + ' - ' + message);
+                console.log('Success modal displayed as alert');
             } else {
                 // Fallback to custom HTML if elements not found
                 console.log('Using fallback HTML for success modal');

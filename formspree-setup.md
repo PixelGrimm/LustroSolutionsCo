@@ -1,51 +1,46 @@
-# PHPMailer + Spacemail Email Setup - Professional & Reliable!
+# Formspree Email Setup - Simple & Reliable!
 
-## 🎯 Why PHPMailer + Spacemail?
-- **✅ Uses your existing Spacemail account**
-- **✅ No third-party services needed**
-- **✅ Professional-grade email library**
-- **✅ Proper SSL/TLS encryption on port 465**
-- **✅ Detailed SMTP debugging and logging**
-- **✅ Industry-standard email solution**
+## 🎯 Why Formspree?
+- **✅ 100 emails/month FREE**
+- **✅ No SMTP configuration needed**
+- **✅ Works perfectly on Railway**
+- **✅ Sends emails to your Spacemail account**
+- **✅ No sendmail issues**
+- **✅ HTTP-based (no dependencies)**
 
 ## 📋 Step-by-Step Setup
 
-### Step 1: Verify Spacemail Credentials
-1. Confirm your Spacemail account details:
-   - **Host:** mail.spacemail.com
-   - **Port:** 465 (implicit SSL/TLS)
-   - **Username:** info@lustrosolutions.co.uk
-   - **Password:** Your Spacemail password
-   - **Encryption:** SSL (implicit TLS on port 465)
+### Step 1: Create Formspree Account
+1. Go to [formspree.io](https://formspree.io)
+2. Click "Get Started" → "Sign Up"
+3. Create account with your email
+4. Verify your email address
 
-### Step 2: PHPMailer Installation
-1. PHPMailer will be automatically installed during Railway deployment
-2. The `composer install` command runs automatically
-3. No manual installation needed
+### Step 2: Create New Form
+1. In Formspree dashboard, click "New Form"
+2. Name it "Lustro Solutions Quote Form"
+3. Copy the form ID (looks like: `xrgkqjab`)
 
-### Step 3: Update Railway Variables
+### Step 3: Set Email Destination
+1. In your form settings, go to "Email"
+2. Set "Send emails to" to: `info@lustrosolutions.co.uk`
+3. Set "From name" to: `Lustro Solutions Co`
+4. Set "Reply-to" to: `{{email}}` (customer's email)
+
+### Step 4: Update Railway Variables
 1. Go to your Railway project dashboard
 2. Click "Variables" tab
-3. Set these exact variables:
+3. Replace SMTP variables with:
    ```
-   SMTP_HOST: mail.spacemail.com
-   SMTP_PORT: 465
-   SMTP_USERNAME: info@lustrosolutions.co.uk
-   SMTP_PASSWORD: your-actual-spacemail-password
-   SMTP_ENCRYPTION: ssl
+   Variable Name: FORMSPREE_ID
+   Value: your-actual-formspree-form-id
    ```
 
-### Step 4: Deploy and Test
+### Step 5: Deploy and Test
 1. Railway will automatically redeploy
 2. Submit a quote form
-3. Check Railway logs for SMTP connection details
-4. Verify email arrives at info@lustrosolutions.co.uk
-
-### Step 5: Test Real Email
-1. Deploy changes to Railway
-2. Submit a quote form
 3. Check if email arrives at `info@lustrosolutions.co.uk`
-4. Check Railway logs for SMTP connection details
+4. Check Railway logs for success
 
 ## 🔧 What Happens Now
 
@@ -54,24 +49,23 @@
 - ❌ User gets error message
 - ❌ **NO EMAIL SENT** (sendmail not found)
 
-### After (PHPMailer + Spacemail Working):
+### After (Formspree Working):
 - ✅ Form submits successfully
 - ✅ User gets success message
 - ✅ **REAL EMAIL SENT** to info@lustrosolutions.co.uk
 - ✅ Customer details included
 - ✅ You can reply directly
-- ✅ **Uses your Spacemail account directly**
-- ✅ **Professional PHPMailer library**
-- ✅ **Detailed SMTP debugging**
+- ✅ **Uses Formspree service**
+- ✅ **No dependencies or SMTP issues**
 
 ## 📧 Email Details
 
-**From:** `Lustro Solutions Co <info@lustrosolutions.co.uk>`
+**From:** `Lustro Solutions Co <noreply@formspree.io>`
 **To:** `info@lustrosolutions.co.uk`
 **Subject:** `New Quote Request - [Service Name]`
 **Reply-To:** Customer's email address
 **Content:** All form fields included
-**SMTP Server:** `mail.spacemail.com:465`
+**Service:** Formspree (HTTP-based)
 
 ## 🎉 Expected Result
 
@@ -80,6 +74,6 @@ Once set up, every quote form submission will:
 - Include all customer details
 - Allow you to reply directly to customers
 - Work reliably on Railway
-- **Use your Spacemail account directly** (no third-party)
+- **Use Formspree service** (reliable HTTP delivery)
 
-**No more sendmail errors - PHPMailer + Spacemail WORKING!** 🚀
+**No more sendmail errors - Formspree WORKING!** 🚀

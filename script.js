@@ -148,6 +148,11 @@ function initReviewsCarousel() {
     carousel.style.display = 'flex';
     carousel.style.flexDirection = 'column';
     
+    // Additional debugging for reviews
+    console.log('Reviews container height:', carousel.parentElement.offsetHeight);
+    console.log('Reviews carousel height:', carousel.offsetHeight);
+    console.log('Total review items:', carousel.children.length);
+    
     // Also check if CSS keyframes are available
     const styleSheets = Array.from(document.styleSheets);
     let keyframesFound = false;
@@ -190,6 +195,15 @@ function initReviewsCarousel() {
     }, 100);
     
     console.log('Reviews carousel initialized successfully');
+    
+    // Manual test: try to trigger animation manually
+    setTimeout(() => {
+        console.log('Manual animation test...');
+        carousel.style.animation = 'none';
+        carousel.offsetHeight; // Force reflow
+        carousel.style.animation = 'scrollReviews 60s linear infinite';
+        console.log('Animation reset and reapplied');
+    }, 500);
 }
 
 
@@ -200,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.5 - Modal Class Conflict Fix & Enhanced Reviews Debugging');
+        console.log('Script loaded - version 3.6 - Green Border Fix & Enhanced Reviews Debugging');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

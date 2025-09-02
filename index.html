@@ -216,6 +216,14 @@
         <div class="container">
             <h2 class="section-title">What Our Customers Say</h2>
             <div class="reviews-container">
+                <div class="reviews-controls">
+                    <button class="scroll-btn scroll-up" onclick="scrollReviews('up')">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                    <button class="scroll-btn scroll-down" onclick="scrollReviews('down')">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
                 <div class="reviews-carousel" id="reviewsCarousel">
                     <div class="review-item">
                         <div class="review-content">
@@ -556,7 +564,7 @@
 
 
     
-            <script src="script.js?v=2.4"></script>
+            <script src="script.js?v=2.5"></script>
     
     <!-- Health check endpoint for Railway -->
     <script>

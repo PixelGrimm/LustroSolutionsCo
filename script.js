@@ -87,8 +87,35 @@ function testModal() {
     showSuccess('Test Modal', 'This is a test to see if the modal displays correctly.');
 }
 
+// Reviews Carousel Functionality
+function initReviewsCarousel() {
+    const carousel = document.getElementById('reviewsCarousel');
+    if (!carousel) return;
+    
+    // Clone reviews for seamless loop
+    const reviews = carousel.querySelectorAll('.review-item');
+    reviews.forEach(review => {
+        const clone = review.cloneNode(true);
+        carousel.appendChild(clone);
+    });
+    
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => {
+        carousel.style.animationPlayState = 'paused';
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        carousel.style.animationPlayState = 'running';
+    });
+}
+
+// Initialize reviews carousel when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initReviewsCarousel();
+});
+
 // Debug: Log when script loads
-console.log('Script loaded - version 2.3');
+console.log('Script loaded - version 2.4');
 console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

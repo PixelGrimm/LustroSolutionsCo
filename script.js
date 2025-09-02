@@ -154,38 +154,40 @@ function initReviewsCarousel() {
         console.log(`Cloned review ${index + 1}`);
     });
     
-    // Try CSS animation first
+    // Force CSS animation to work
     carousel.style.animation = 'scrollReviews 60s linear infinite';
     carousel.style.animationPlayState = 'running';
     carousel.style.display = 'flex';
     carousel.style.flexDirection = 'column';
     
-    // Force the animation to work by ensuring all properties are set
+    // Ensure all animation properties are set
     carousel.style.animationDuration = '60s';
     carousel.style.animationTimingFunction = 'linear';
     carousel.style.animationIterationCount = 'infinite';
     carousel.style.animationDirection = 'normal';
     carousel.style.animationFillMode = 'forwards';
     
-    // Check if CSS animation is working after 2 seconds
+    // Force animation to start immediately
+    carousel.style.transform = 'translateY(0)';
+    carousel.offsetHeight; // Force reflow
+    
+    console.log('CSS animation applied:', carousel.style.animation);
+    
+    // Verify animation is working after 1 second
     setTimeout(() => {
         const computedStyle = window.getComputedStyle(carousel);
-        const isAnimating = computedStyle.animationName === 'scrollReviews' && 
-                           computedStyle.animationDuration !== '0s';
-        
-        console.log('CSS Animation Check:', {
-            animationName: computedStyle.animationName,
-            animationDuration: computedStyle.animationDuration,
-            isWorking: isAnimating
+        console.log('Animation verification:', {
+            name: computedStyle.animationName,
+            duration: computedStyle.animationDuration,
+            transform: computedStyle.transform
         });
         
-        if (!isAnimating) {
-            console.log('CSS animation not working, switching to JavaScript fallback');
+        // If CSS animation fails, use JavaScript immediately
+        if (computedStyle.animationName === 'none' || computedStyle.animationDuration === '0s') {
+            console.log('CSS animation failed, using JavaScript fallback');
             createJavaScriptAnimation(carousel);
-        } else {
-            console.log('CSS animation working correctly');
         }
-    }, 2000);
+    }, 1000);
     
     // Additional debugging for reviews
     console.log('Reviews container height:', carousel.parentElement.offsetHeight);
@@ -253,9 +255,8 @@ function createJavaScriptAnimation(carousel) {
     let startTime = Date.now();
     const duration = 60000; // 60 seconds
     
-    // Add visual indicator that JS animation is running
-    carousel.style.border = '2px solid #10b981';
-    carousel.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+    // No visual indicators - keep it clean
+    console.log('JavaScript animation started');
     
     function animate() {
         const elapsed = Date.now() - startTime;
@@ -274,13 +275,11 @@ function createJavaScriptAnimation(carousel) {
     // Add hover pause functionality
     carousel.addEventListener('mouseenter', () => {
         carousel.style.animationPlayState = 'paused';
-        carousel.style.borderColor = '#ff6b6b';
         console.log('JavaScript animation paused on hover');
     });
     
     carousel.addEventListener('mouseleave', () => {
         carousel.style.animationPlayState = 'running';
-        carousel.style.borderColor = '#10b981';
         console.log('JavaScript animation resumed on mouse leave');
     });
 }
@@ -293,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 4.0 - Unified Local & Live Experience');
+        console.log('Script loaded - version 4.1 - Final Fix: No Green Border & Working Reviews');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

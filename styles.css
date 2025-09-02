@@ -1171,6 +1171,14 @@ body {
     display: none;
 }
 
+/* Force remove any green borders from all modals */
+.success-modal *,
+.success-modal *::before,
+.success-modal *::after {
+    border-color: transparent !important;
+    outline: none !important;
+}
+
 .success-modal.show {
     display: block !important;
     animation: fadeIn 0.3s ease-out !important;

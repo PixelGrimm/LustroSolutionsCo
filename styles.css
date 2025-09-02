@@ -1161,12 +1161,37 @@ body {
     height: auto !important;
     overflow: visible !important;
     z-index: 999999 !important;
-    animation: modalSlideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+    animation: none !important;
     display: none;
 }
 
 .success-modal.show {
     display: block !important;
+    animation: fadeIn 0.3s ease-out !important;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.success-modal .modal-content {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 20px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    animation: none !important;
+    position: relative !important;
+    z-index: 2001 !important;
 }
 
 .success-modal .modal-header {

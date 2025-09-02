@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Debug: Log when script loads
-        console.log('Script loaded - version 3.7 - Enhanced Animation & JavaScript Fallback');
+        console.log('Script loaded - version 3.8 - Fixed Modal Positioning & Smooth Animation');
         console.log('testModal function available:', typeof testModal);
 
 // Image Modal Functions

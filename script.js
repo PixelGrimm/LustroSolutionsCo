@@ -27,12 +27,8 @@ function closeAlertModal() {
 function showSuccess(title, message) {
     console.log('showSuccess called:', title, message);
     const successModal = document.getElementById('successModal');
-    const successTitle = document.getElementById('successTitle');
-    const successMessage = document.getElementById('successMessage');
     
-    if (successModal && successTitle && successMessage) {
-        successTitle.textContent = title;
-        successMessage.textContent = message;
+    if (successModal) {
         // Use the existing success modal structure with custom content
         const successTitle = successModal.querySelector('#successTitle');
         const successMessage = successModal.querySelector('#successMessage');
@@ -48,7 +44,7 @@ function showSuccess(title, message) {
             successModal.style.display = 'block';
         }
     } else {
-        console.error('Success modal elements not found:', { successModal, successTitle, successMessage });
+        console.error('Success modal not found');
         // Fallback to browser alert
         alert('Success: ' + title + ' - ' + message);
     }

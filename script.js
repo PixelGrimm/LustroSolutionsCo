@@ -26,11 +26,12 @@ function closeAlertModal() {
 
 function showSuccess(title, message) {
     console.log('showSuccess called:', title, message);
-    console.log('showSuccess function version: 2.0 - Fixed ReferenceError');
+    console.log('showSuccess function version: 2.4 - Enhanced Debugging');
     
     try {
         const successModal = document.getElementById('successModal');
         console.log('Success modal found:', !!successModal);
+        console.log('Success modal element:', successModal);
         
         if (successModal) {
             // Use the existing success modal structure with custom content
@@ -39,6 +40,8 @@ function showSuccess(title, message) {
             
             console.log('Success title element found:', !!successTitle);
             console.log('Success message element found:', !!successMessage);
+            console.log('Success title element:', successTitle);
+            console.log('Success message element:', successMessage);
             
             if (successTitle && successMessage) {
                 successTitle.textContent = title;
@@ -47,6 +50,8 @@ function showSuccess(title, message) {
                 // Display the actual success modal
                 successModal.style.display = 'block';
                 successModal.classList.add('show');
+                console.log('Success modal display style set to:', successModal.style.display);
+                console.log('Success modal classes:', successModal.className);
                 console.log('Success modal displayed successfully');
             } else {
                 // Fallback to custom HTML if elements not found

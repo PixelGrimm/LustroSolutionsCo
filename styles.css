@@ -290,51 +290,13 @@ body {
     margin: 40px 0;
 }
 
-.reviews-controls {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 10;
-}
 
-.scroll-btn {
-    width: 50px;
-    height: 50px;
-    border: none;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-}
-
-.scroll-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-}
-
-.scroll-btn:active {
-    transform: scale(0.95);
-}
 
 .reviews-carousel {
     display: flex;
     flex-direction: column;
     animation: scrollReviews 60s linear infinite;
     transition: animation-play-state 0.3s ease;
-    overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-}
-
-.reviews-carousel::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
 }
 
 .reviews-carousel:hover {

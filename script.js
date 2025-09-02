@@ -109,25 +109,7 @@ function initReviewsCarousel() {
     });
 }
 
-// Manual scroll controls for reviews
-function scrollReviews(direction) {
-    const carousel = document.getElementById('reviewsCarousel');
-    if (!carousel) return;
-    
-    const scrollAmount = 150; // Adjust this value to control scroll distance
-    
-    if (direction === 'up') {
-        carousel.scrollTop -= scrollAmount;
-    } else if (direction === 'down') {
-        carousel.scrollTop += scrollAmount;
-    }
-    
-    // Pause auto-scroll temporarily
-    carousel.style.animationPlayState = 'paused';
-    setTimeout(() => {
-        carousel.style.animationPlayState = 'running';
-    }, 2000);
-}
+
 
 // Initialize reviews carousel when page loads
 document.addEventListener('DOMContentLoaded', function() {

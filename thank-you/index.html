@@ -32,22 +32,42 @@
         body {
             margin: 0;
             padding: 0;
-            background: #1a1a1a;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1920&h=1080&fit=crop') center/cover;
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
         
         .container {
             text-align: center;
-            background: #2a2a2a;
+            background: rgba(42, 42, 42, 0.95);
+            backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             max-width: 500px;
             width: 90%;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .logo {

@@ -37,11 +37,16 @@
       console.log('Google Analytics initialized for thank-you page');
     </script>
     
-    <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             min-height: 100vh;
@@ -51,12 +56,15 @@
             margin: 0;
             padding: 20px;
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
         
         .thank-you-container {
             text-align: center;
             max-width: 600px;
             width: 100%;
+            z-index: 10;
+            position: relative;
         }
         
         .thank-you-logo {
@@ -67,6 +75,7 @@
             font-size: 3rem;
             color: #00d4aa;
             margin-bottom: 10px;
+            display: block;
         }
         
         .thank-you-logo h1 {
@@ -77,13 +86,17 @@
         }
         
         .success-modal {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #10b981, #059669) !important;
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             margin-bottom: 30px;
             position: relative;
             overflow: hidden;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 100;
         }
         
         .success-modal::before {
@@ -124,7 +137,7 @@
         }
         
         .success-title {
-            color: white;
+            color: white !important;
             font-size: 2.5rem;
             font-weight: 800;
             margin: 0;
@@ -132,7 +145,7 @@
         }
         
         .success-message {
-            color: white;
+            color: white !important;
             font-size: 1.2rem;
             line-height: 1.6;
             margin: 0;
@@ -181,7 +194,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1000;
+            z-index: 1;
         }
         
         .confetti-piece {
@@ -302,6 +315,18 @@
         // Initialize confetti on page load
         document.addEventListener('DOMContentLoaded', function() {
             createConfetti();
+            
+            // Force popup to be visible
+            const popup = document.querySelector('.success-modal');
+            if (popup) {
+                popup.style.display = 'block';
+                popup.style.visibility = 'visible';
+                popup.style.opacity = '1';
+                popup.style.zIndex = '9999';
+                console.log('Popup forced to be visible');
+            } else {
+                console.error('Popup element not found');
+            }
             
             // Auto-redirect after 10 seconds
             setTimeout(function() {

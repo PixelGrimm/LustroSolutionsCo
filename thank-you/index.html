@@ -8,20 +8,25 @@
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXWS39M4C4"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17538915513"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
+      // Google Analytics configuration
       gtag('config', 'G-LXWS39M4C4', {
         'page_title': 'Thank You - Quote Request Received',
         'page_location': window.location.href,
         'send_page_view': true
       });
       
+      // Google Ads configuration
+      gtag('config', 'AW-17538915513');
+      
       // Track conversion for Google Ads
       gtag('event', 'conversion', {
-        'send_to': 'G-LXWS39M4C4',
+        'send_to': 'AW-17538915513',
         'event_category': 'quote_request',
         'event_label': 'form_submission_success',
         'value': 1

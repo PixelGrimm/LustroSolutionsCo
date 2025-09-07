@@ -315,5 +315,51 @@
     </div>
 
     <script src="../script.js"></script>
+    <script>
+        // Animate counters function
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat h3');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target') || parseInt(counter.innerText);
+                    const count = +counter.innerText.replace(/\D/g, '');
+                    const inc = target / speed;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc) + (counter.innerText.includes('+') ? '+' : '');
+                        setTimeout(updateCount, 1);
+                    } else {
+                        // Special case for 24/7 Customer Support
+                        if (target === 24 && counter.parentElement.querySelector('p').textContent === 'Customer Support') {
+                            counter.innerText = '24/7';
+                        } else {
+                            counter.innerText = target + (counter.innerText.includes('+') ? '+' : '');
+                        }
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate counters when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            const statsSection = document.querySelector('.about-stats');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+    </script>
 </body>
 </html>

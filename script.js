@@ -476,9 +476,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(result => {
                 if (result.success) {
-                    showSuccess('Quote Request Sent!', result.message);
-                    closeQuoteModal();
-                    this.reset();
+                    // Track successful form submission for Google Ads
+                    trackEvent('form_submit', 'quote_request', 'success', 1);
+                    
+                    // Redirect to thank-you page for Google Ads tracking
+                    window.location.href = 'https://lustrosolutions.co.uk/thank-you';
                 } else {
                     showAlert('Error', 'Error: ' + result.message);
                 }

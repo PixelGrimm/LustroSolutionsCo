@@ -155,7 +155,8 @@ error_log("Email attempt to $to - Success: " . ($mailSent ? 'Yes' : 'No') . ($ma
 if ($mailSent) {
     $response = [
         'success' => true,
-        'message' => 'Thank you! Your quote request has been sent successfully. We will contact you soon.'
+        'message' => 'Thank you! Your quote request has been sent successfully. We will contact you soon.',
+        'redirect_url' => 'https://lustrosolutions.co.uk/thank-you'
     ];
     error_log("Sending success response: " . json_encode($response));
     echo json_encode($response);

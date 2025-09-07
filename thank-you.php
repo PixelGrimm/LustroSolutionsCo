@@ -65,15 +65,39 @@ header('Expires: 0');
         
         .container {
             text-align: center;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-text {
+            margin-bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #00d4aa, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .popup-container {
             background: rgba(42, 42, 42, 0.95);
             backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             max-width: 500px;
-            width: 90%;
-            position: relative;
-            z-index: 10;
+            margin: 0 auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -154,14 +178,19 @@ header('Expires: 0');
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <i class="fas fa-sparkles"></i> Lustro Solutions Co
+        <div class="hero-text">
+            <h1 class="hero-title">
+                Turn your space into a<br>
+                <span class="highlight">clean story.</span>
+            </h1>
         </div>
         
-        <div class="popup">
-            <h1>🎉 Quote Request Sent!</h1>
-            <p>Thank you! Your quote request has been sent successfully. We will contact you soon.</p>
-            <a href="https://lustrosolutions.co.uk" class="continue-btn">Continue</a>
+        <div class="popup-container">
+            <div class="popup">
+                <h1>🎉 Quote Request Sent!</h1>
+                <p>Thank you! Your quote request has been sent successfully. We will contact you soon.</p>
+                <a href="https://lustrosolutions.co.uk" class="continue-btn">Continue</a>
+            </div>
         </div>
         
         <a href="https://lustrosolutions.co.uk" class="back-link">← Back to Home</a>

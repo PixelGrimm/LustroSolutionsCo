@@ -14,13 +14,17 @@ header('Expires: 0');
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXWS39M4C4"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17538915513"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
+      // Google Ads configuration
+      gtag('config', 'AW-17538915513', {
+        'send_page_view': true
+      });
+      
       // Google Analytics configuration
       gtag('config', 'G-LXWS39M4C4', {
         'page_title': 'Thank You - Quote Request Received',
@@ -28,14 +32,17 @@ header('Expires: 0');
         'send_page_view': true
       });
       
-      // Google Ads configuration
-      gtag('config', 'AW-17538915513');
-      
-      // Track conversion for Google Ads
+      // Track conversion for Google Ads - Quote Request
       gtag('event', 'conversion', {
-        'send_to': 'AW-17538915513',
-        'event_category': 'quote_request',
-        'event_label': 'form_submission_success',
+        'send_to': 'AW-17538915513/quote_request',
+        'value': 1.0,
+        'currency': 'GBP'
+      });
+      
+      // Also track as a custom event
+      gtag('event', 'quote_request', {
+        'event_category': 'engagement',
+        'event_label': 'form_submission',
         'value': 1
       });
     </script>

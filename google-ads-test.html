@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Ads Tag Test - Lustro Solutions Co</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17538915513"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Google Ads configuration
+      gtag('config', 'AW-17538915513', {
+        'send_page_view': true
+      });
+      
+      // Debug logging
+      console.log('Google Ads tag loaded with ID: AW-17538915513');
+      console.log('DataLayer:', window.dataLayer);
+    </script>
+</head>
+<body>
+    <h1>Google Ads Tag Test Page</h1>
+    <p>This page is used to test if the Google Ads tag is working correctly.</p>
+    
+    <h2>Instructions:</h2>
+    <ol>
+        <li>Open your browser's Developer Tools (F12)</li>
+        <li>Go to the Console tab</li>
+        <li>Look for the message: "Google Ads tag loaded with ID: AW-17538915513"</li>
+        <li>Check the Network tab for requests to googletagmanager.com</li>
+        <li>Use Google Tag Assistant to verify the tag is firing</li>
+    </ol>
+    
+    <h2>Test Conversion</h2>
+    <button onclick="testConversion()">Test Conversion</button>
+    
+    <script>
+        function testConversion() {
+            // Track test conversion
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17538915513/quote_request',
+                'value': 1.0,
+                'currency': 'GBP'
+            });
+            
+            alert('Test conversion sent! Check Google Ads for the conversion.');
+        }
+    </script>
+</body>
+</html>

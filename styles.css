@@ -411,6 +411,67 @@ body {
     margin-top: 2px;
 }
 
+/* Service Card Styles */
+.service-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.service-header i {
+    color: #10b981;
+    font-size: 1.5rem;
+}
+
+.service-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+}
+
+.service-list li {
+    color: #4b5563;
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.service-list li i {
+    color: #10b981;
+    font-size: 1rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    background: #d1fae5;
+    border: 1px solid #a7e0c7;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
 .cta-section {
     text-align: center;
     margin-top: 3rem;
@@ -450,47 +511,7 @@ body {
     color: #1f2937;
 }
 
-.features-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.feature {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-    padding: 1.5rem;
-    background: #ffffff;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.feature i {
-    color: #10b981;
-    font-size: 1.2rem;
-    margin-top: 0;
-    flex-shrink: 0;
-    background: #d1fae5;
-    border: 1px solid #a7e0c7;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-}
-
-.feature span {
-    color: #4b5563;
-    line-height: 1.6;
-    font-size: 0.9rem;
-}
+/* Removed old feature styles - now using service-card */
 
 /* Work Process Section */
 .work-process {

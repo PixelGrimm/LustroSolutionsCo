@@ -415,7 +415,7 @@ body {
 .service-card {
     background: #ffffff;
     border-radius: 15px;
-    padding: 2.5rem;
+    padding: 2rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid #e5e7eb;
     max-width: 800px;

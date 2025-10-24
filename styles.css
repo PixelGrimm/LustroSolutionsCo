@@ -1109,8 +1109,13 @@ body {
         display: flex;
     }
     
+    .hero {
+        padding-top: 120px;
+    }
+    
     .hero-title {
         font-size: 2.5rem;
+        margin-top: 1rem;
     }
     
     .hero-subtitle {

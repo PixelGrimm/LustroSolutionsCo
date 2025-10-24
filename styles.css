@@ -70,22 +70,25 @@ body {
 }
 
 .features-grid {
-    display: flex;
-    justify-content: center;
+    display: flex !important;
+    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
-    flex-wrap: nowrap;
+    gap: 1rem;
+    flex-wrap: nowrap !important;
     width: 100%;
+    flex-direction: row !important;
 }
 
 .feature-item {
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 0.5rem;
     color: #000000;
     font-weight: 500;
     font-size: 0.85rem;
     white-space: nowrap;
+    flex: 1;
+    justify-content: center;
 }
 
 .feature-icon {

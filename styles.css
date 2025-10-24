@@ -39,10 +39,7 @@ body {
     border-bottom: 1px solid #e5e5e5;
 }
 
-.navbar.scrolled {
-    background: rgba(0, 0, 0, 0.95);
-    border-bottom: 1px solid #333;
-}
+/* Removed .navbar.scrolled - navbar stays white */
 
 .nav-container {
     max-width: 1200px;
@@ -62,9 +59,7 @@ body {
     color: #000000;
 }
 
-.navbar.scrolled .nav-logo {
-    color: #ffffff;
-}
+/* Removed .navbar.scrolled .nav-logo - text stays black */
 
 .nav-logo i {
     font-size: 1.8rem;

@@ -10,6 +10,8 @@ ul, ol {
     list-style: none;
 }
 
+/* Force cache refresh - v2.0 */
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #ffffff;

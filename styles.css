@@ -61,6 +61,75 @@ body {
 
 /* Removed .navbar.scrolled .nav-logo - text stays black */
 
+/* Features Banner */
+.features-banner {
+    background: #ffffff;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e5e5e5;
+    margin-top: 80px; /* Account for fixed navbar */
+}
+
+.features-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #000000;
+    font-weight: 500;
+    font-size: 0.9rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    background: #d1fae5;
+    border: 1px solid #a7e0c7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.feature-icon i {
+    color: #10b981;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .feature-item {
+        font-size: 0.8rem;
+        flex: 1 1 calc(50% - 0.375rem);
+        min-width: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .features-grid {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .feature-item {
+        flex: none;
+        font-size: 0.85rem;
+    }
+}
+
 .nav-logo i {
     font-size: 1.8rem;
 }

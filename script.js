@@ -31,15 +31,30 @@ function initNavigation() {
         });
     }
     
-    // Navbar scroll effect - removed color change, only add shadow
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 100) {
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            navbar.style.boxShadow = 'none';
-        }
-    });
+    // Navbar scroll effect - completely removed
+    // Force navbar to stay white
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        // Force white background
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.color = '#000000';
+        
+        // Remove any classes that might change the color
+        navbar.classList.remove('scrolled', 'dark', 'active');
+        
+        // Debug: Log any navbar class changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    console.log('Navbar class changed:', navbar.className);
+                    // Force it back to white
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.color = '#000000';
+                }
+            });
+        });
+        observer.observe(navbar, { attributes: true });
+    }
 }
 
 // Quote button functionality

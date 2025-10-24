@@ -452,9 +452,10 @@ body {
 
 .features-grid {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
 }
 
 .feature {
@@ -1217,6 +1218,10 @@ body {
     
     .areas-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
     }
     
     .modal-content {

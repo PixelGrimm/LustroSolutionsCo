@@ -53,6 +53,12 @@ body {
     font-size: 1.8rem;
 }
 
+.logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -670,6 +676,12 @@ body {
     font-weight: 700;
     color: #00d4aa;
     margin-bottom: 1rem;
+}
+
+.footer-logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
 }
 
 .footer-section h4 {

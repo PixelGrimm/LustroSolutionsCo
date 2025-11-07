@@ -1,81 +1,318 @@
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Script loaded - Lustro Solutions Co Deep Cleaning Website');
-    
-    // Initialize all functionality
-    initNavigation();
-    initQuoteButtons();
-    initFormspreeForms();
-    initSmoothScrolling();
-    initAnimations();
-    initGoogleAnalytics();
-});
 
-// Navigation functionality
-function initNavigation() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+
+// Custom modal functions
+function showAlert(title, message) {
+    console.log('showAlert called:', title, message);
+    const alertModal = document.getElementById('alertModal');
     
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
-    }
-    
-    // Navbar scroll effect - completely removed
-    // Force navbar to stay white
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        // Force white background
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.color = '#000000';
-        
-        // Remove any classes that might change the color
-        navbar.classList.remove('scrolled', 'dark', 'active');
-        
-        // Debug: Log any navbar class changes
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    console.log('Navbar class changed:', navbar.className);
-                    // Force it back to white
-                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                    navbar.style.color = '#000000';
-                }
-            });
-        });
-        observer.observe(navbar, { attributes: true });
+    if (alertModal) {
+        // Force the alert modal to work like the test div
+        alertModal.innerHTML = '<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;"><h2 style="margin: 0 0 20px 0; color: white;">' + title + '</h2><p style="margin: 0 0 20px 0; font-size: 16px;">' + message + '</p><button onclick="closeAlertModal()" style="background: white; color: #ef4444; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">OK</button></div>';
+        alertModal.style.display = 'block';
+        alertModal.style.zIndex = '999999';
+        console.log('Alert modal forced to display with custom HTML');
+    } else {
+        console.error('Alert modal not found');
+        // Fallback to browser alert
+        alert('Alert: ' + title + ' - ' + message);
     }
 }
 
-// Quote button functionality
-function initQuoteButtons() {
-    const quoteButtons = document.querySelectorAll('.quote-btn, .quote-btn-large, .cta-button');
-    quoteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            openQuoteModal();
-        });
+function closeAlertModal() {
+    const alertModal = document.getElementById('alertModal');
+    alertModal.style.display = 'none';
+    alertModal.classList.remove('show');
+}
+
+function showSuccess(title, message) {
+    console.log('showSuccess called:', title, message);
+    console.log('showSuccess function version: 3.3 - Enhanced Modal Debugging');
+    
+    try {
+        const successModal = document.getElementById('successModal');
+        console.log('Success modal found:', !!successModal);
+        console.log('Success modal element:', successModal);
+        
+        if (successModal) {
+            // Use the existing success modal structure with custom content
+            const successTitle = successModal.querySelector('#successTitle');
+            const successMessage = successModal.querySelector('#successMessage');
+            
+            console.log('Success title element found:', !!successTitle);
+            console.log('Success message element found:', !!successMessage);
+            console.log('Success title element:', successTitle);
+            console.log('Success message element:', successMessage);
+            
+            if (successTitle && successMessage) {
+                successTitle.textContent = title;
+                successMessage.textContent = message;
+                
+                // Force modal visibility with inline styles to override CSS conflicts
+                successModal.style.display = 'block';
+                successModal.style.visibility = 'visible';
+                successModal.style.opacity = '1';
+                successModal.style.zIndex = '999999';
+                successModal.style.position = 'fixed';
+                successModal.style.top = '50%';
+                successModal.style.left = '50%';
+                successModal.style.transform = 'translate(-50%, -50%)';
+                successModal.classList.add('show');
+                
+                console.log('Success modal display style set to:', successModal.style.display);
+                console.log('Success modal classes:', successModal.className);
+                console.log('Success modal inline styles:', {
+                    display: successModal.style.display,
+                    visibility: successModal.style.visibility,
+                    opacity: successModal.style.opacity,
+                    zIndex: successModal.style.zIndex
+                });
+                
+                // Verify computed styles
+                setTimeout(() => {
+                    const computedStyle = window.getComputedStyle(successModal);
+                    console.log('Computed styles after show:', {
+                        display: computedStyle.display,
+                        visibility: computedStyle.visibility,
+                        opacity: computedStyle.opacity,
+                        zIndex: computedStyle.zIndex,
+                        position: computedStyle.position
+                    });
+                }, 50);
+                
+                console.log('Success modal displayed successfully');
+            } else {
+                // Fallback to custom HTML if elements not found
+                console.log('Using fallback HTML for success modal');
+                successModal.innerHTML = '<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;"><h2 style="margin: 0 0 20px 0; color: white;">' + title + '</h2><p style="margin: 0 0 20px 0; font-size: 16px;">' + message + '</p><button onclick="closeSuccessModal()" style="background: white; color: #10b981; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">OK</button></div>';
+                successModal.style.display = 'block';
+                console.log('Fallback success modal displayed');
+            }
+        } else {
+            console.error('Success modal not found');
+            // Fallback to browser alert
+            alert('Success: ' + title + ' - ' + message);
+        }
+    } catch (error) {
+        console.error('Error in showSuccess function:', error);
+        // Ultimate fallback
+        alert('Success: ' + title + ' - ' + message);
+    }
+}
+
+function closeSuccessModal() {
+    const successModal = document.getElementById('successModal');
+    successModal.style.display = 'none';
+    successModal.classList.remove('show');
+}
+
+
+
+// Test Modal Function
+
+
+// Reviews Carousel Functionality
+function initReviewsCarousel() {
+    const carousel = document.getElementById('reviewsCarousel');
+    if (!carousel) {
+        console.log('Reviews carousel not found');
+        return;
+    }
+    
+    // Initialize reviews carousel
+    
+    // Clone reviews for seamless loop
+    const reviews = carousel.querySelectorAll('.review-item');
+    
+    // Clear any existing clones
+    const existingClones = carousel.querySelectorAll('.review-item[data-cloned]');
+    existingClones.forEach(clone => clone.remove());
+    
+    // Clone and mark as cloned
+    reviews.forEach((review, index) => {
+        const clone = review.cloneNode(true);
+        clone.setAttribute('data-cloned', 'true');
+        carousel.appendChild(clone);
+    });
+    
+    // Force CSS animation to work
+    carousel.style.animation = 'scrollReviews 60s linear infinite';
+    carousel.style.animationPlayState = 'running';
+    carousel.style.display = 'flex';
+    carousel.style.flexDirection = 'column';
+    
+    // Ensure all animation properties are set
+    carousel.style.animationDuration = '60s';
+    carousel.style.animationTimingFunction = 'linear';
+    carousel.style.animationIterationCount = 'infinite';
+    carousel.style.animationDirection = 'normal';
+    carousel.style.animationFillMode = 'forwards';
+    
+    // Force animation to start immediately
+    carousel.style.transform = 'translateY(0)';
+    carousel.offsetHeight; // Force reflow
+    
+    // Verify animation is working after 1 second
+    setTimeout(() => {
+        const computedStyle = window.getComputedStyle(carousel);
+        
+        // If CSS animation fails, use JavaScript immediately
+        if (computedStyle.animationName === 'none' || computedStyle.animationDuration === '0s') {
+            createJavaScriptAnimation(carousel);
+        }
+    }, 1000);
+    
+
+    
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => {
+        carousel.style.animationPlayState = 'paused';
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        carousel.style.animationPlayState = 'running';
+    });
+    
+    // Reviews carousel initialized successfully
+}
+
+// JavaScript fallback animation function
+function createJavaScriptAnimation(carousel) {
+    let startTime = Date.now();
+    const duration = 60000; // 60 seconds
+    
+    function animate() {
+        const elapsed = Date.now() - startTime;
+        const progress = (elapsed % duration) / duration;
+        
+        // Calculate transform value
+        const translateY = -1000 * progress;
+        carousel.style.transform = `translateY(${translateY}px)`;
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    // Add hover pause functionality
+    carousel.addEventListener('mouseenter', () => {
+        carousel.style.animationPlayState = 'paused';
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        carousel.style.animationPlayState = 'running';
     });
 }
 
-// Quote modal functions
+
+
+// Initialize reviews carousel when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initReviewsCarousel();
+    
+    // Fix dropdown styling across all platforms
+    fixDropdownStyling();
+});
+
+// Fix dropdown styling for cross-platform compatibility
+function fixDropdownStyling() {
+    const selects = document.querySelectorAll('select');
+    
+    selects.forEach(select => {
+        // Force dark theme on all platforms with maximum priority
+        select.setAttribute('style', `
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+        `);
+        
+        // Add event listeners for better cross-platform support
+        select.addEventListener('focus', function() {
+            this.setAttribute('style', `
+                background-color: rgba(255, 255, 255, 0.1) !important;
+                border-color: #00d4aa !important;
+                color: #ffffff !important;
+            `);
+        });
+        
+        select.addEventListener('blur', function() {
+            this.setAttribute('style', `
+                background-color: #1a1a1a !important;
+                border-color: rgba(255, 255, 255, 0.2) !important;
+                color: #ffffff !important;
+            `);
+        });
+        
+        // Force option styling with maximum priority
+        const options = select.querySelectorAll('option');
+        options.forEach(option => {
+            option.setAttribute('style', `
+                background-color: #1a1a1a !important;
+                color: #ffffff !important;
+                padding: 12px 15px !important;
+            `);
+        });
+        
+        // Additional Mac/Safari specific fix
+        if (navigator.userAgent.includes('Mac') || navigator.userAgent.includes('Safari')) {
+            select.style.webkitAppearance = 'none';
+            select.style.appearance = 'none';
+        }
+        
+        // Mobile specific fix
+        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            select.style.fontSize = '16px';
+            select.style.webkitAppearance = 'none';
+        }
+    });
+    
+    // Dropdown styling fixed for cross-platform compatibility
+    
+    // Re-apply styling after a delay to ensure it sticks
+    setTimeout(() => {
+        selects.forEach(select => {
+            select.style.backgroundColor = '#1a1a1a';
+            select.style.color = '#ffffff';
+        });
+    }, 1000);
+}
+
+// Debug: Log when script loads
+        console.log('Script loaded - version 4.5 - Fixed Service Names in Emails');
+
+// Image Modal Functions
+function openImageModal(imageSrc, title) {
+    const imageModal = document.getElementById('imageModal');
+    const imageModalImg = document.getElementById('imageModalImg');
+    const imageModalTitle = document.getElementById('imageModalTitle');
+    
+    imageModalImg.src = imageSrc;
+    imageModalTitle.textContent = title;
+    imageModal.style.display = 'block';
+    imageModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+    const imageModal = document.getElementById('imageModal');
+    imageModal.style.display = 'none';
+    imageModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
+
+
+
+
+// Quote Modal Functions
 function openQuoteModal() {
     const modal = document.getElementById('quoteModal');
     if (modal) {
         modal.style.display = 'block';
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
-        trackEvent('modal_open', 'quote_request', 'quote_modal', 1);
     }
 }
 
@@ -88,18 +325,111 @@ function closeQuoteModal() {
     }
 }
 
-// Form handling
-function initFormHandling() {
-    // This function is now handled by the global handleFormSubmit function
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const quoteModal = document.getElementById('quoteModal');
+    const serviceModal = document.getElementById('serviceModal');
+    const alertModal = document.getElementById('alertModal');
+    const successModal = document.getElementById('successModal');
+    const imageModal = document.getElementById('imageModal');
+    
+    if (event.target === quoteModal) {
+        closeQuoteModal();
+    }
+    if (event.target === serviceModal) {
+        closeServiceModal();
+    }
+    if (event.target === alertModal) {
+        closeAlertModal();
+    }
+    if (event.target === successModal) {
+        closeSuccessModal();
+    }
+    if (event.target === imageModal) {
+        closeImageModal();
+    }
 }
 
-// Formspree form handling
-function initFormspreeForms() {
-    const forms = document.querySelectorAll('.quote-form');
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+    } else {
+        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+        navbar.style.boxShadow = 'none';
+    }
+});
+
+// Intersection Observer for animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe all animated elements
+document.addEventListener('DOMContentLoaded', function() {
+    const animatedElements = document.querySelectorAll('[data-aos]');
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
     
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            const formData = new FormData(form);
+    // Add event listeners for quote buttons
+    const quoteButtons = document.querySelectorAll('.quote-btn, .quote-btn-large, .cta-button');
+    quoteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            openQuoteModal();
+        });
+    });
+    
+    // Set minimum date for date picker to today
+    const dateInput = document.getElementById('preferred-date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+    }
+    
+    // Initialize enhanced Google Analytics tracking
+    trackPageView(); // Track initial page view
+    trackScrollDepth();
+    trackTimeOnPage();
+    
+    // Add form submission handler
+    const quoteForm = document.querySelector('.quote-form');
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
             // Track form validation attempts
@@ -107,7 +437,6 @@ function initFormspreeForms() {
             
             // Simple validation
             if (!data.fullName || !data.phone || !data.email || !data.service) {
-                e.preventDefault();
                 trackEvent('form_validation', 'quote_request', 'validation_failed_missing_fields', 1);
                 showAlert('Missing Information', 'Please fill in all required fields.');
                 return;
@@ -116,7 +445,6 @@ function initFormspreeForms() {
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(data.email)) {
-                e.preventDefault();
                 showAlert('Invalid Email', 'Please enter a valid email address.');
                 return;
             }
@@ -124,193 +452,196 @@ function initFormspreeForms() {
             // Phone validation - more flexible
             const phoneRegex = /^[\+]?[\d\s\-\(\)]{7,}$/;
             if (!phoneRegex.test(data.phone)) {
-                e.preventDefault();
                 showAlert('Invalid Phone Number', 'Please enter a valid phone number.');
                 return;
             }
             
-            // If validation passes, submit to Formspree and handle redirect manually
-            e.preventDefault();
-            
-            // Track successful form submission for Google Ads
-            trackEvent('form_submit', 'quote_request', 'success', 1);
-            
-            // Update submit button to show loading
-            const submitBtn = form.querySelector('.submit-btn');
+            // Update submit button
+            const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.innerHTML;
+            
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
             
-            // Submit to Formspree
-            fetch(form.action, {
+            // Send data to PHP backend
+            fetch('send-quote.php', {
                 method: 'POST',
-                body: new FormData(form),
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
             })
             .then(response => {
-                // Always redirect to your thank-you page regardless of Formspree response
-                window.location.href = 'thank-you/';
+                return response.json();
+            })
+            .then(result => {
+                if (result.success) {
+                    // Track successful form submission for Google Ads
+                    trackEvent('form_submit', 'quote_request', 'success', 1);
+                    
+                    // Redirect to thank-you page for Google Ads tracking
+                    window.location.href = 'https://lustrosolutions.co.uk/thank-you';
+                } else {
+                    showAlert('Error', 'Error: ' + result.message);
+                }
             })
             .catch(error => {
-                console.error('Formspree error:', error);
-                // Even if there's an error, redirect to your thank-you page
-                window.location.href = 'thank-you/';
+                console.error('Error:', error);
+                showAlert('Error', 'Sorry, there was an error sending your request. Please try again or contact us directly.');
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             });
         });
+    }
+});
+
+
+
+// Parallax effect for hero section
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const hero = document.querySelector('.hero');
+    const heroContent = document.querySelector('.hero-content');
+    
+    if (hero && heroContent) {
+        const rate = scrolled * -0.5;
+        heroContent.style.transform = `translateY(${rate}px)`;
+    }
+});
+
+// Floating cards animation
+function animateFloatingCards() {
+    const cards = document.querySelectorAll('.floating-card');
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.5}s`;
     });
 }
 
-// Alert and Success Modal Functions
-function showAlert(title, message) {
-    console.log('showAlert called:', title, message);
+// Service cards hover effect
+document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
     
-    // Create alert modal if it doesn't exist
-    let alertModal = document.getElementById('alertModal');
-    if (!alertModal) {
-        alertModal = document.createElement('div');
-        alertModal.id = 'alertModal';
-        alertModal.className = 'modal';
-        document.body.appendChild(alertModal);
-    }
-    
-    alertModal.innerHTML = `
-        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;">
-            <h2 style="margin: 0 0 20px 0; color: white;">${title}</h2>
-            <p style="margin: 0 0 20px 0; font-size: 16px;">${message}</p>
-            <button onclick="closeAlertModal()" style="background: white; color: #ef4444; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">OK</button>
-        </div>
-    `;
-    alertModal.style.display = 'block';
-    alertModal.style.zIndex = '999999';
-}
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
 
-function closeAlertModal() {
-    const alertModal = document.getElementById('alertModal');
-    if (alertModal) {
-        alertModal.style.display = 'none';
-        alertModal.classList.remove('show');
-    }
-}
-
-function showSuccess(title, message) {
-    console.log('showSuccess called:', title, message);
-    
-    // Create success modal if it doesn't exist
-    let successModal = document.getElementById('successModal');
-    if (!successModal) {
-        successModal = document.createElement('div');
-        successModal.id = 'successModal';
-        successModal.className = 'modal';
-        document.body.appendChild(successModal);
-    }
-    
-    successModal.innerHTML = `
-        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; min-width: 400px;">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
-            <h2 style="margin: 0 0 20px 0; color: white;">${title}</h2>
-            <p style="margin: 0 0 20px 0; font-size: 16px;">${message}</p>
-            <button onclick="closeSuccessModal()" style="background: white; color: #10b981; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">Continue</button>
-        </div>
-    `;
-    successModal.style.display = 'block';
-    successModal.style.zIndex = '999999';
-}
-
-function closeSuccessModal() {
-    const successModal = document.getElementById('successModal');
-    if (successModal) {
-        successModal.style.display = 'none';
-        successModal.classList.remove('show');
-    }
-}
-
-// Smooth scrolling for navigation links
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+// Gallery image hover effect
+document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        const images = this.querySelectorAll('img');
+        images.forEach(img => {
+            img.style.transform = 'scale(1.05)';
         });
     });
-}
-
-// Animation initialization
-function initAnimations() {
-    // Intersection Observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
+    
+    item.addEventListener('mouseleave', function() {
+        const images = this.querySelectorAll('img');
+        images.forEach(img => {
+            img.style.transform = 'scale(1)';
         });
-    }, observerOptions);
-
-    // Observe all animated elements
-    const animatedElements = document.querySelectorAll('.service-category, .step, .feature, .comparison-item, .faq-item, .review-item');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
     });
-}
+});
 
-// Google Analytics and tracking
-function initGoogleAnalytics() {
-    // Track page view
-    trackPageView();
+// Counter animation for stats
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat h3');
+    const speed = 200;
     
-    // Track scroll depth
-    trackScrollDepth();
-    
-    // Track time on page
-    trackTimeOnPage();
-}
-
-// Google Analytics Event Tracking
-function trackEvent(eventName, eventCategory, eventLabel, value = null) {
-    if (typeof gtag !== 'undefined') {
-        const eventData = {
-            event_category: eventCategory,
-            event_label: eventLabel
+    counters.forEach(counter => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target') || parseInt(counter.innerText);
+            const count = +counter.innerText.replace(/\D/g, '');
+            const inc = target / speed;
+            
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc) + (counter.innerText.includes('+') ? '+' : '');
+                setTimeout(updateCount, 1);
+            } else {
+                // Special case for 24/7 Customer Support
+                if (target === 24 && counter.parentElement.querySelector('p').textContent === 'Customer Support') {
+                    counter.innerText = '24/7';
+                } else {
+                    counter.innerText = target + (counter.innerText.includes('+') ? '+' : '');
+                }
+            }
         };
-        
-        if (value !== null) {
-            eventData.value = value;
-        }
-        
-        gtag('event', eventName, eventData);
-        console.log('GA4 Event tracked:', eventName, eventData);
-    } else {
-        console.log('GA4 not loaded yet, event queued:', { eventName, eventCategory, eventLabel, value });
-    }
+        updateCount();
+    });
 }
 
-// Enhanced page view tracking
-function trackPageView() {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-            'page_title': document.title,
-            'page_location': window.location.href,
-            'page_referrer': document.referrer
-        });
-        console.log('GA4 Page view tracked');
+// Initialize animations when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    animateFloatingCards();
+    
+    // Set minimum date for date picker to today
+    const dateInput = document.getElementById('preferred-date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
     }
+    
+    // Trigger counter animation when about section is visible
+    const aboutSection = document.querySelector('#about');
+    if (aboutSection) {
+        const aboutObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    aboutObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        aboutObserver.observe(aboutSection);
+    }
+});
+
+// Mobile menu toggle
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
 }
+
+// Add loading animation
+window.addEventListener('load', function() {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
+    
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+});
+
+
+
+// Form field focus effects
+document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(field => {
+    field.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'scale(1.02)';
+    });
+    
+    field.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'scale(1)';
+    });
+});
 
 // Track scroll depth for better engagement metrics
 let maxScrollDepth = 0;
@@ -366,29 +697,6 @@ function trackTimeOnPage() {
     });
 }
 
-// Close modals when clicking outside
-window.onclick = function(event) {
-    const alertModal = document.getElementById('alertModal');
-    const successModal = document.getElementById('successModal');
-    
-    if (event.target === alertModal) {
-        closeAlertModal();
-    }
-    if (event.target === successModal) {
-        closeSuccessModal();
-    }
-}
-
-// Add loading animation
-window.addEventListener('load', function() {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-});
-
 // Add ripple effect to buttons
 function createRipple(event) {
     const button = event.currentTarget;
@@ -413,6 +721,292 @@ function createRipple(event) {
 // Add ripple effect to all buttons
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', createRipple);
+});
+
+// Google Analytics Event Tracking
+function trackEvent(eventName, eventCategory, eventLabel, value = null) {
+    if (typeof gtag !== 'undefined') {
+        const eventData = {
+            event_category: eventCategory,
+            event_label: eventLabel
+        };
+        
+        if (value !== null) {
+            eventData.value = value;
+        }
+        
+        gtag('event', eventName, eventData);
+        console.log('GA4 Event tracked:', eventName, eventData);
+    } else {
+        console.log('GA4 not loaded yet, event queued:', { eventName, eventCategory, eventLabel, value });
+    }
+}
+
+// Enhanced page view tracking
+function trackPageView() {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'page_referrer': document.referrer
+        });
+        console.log('GA4 Page view tracked');
+    }
+}
+
+// Track quote form submissions
+document.querySelector('.quote-form').addEventListener('submit', function(e) {
+    // Track form submission
+    trackEvent('form_submit', 'quote_request', 'quote_modal', 1);
+    
+    // Track which service was selected
+    const serviceSelect = this.querySelector('#service');
+    if (serviceSelect && serviceSelect.value) {
+        trackEvent('service_selected', 'quote_request', serviceSelect.value, 1);
+    }
+});
+
+// Track service modal opens
+function openServiceModal(serviceType) {
+    const modal = document.getElementById('serviceModal');
+    const service = serviceData[serviceType];
+    
+    if (service) {
+        // Track service modal open
+        trackEvent('modal_open', 'service_details', service.title);
+        
+        document.getElementById('serviceModalTitle').textContent = service.title;
+        
+        // Handle custom window icon
+        const iconElement = document.getElementById('serviceModalIcon');
+        if (service.icon === 'window-icon') {
+            iconElement.className = '';
+            iconElement.innerHTML = '<div class="window-icon"></div>';
+        } else {
+            iconElement.className = service.icon;
+            iconElement.innerHTML = '';
+        }
+        
+        document.getElementById('serviceModalDescription').textContent = service.description;
+        
+        const featuresList = document.getElementById('serviceModalFeatures');
+        featuresList.innerHTML = `
+            <h3>What's Included:</h3>
+            <ul>
+                ${service.features.map(feature => `<li>${feature}</li>`).join('')}
+            </ul>
+        `;
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Track quote modal opens
+function openQuoteModal() {
+    trackEvent('modal_open', 'quote_request', 'quote_modal', 1);
+    
+    const modal = document.getElementById('quoteModal');
+    if (modal) {
+        modal.style.display = 'block';
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Track phone number clicks
+document.querySelectorAll('.phone-btn, .phone-btn-modal').forEach(btn => {
+    btn.addEventListener('click', function() {
+        trackEvent('phone_click', 'contact', 'phone_number');
+    });
+});
+
+// Track email clicks
+document.querySelectorAll('.contact-item').forEach(item => {
+    if (item.querySelector('i.fas.fa-envelope')) {
+        item.addEventListener('click', function() {
+            trackEvent('email_click', 'contact', 'email_address');
+        });
+    }
+});
+
+// Service Modal functionality
+const serviceData = {
+    residential: {
+        title: 'Residential Cleaning',
+        icon: 'fas fa-home',
+        description: 'Complete home cleaning services tailored to your lifestyle and schedule. We provide comprehensive cleaning solutions for all areas of your home, ensuring a healthy and comfortable living environment.',
+        features: [
+            'Regular house cleaning',
+            'Kitchen and bathroom deep cleaning',
+            'Bedroom and living area cleaning',
+            'Dusting and vacuuming',
+            'Floor mopping and polishing',
+            'Eco-friendly cleaning products',
+            'Flexible scheduling options'
+        ]
+    },
+    office: {
+        title: 'Office Cleaning',
+        icon: 'fas fa-building',
+        description: 'Professional workplace cleaning to maintain a productive and healthy environment. We understand the importance of a clean office for employee satisfaction and client impressions.',
+        features: [
+            'Daily office cleaning',
+            'Reception and common areas',
+            'Meeting rooms and conference spaces',
+            'Kitchen and break room cleaning',
+            'Restroom sanitization',
+            'Desk and workstation cleaning',
+            'Carpet and floor maintenance'
+        ]
+    },
+    deep: {
+        title: 'Deep Cleaning',
+        icon: 'fas fa-broom',
+        description: 'Thorough cleaning services that reach every corner and surface of your space. Our deep cleaning service goes beyond regular cleaning to eliminate built-up dirt, grime, and bacteria.',
+        features: [
+            'Complete surface cleaning',
+            'Hard-to-reach area cleaning',
+            'Appliance deep cleaning',
+            'Cabinet and drawer cleaning',
+            'Light fixture cleaning',
+            'Baseboard and trim cleaning',
+            'Sanitization and disinfection'
+        ]
+    },
+    carpet: {
+        title: 'Furniture/Carpet Cleaning',
+        icon: 'fas fa-couch',
+        description: 'Professional carpet and furniture cleaning to restore freshness and appearance. Our advanced cleaning techniques remove deep-seated dirt, stains, and allergens from both carpets and upholstered furniture.',
+        features: [
+            'Deep carpet extraction',
+            'Furniture upholstery cleaning',
+            'Sofa and chair cleaning',
+            'Stain removal and treatment',
+            'Odor elimination',
+            'Allergen removal',
+            'Carpet protection treatment',
+            'Quick drying technology'
+        ]
+    },
+    window: {
+        title: 'Window Cleaning',
+        icon: 'window-icon',
+        description: 'Crystal clear windows with our specialized cleaning techniques and equipment. We provide both interior and exterior window cleaning for maximum clarity and light.',
+        features: [
+            'Interior window cleaning',
+            'Exterior window cleaning',
+            'Window frame cleaning',
+            'Sill and track cleaning',
+            'High-rise window cleaning',
+            'Stain removal',
+            'Streak-free finish'
+        ]
+    },
+    bin: {
+        title: 'Bin Cleaning',
+        icon: 'fas fa-trash',
+        description: 'Sanitize and deodorize your bins to eliminate odors and bacteria. Our bin cleaning service keeps your waste containers fresh and hygienic.',
+        features: [
+            'Complete bin sanitization',
+            'Odor elimination',
+            'Bacteria removal',
+            'Eco-friendly cleaning',
+            'Regular maintenance plans',
+            'Quick service turnaround',
+            'All bin sizes covered'
+        ]
+    },
+    fire: {
+        title: 'After Fire Clean',
+        icon: 'fas fa-fire',
+        description: 'Specialized cleaning and restoration services after fire damage incidents. We provide comprehensive cleaning to restore your property to its pre-fire condition.',
+        features: [
+            'Soot and smoke removal',
+            'Odor elimination',
+            'Surface restoration',
+            'Air purification',
+            'Content cleaning',
+            'Structural cleaning',
+            'Insurance documentation support'
+        ]
+    },
+    specialist: {
+        title: 'Specialist Cleaning',
+        icon: 'fas fa-heart',
+        description: 'Professional cleaning services for challenging situations with complete discretion and compassionate care. We handle sensitive cleaning requirements with the utmost professionalism.',
+        features: [
+            'Compassionate approach',
+            'Complete discretion',
+            'Professional handling',
+            'Eco-friendly products',
+            '24/7 availability',
+            'Licensed and insured',
+            'Confidential service'
+        ]
+    },
+    rubbish: {
+        title: 'Rubbish Collection',
+        icon: 'fas fa-truck',
+        description: 'Efficient waste removal and rubbish collection services for homes and businesses across London. We provide reliable and timely collection services.',
+        features: [
+            'Regular collection schedules',
+            'One-time removal services',
+            'Commercial waste collection',
+            'Residential waste collection',
+            'Recycling services',
+            'Large item removal',
+            'Environmentally responsible disposal'
+        ]
+    }
+};
+
+function openServiceModal(serviceType) {
+    const modal = document.getElementById('serviceModal');
+    const service = serviceData[serviceType];
+    
+    if (service) {
+        document.getElementById('serviceModalTitle').textContent = service.title;
+        
+        // Handle custom window icon
+        const iconElement = document.getElementById('serviceModalIcon');
+        if (service.icon === 'window-icon') {
+            iconElement.className = '';
+            iconElement.innerHTML = '<div class="window-icon"></div>';
+        } else {
+            iconElement.className = service.icon;
+            iconElement.innerHTML = '';
+        }
+        
+        document.getElementById('serviceModalDescription').textContent = service.description;
+        
+        const featuresList = document.getElementById('serviceModalFeatures');
+        featuresList.innerHTML = `
+            <h3>What's Included:</h3>
+            <ul>
+                ${service.features.map(feature => `<li>${feature}</li>`).join('')}
+            </ul>
+        `;
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeServiceModal() {
+    const modal = document.getElementById('serviceModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+
+
+// Close service modal when clicking outside
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('serviceModal');
+    if (event.target === modal) {
+        closeServiceModal();
+    }
 });
 
 // Add CSS for ripple effect

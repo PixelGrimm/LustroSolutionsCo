@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You - Lustro Solutions Co</title>
-    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17538915513"></script>
@@ -20,334 +20,201 @@
       
       // Google Analytics configuration
       gtag('config', 'G-LXWS39M4C4', {
-        'page_title': 'Thank You - Lustro Solutions Co',
+        'page_title': 'Thank You - Quote Request Received',
         'page_location': window.location.href,
-        'send_page_view': true,
-        'anonymize_ip': true,
-        'cookie_flags': 'SameSite=None;Secure'
+        'send_page_view': true
       });
       
-      // Track conversion
+      // Track conversion for Google Ads - Quote Request
       gtag('event', 'conversion', {
         'send_to': 'AW-17538915513/quote_request',
         'value': 1.0,
         'currency': 'GBP'
       });
+      
+      // Also track as a custom event
+      gtag('event', 'quote_request', {
+        'event_category': 'engagement',
+        'event_label': 'form_submission',
+        'value': 1
+      });
     </script>
     
-    <link rel="stylesheet" href="../styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        .thank-you-container {
-            min-height: 100vh;
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1920&h=1080&fit=crop') center/cover;
+            font-family: 'Inter', sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            padding: 2rem;
-        }
-        
-        .thank-you-content {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
+            align-items: center;
+            min-height: 100vh;
             position: relative;
             overflow: hidden;
         }
         
-        .thank-you-content::before {
+        body::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #10b981, #059669);
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
         
-        .thank-you-header {
+        .container {
             text-align: center;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-text {
+            margin-bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
             margin-bottom: 1rem;
-        }
-        
-        .thank-you-logo {
-            height: 160px;
-            width: auto;
-            object-fit: contain;
-            filter: brightness(0);
-        }
-        
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            animation: bounceIn 0.6s ease-out;
-        }
-        
-        .success-icon i {
             color: white;
-            font-size: 2rem;
         }
         
-        @keyframes bounceIn {
-            0% {
-                transform: scale(0.3);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            70% {
-                transform: scale(0.9);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        
-        .thank-you-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #10b981, #059669);
+        .highlight {
+            background: linear-gradient(135deg, #00d4aa, #8a2be2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .thank-you-message {
-            font-size: 1.2rem;
-            color: #6b7280;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+        .popup-container {
+            max-width: 500px;
+            margin: 0 auto;
         }
         
-        .next-steps {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            text-align: left;
+        .logo {
+            color: #00d4aa;
+            font-size: 2rem;
+            margin-bottom: 30px;
         }
         
-        .next-steps h3 {
-            color: #1f2937;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .next-steps ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .next-steps li {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            color: #4b5563;
-        }
-        
-        .next-steps li::before {
-            content: '✓';
-            color: #10b981;
-            font-weight: bold;
-            background: #d1fae5;
-            border: 1px solid #a7e0c7;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            flex-shrink: 0;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-        
-        .btn-primary {
+        .popup {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .popup h1 {
+            font-size: 2.5rem;
+            margin: 0 0 20px 0;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            justify-content: center;
+            gap: 15px;
         }
         
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        .popup p {
+            font-size: 1.2rem;
+            margin: 0 0 30px 0;
+            line-height: 1.5;
         }
         
-        .btn-secondary {
+        .continue-btn {
             background: white;
             color: #10b981;
-            padding: 1rem 2rem;
-            border: 2px solid #10b981;
-            border-radius: 12px;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
             font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
+            font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s;
         }
         
-        .btn-secondary:hover {
-            background: #10b981;
-            color: white;
+        .continue-btn:hover {
             transform: translateY(-2px);
         }
         
-        .contact-info {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border-left: 4px solid #10b981;
-        }
-        
-        .contact-info h4 {
-            color: #1f2937;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .contact-info p {
-            color: #4b5563;
-            margin: 0.25rem 0;
-        }
-        
-        .contact-info a {
-            color: #10b981;
+        .back-link {
+            color: #00d4aa;
             text-decoration: none;
-            font-weight: 500;
+            margin-top: 20px;
+            display: inline-block;
         }
         
-        .contact-info a:hover {
-            text-decoration: underline;
+        .back-link:hover {
+            color: white;
         }
         
-        @media (max-width: 768px) {
-            .thank-you-content {
-                padding: 2rem;
-                margin: 1rem;
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
             }
             
-            .thank-you-title {
+            .popup h1 {
                 font-size: 2rem;
             }
             
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                justify-content: center;
+            .popup p {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="thank-you-container">
-        <div class="thank-you-content">
-            <div class="thank-you-header">
-                <img src="../logo.png" alt="Lustro Solutions Co" class="thank-you-logo">
-            </div>
-            <div class="success-icon">
-                <i class="fas fa-check"></i>
-            </div>
-            
-            <h1 class="thank-you-title">Quote Request Sent!</h1>
-            
-            <p class="thank-you-message">
-                Thank you for choosing Lustro Solutions Co! Your deep cleaning quote request has been received successfully. 
-                We'll review your requirements and get back to you within 24 hours with a detailed quote.
-            </p>
-            
-            <div class="next-steps">
-                <h3><i class="fas fa-list-check"></i> What happens next?</h3>
-                <ul>
-                    <li>We'll review your cleaning requirements</li>
-                    <li>Our team will prepare a detailed quote</li>
-                    <li>We'll contact you within 24 hours</li>
-                    <li>Schedule your deep cleaning service</li>
-                </ul>
-            </div>
-            
-            <div class="contact-info">
-                <h4><i class="fas fa-phone"></i> Need immediate assistance?</h4>
-                <p>Call us: <a href="tel:+447724929891">07724 929 891</a></p>
-                <p>Email: <a href="mailto:info@lustrosolutions.co.uk">info@lustrosolutions.co.uk</a></p>
-            </div>
-            
-            <div class="action-buttons">
-                <a href="../index.html" class="btn-primary">
-                    <i class="fas fa-home"></i>
-                    Back to Home
-                </a>
-                <a href="tel:+447724929891" class="btn-secondary">
-                    <i class="fas fa-phone"></i>
-                    Call Us Now
-                </a>
+    <div class="container">
+        <div class="hero-text">
+            <h1 class="hero-title">
+                Turn your space into a<br>
+                <span class="highlight">clean story.</span>
+            </h1>
+        </div>
+        
+        <div class="popup-container">
+            <div class="popup">
+                <h1>🎉 Quote Request Sent!</h1>
+                <p>Thank you! Your quote request has been sent successfully. We will contact you soon.</p>
+                <a href="https://lustrosolutions.co.uk" class="continue-btn">Continue</a>
             </div>
         </div>
+        
+        <a href="https://lustrosolutions.co.uk" class="back-link">← Back to Home</a>
     </div>
-    
+
     <script>
         // Track page view
         gtag('event', 'page_view', {
-            'page_title': 'Thank You - Quote Request',
+            'page_title': 'Thank You - Quote Request Received',
             'page_location': window.location.href
         });
         
         // Track conversion
-        gtag('event', 'conversion', {
-            'send_to': 'AW-17538915513/quote_request',
-            'value': 1.0,
+        gtag('event', 'purchase', {
+            'transaction_id': 'quote_request_' + Date.now(),
+            'value': 1,
             'currency': 'GBP'
         });
         
-        console.log('Thank you page loaded - conversion tracked');
+        // Auto-redirect after 10 seconds
+        setTimeout(function() {
+            window.location.href = 'https://lustrosolutions.co.uk';
+        }, 10000);
+        
+        console.log('Thank you page loaded successfully');
     </script>
 </body>
 </html>

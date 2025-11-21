@@ -6,7 +6,9 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Lustro Solutions Co. - Professional Cleaning Services in London</title>
+    <title>Eco-Friendly Deep Cleaning Near Me | Professional Cleaning Services London | Lustro Solutions Co.</title>
+    <meta name="description" content="Professional eco-friendly deep cleaning services in London. Residential, commercial, carpet, window & specialist cleaning. Book now for 20% off your first clean! Fully insured, 24/7 service, 100% satisfaction guarantee.">
+    <meta name="keywords" content="eco-friendly deep cleaning near me, professional cleaning services London, residential cleaning, commercial cleaning, carpet cleaning, window cleaning, deep cleaning, eco cleaning, cleaning services near me, London cleaners">
     <link rel="icon" type="image/png" href="favicon.png">
     
     <!-- Google tag (gtag.js) -->
@@ -74,9 +76,13 @@
                 <p class="hero-description">
                     More than just cleaning—Lustro Solutions Co. is your trusted partner for pristine spaces across London and surrounding areas. Professional, reliable, and eco-friendly cleaning services that transform your environment.
                 </p>
+                <div class="hero-offer">
+                    <span class="offer-tag">🔥 Limited Time: 20% Off First Clean</span>
+                    <span class="offer-code">Use code: FIRST20</span>
+                </div>
                 <button class="cta-button">
                     <i class="fas fa-rocket"></i>
-                    Get Your Free Quote
+                    Get Your Free Quote - Save 20%
                 </button>
             </div>
             <div class="hero-image">
@@ -313,7 +319,12 @@
             <div class="about-content">
                 <div class="about-text" data-aos="fade-right">
                     <h2>Why Choose Lustro Solutions Co.?</h2>
-                    <p>With years of experience serving London and surrounding areas, we've built our reputation on quality, reliability, and customer satisfaction. Our team of trained professionals uses eco-friendly products and advanced cleaning techniques to deliver exceptional results. We work with a network of trusted partners to ensure every job is completed as soon as possible, providing you with the fastest and most reliable service available.</p>
+                    <h3 class="about-subtitle">Our Story</h3>
+                    <p>Founded with a passion for transforming spaces and a commitment to environmental responsibility, Lustro Solutions Co. began as a small family business in London. What started as a local cleaning service has grown into one of London's most trusted cleaning companies, serving hundreds of satisfied customers across the capital and surrounding areas.</p>
+                    <p>Our founder, driven by the belief that everyone deserves a clean, healthy living and working environment, built Lustro Solutions on three core principles: exceptional quality, eco-friendly practices, and genuine care for our customers. We understand that your home or office is more than just a space—it's where memories are made, businesses thrive, and lives unfold.</p>
+                    <h3 class="about-subtitle">Our Team</h3>
+                    <p>Our team consists of highly trained, background-checked professionals who take pride in their work. Each member undergoes rigorous training in the latest cleaning techniques, eco-friendly product usage, and customer service excellence. We're not just cleaners—we're your partners in maintaining a pristine environment.</p>
+                    <p>With years of combined experience serving London and surrounding areas, we've built our reputation on quality, reliability, and customer satisfaction. Our team uses eco-friendly products and advanced cleaning techniques to deliver exceptional results. We work with a network of trusted partners to ensure every job is completed as soon as possible, providing you with the fastest and most reliable service available.</p>
                     <div class="features">
                         <div class="feature">
                             <i class="fas fa-check-circle"></i>
@@ -330,6 +341,14 @@
                         <div class="feature">
                             <i class="fas fa-check-circle"></i>
                             <span>100% satisfaction guarantee</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Background-checked professionals</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Same-day service available</span>
                         </div>
                     </div>
                 </div>
@@ -435,6 +454,10 @@
                 <span class="close" onclick="closeQuoteModal()">&times;</span>
             </div>
             <p class="modal-description">Tell us about your cleaning needs and we'll provide a detailed quote within 24 hours.</p>
+            <div class="modal-discount-banner">
+                <span class="discount-icon">🎉</span>
+                <span><strong>New Customer Special:</strong> Get 20% off your first clean! Use code <strong>FIRST20</strong></span>
+            </div>
             <form class="quote-form" action="https://formspree.io/f/xpzgwqjq" method="POST">
                 <input type="hidden" name="_replyto" value="info@lustrosolutions.co.uk">
                 <input type="hidden" name="_subject" value="New Quote Request">
@@ -487,6 +510,10 @@
                 <div class="form-group">
                     <label for="details">Additional Details</label>
                     <textarea id="details" name="details" placeholder="Tell us about the size of your property, specific cleaning requirements, or any special requests..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="discountCode">Discount Code (Optional)</label>
+                    <input type="text" id="discountCode" name="discountCode" placeholder="Enter FIRST20 for 20% off your first clean">
                 </div>
                 <button type="submit" class="submit-btn">
                     <i class="fas fa-envelope"></i>
@@ -567,6 +594,68 @@
         </div>
     </div>
 
+    <!-- Urgency Banner -->
+    <div id="urgencyBanner" class="urgency-banner">
+        <div class="urgency-content">
+            <span class="urgency-icon">🔥</span>
+            <span class="urgency-text"><strong>Limited Time Offer:</strong> Book now and get 20% off your first clean! Use code: FIRST20</span>
+            <button class="urgency-close" onclick="closeUrgencyBanner()">&times;</button>
+        </div>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div id="exitIntentPopup" class="modal exit-intent-popup">
+        <div class="modal-content exit-intent-content">
+            <div class="modal-header exit-intent-header">
+                <h2>Wait! Don't Miss Out 🎉</h2>
+                <span class="close" onclick="closeExitIntentPopup()">&times;</span>
+            </div>
+            <div class="exit-intent-body">
+                <div class="exit-intent-offer">
+                    <div class="offer-badge">20% OFF</div>
+                    <h3>Get 20% Off Your First Clean!</h3>
+                    <p>Book now and transform your space with our professional cleaning services. Limited time offer - don't miss out!</p>
+                    <ul class="exit-intent-benefits">
+                        <li>✓ Eco-friendly cleaning products</li>
+                        <li>✓ Fully insured professionals</li>
+                        <li>✓ 100% satisfaction guarantee</li>
+                        <li>✓ Same-day service available</li>
+                    </ul>
+                    <button class="exit-intent-cta" onclick="openQuoteModal(); closeExitIntentPopup();">
+                        <i class="fas fa-rocket"></i>
+                        Claim Your 20% Discount Now
+                    </button>
+                    <p class="exit-intent-small">Use code: <strong>FIRST20</strong> when booking</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time-Based Popup -->
+    <div id="timeBasedPopup" class="modal time-based-popup">
+        <div class="modal-content time-based-content">
+            <div class="modal-header time-based-header">
+                <h2>Special Offer Just For You! ⏰</h2>
+                <span class="close" onclick="closeTimeBasedPopup()">&times;</span>
+            </div>
+            <div class="time-based-body">
+                <div class="time-based-offer">
+                    <div class="offer-badge">20% OFF</div>
+                    <h3>First-Time Customer Discount</h3>
+                    <p>You've been browsing for a while - here's a special offer just for you!</p>
+                    <div class="time-based-timer">
+                        <span class="timer-label">Offer expires in:</span>
+                        <span class="timer-value" id="popupTimer">15:00</span>
+                    </div>
+                    <button class="time-based-cta" onclick="openQuoteModal(); closeTimeBasedPopup();">
+                        <i class="fas fa-tag"></i>
+                        Get 20% Off Now
+                    </button>
+                    <p class="time-based-small">Use code: <strong>FIRST20</strong> - Valid for new customers only</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     
             <script src="script.js?v=4.5"></script>

@@ -1034,3 +1034,158 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Urgency Banner Functions
+function showUrgencyBanner() {
+    const banner = document.getElementById('urgencyBanner');
+    if (banner && !localStorage.getItem('urgencyBannerClosed')) {
+        banner.classList.add('show');
+        document.body.classList.add('urgency-banner-active');
+    }
+}
+
+function closeUrgencyBanner() {
+    const banner = document.getElementById('urgencyBanner');
+    if (banner) {
+        banner.classList.remove('show');
+        document.body.classList.remove('urgency-banner-active');
+        localStorage.setItem('urgencyBannerClosed', 'true');
+        // Reset after 24 hours
+        setTimeout(() => {
+            localStorage.removeItem('urgencyBannerClosed');
+        }, 24 * 60 * 60 * 1000);
+    }
+}
+
+// Exit Intent Popup Functions
+function closeExitIntentPopup() {
+    const popup = document.getElementById('exitIntentPopup');
+    if (popup) {
+        popup.style.display = 'none';
+        popup.classList.remove('show');
+        document.body.style.overflow = 'auto';
+        localStorage.setItem('exitIntentShown', 'true');
+        // Reset after 7 days
+        setTimeout(() => {
+            localStorage.removeItem('exitIntentShown');
+        }, 7 * 24 * 60 * 60 * 1000);
+    }
+}
+
+function initExitIntent() {
+    // Don't show if already shown in this session
+    if (localStorage.getItem('exitIntentShown')) {
+        return;
+    }
+
+    let exitIntentTriggered = false;
+    
+    // Track mouse movement
+    document.addEventListener('mouseout', function(e) {
+        // Check if mouse is leaving the top of the page
+        if (!e.toElement && !e.relatedTarget && e.clientY < 10 && !exitIntentTriggered) {
+            exitIntentTriggered = true;
+            const popup = document.getElementById('exitIntentPopup');
+            if (popup) {
+                popup.style.display = 'block';
+                popup.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                trackEvent('popup_show', 'exit_intent', 'exit_intent_popup', 1);
+            }
+        }
+    });
+}
+
+// Time-Based Popup Functions
+function closeTimeBasedPopup() {
+    const popup = document.getElementById('timeBasedPopup');
+    if (popup) {
+        popup.style.display = 'none';
+        popup.classList.remove('show');
+        document.body.style.overflow = 'auto';
+        localStorage.setItem('timeBasedPopupShown', 'true');
+        // Reset after 24 hours
+        setTimeout(() => {
+            localStorage.removeItem('timeBasedPopupShown');
+        }, 24 * 60 * 60 * 1000);
+    }
+}
+
+function initTimeBasedPopup() {
+    // Don't show if already shown
+    if (localStorage.getItem('timeBasedPopupShown')) {
+        return;
+    }
+
+    // Show popup after 30 seconds of being on the page
+    setTimeout(() => {
+        // Check if user hasn't already interacted with quote form
+        const popup = document.getElementById('timeBasedPopup');
+        if (popup && !localStorage.getItem('timeBasedPopupShown')) {
+            popup.style.display = 'block';
+            popup.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            trackEvent('popup_show', 'time_based', 'time_based_popup', 1);
+            startPopupTimer();
+        }
+    }, 30000); // 30 seconds
+}
+
+// Popup Timer Countdown
+function startPopupTimer() {
+    const timerElement = document.getElementById('popupTimer');
+    if (!timerElement) return;
+
+    let minutes = 15;
+    let seconds = 0;
+
+    const updateTimer = () => {
+        const mins = String(minutes).padStart(2, '0');
+        const secs = String(seconds).padStart(2, '0');
+        timerElement.textContent = `${mins}:${secs}`;
+
+        if (minutes === 0 && seconds === 0) {
+            // Timer expired, close popup
+            closeTimeBasedPopup();
+            return;
+        }
+
+        if (seconds === 0) {
+            minutes--;
+            seconds = 59;
+        } else {
+            seconds--;
+        }
+
+        setTimeout(updateTimer, 1000);
+    };
+
+    updateTimer();
+}
+
+// Initialize all popups and banners on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Show urgency banner
+    showUrgencyBanner();
+    
+    // Initialize exit intent (with delay to avoid immediate trigger)
+    setTimeout(() => {
+        initExitIntent();
+    }, 2000);
+    
+    // Initialize time-based popup
+    initTimeBasedPopup();
+    
+    // Close popups when clicking outside
+    window.addEventListener('click', function(event) {
+        const exitIntentPopup = document.getElementById('exitIntentPopup');
+        const timeBasedPopup = document.getElementById('timeBasedPopup');
+        
+        if (event.target === exitIntentPopup) {
+            closeExitIntentPopup();
+        }
+        if (event.target === timeBasedPopup) {
+            closeTimeBasedPopup();
+        }
+    });
+});

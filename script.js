@@ -1163,6 +1163,22 @@ function startPopupTimer() {
     updateTimer();
 }
 
+// FAQ Toggle Function
+function toggleFaq(button) {
+    const faqItem = button.parentElement;
+    const isActive = faqItem.classList.contains('active');
+    
+    // Close all FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Open clicked item if it wasn't active
+    if (!isActive) {
+        faqItem.classList.add('active');
+    }
+}
+
 // Initialize all popups and banners on page load
 document.addEventListener('DOMContentLoaded', function() {
     // Show urgency banner

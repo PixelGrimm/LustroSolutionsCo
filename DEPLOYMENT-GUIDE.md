@@ -2,6 +2,17 @@
 
 ## 🚀 Deployment Instructions
 
+### For Railway (Current Setup):
+**See `RAILWAY-DEPLOYMENT.md` for complete Railway-specific instructions.**
+
+Quick steps:
+1. Rename files: `index-new.html` → `index.html`, etc.
+2. Install dependencies: `npm install`
+3. Rename config files: `railway-static.json` → `railway.json`, `nixpacks-static.toml` → `nixpacks.toml`
+4. Deploy via Railway dashboard or CLI: `railway up`
+
+The `server.js` file handles static file serving and clean URLs automatically.
+
 ### For Vercel:
 ```bash
 # Install Vercel CLI

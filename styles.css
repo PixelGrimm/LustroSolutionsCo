@@ -1978,45 +1978,51 @@ body.urgency-banner-active .hero {
 
 /* WhatsApp Floating Button - Small Sticky */
 .whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 42px;
-    height: 42px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    width: 42px !important;
+    height: 42px !important;
+    background: #25D366 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3) !important;
+    z-index: 99999 !important;
     transition: all 0.3s ease;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .whatsapp-float:hover {
-    background: #20BA5A;
+    background: #20BA5A !important;
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4) !important;
 }
 
 .whatsapp-float svg {
-    width: 20px;
-    height: 20px;
+    width: 20px !important;
+    height: 20px !important;
+    fill: white !important;
 }
 
 /* Mobile WhatsApp Button */
 @media (max-width: 768px) {
     .whatsapp-float {
-        width: 40px;
-        height: 40px;
-        bottom: 15px;
-        right: 15px;
+        width: 40px !important;
+        height: 40px !important;
+        bottom: 15px !important;
+        right: 15px !important;
+        left: auto !important;
     }
     
     .whatsapp-float svg {
-        width: 18px;
-        height: 18px;
+        width: 18px !important;
+        height: 18px !important;
+        fill: white !important;
     }
 }

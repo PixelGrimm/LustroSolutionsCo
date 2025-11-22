@@ -1978,23 +1978,24 @@ body.urgency-banner-active .hero {
 
 /* WhatsApp Floating Button */
 .whatsapp-button {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #25D366;
-    color: white;
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    background: #25D366 !important;
+    color: white !important;
     border-radius: 50px;
     padding: 15px 25px;
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 12px;
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
-    z-index: 9999;
+    z-index: 99999 !important;
     box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
     transition: all 0.3s ease;
     animation: pulse-whatsapp 2s infinite;
+    pointer-events: auto !important;
 }
 
 .whatsapp-button:hover {
@@ -2008,6 +2009,7 @@ body.urgency-banner-active .hero {
     width: 28px;
     height: 28px;
     flex-shrink: 0;
+    display: block;
 }
 
 .whatsapp-text {
@@ -2026,10 +2028,15 @@ body.urgency-banner-active .hero {
 /* Mobile WhatsApp Button */
 @media (max-width: 768px) {
     .whatsapp-button {
-        bottom: 20px;
-        right: 20px;
-        padding: 12px 20px;
+        bottom: 20px !important;
+        right: 20px !important;
+        padding: 14px 18px;
         font-size: 14px;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        justify-content: center;
+        padding: 0;
     }
     
     .whatsapp-text {
@@ -2039,5 +2046,6 @@ body.urgency-banner-active .hero {
     .whatsapp-icon {
         width: 32px;
         height: 32px;
+        margin: 0 auto;
     }
 }

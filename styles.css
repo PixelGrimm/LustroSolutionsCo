@@ -1977,14 +1977,21 @@ body.urgency-banner-active .hero {
 }
 
 /* WhatsApp Floating Button - Small Sticky */
+a.whatsapp-float,
 .whatsapp-float {
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
     left: auto !important;
+    top: auto !important;
     width: 42px !important;
     height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    max-width: 42px !important;
+    max-height: 42px !important;
     background: #25D366 !important;
+    background-color: #25D366 !important;
     border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
@@ -1992,37 +1999,50 @@ body.urgency-banner-active .hero {
     color: white !important;
     text-decoration: none !important;
     box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3) !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     transition: all 0.3s ease;
     margin: 0 !important;
     padding: 0 !important;
+    float: none !important;
+    clear: both !important;
 }
 
+a.whatsapp-float:hover,
 .whatsapp-float:hover {
     background: #20BA5A !important;
+    background-color: #20BA5A !important;
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4) !important;
 }
 
+a.whatsapp-float svg,
 .whatsapp-float svg {
     width: 20px !important;
     height: 20px !important;
     fill: white !important;
+    color: white !important;
 }
 
 /* Mobile WhatsApp Button */
 @media (max-width: 768px) {
+    a.whatsapp-float,
     .whatsapp-float {
         width: 40px !important;
         height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
         bottom: 15px !important;
         right: 15px !important;
         left: auto !important;
     }
     
+    a.whatsapp-float svg,
     .whatsapp-float svg {
         width: 18px !important;
         height: 18px !important;
         fill: white !important;
+        color: white !important;
     }
 }

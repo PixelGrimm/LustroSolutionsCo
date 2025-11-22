@@ -548,29 +548,47 @@ document.querySelectorAll('.gallery-item').forEach(item => {
 });
 
 // Counter animation for stats
+let countersAnimated = false;
+
 function animateCounters() {
+    // Prevent multiple animations
+    if (countersAnimated) {
+        return;
+    }
+    countersAnimated = true;
+    
     const counters = document.querySelectorAll('.stat h3');
     const speed = 200;
     
     counters.forEach(counter => {
+        // Reset to 0 first
+        const hasPlus = counter.innerText.includes('+');
+        const target = +counter.getAttribute('data-target') || 0;
+        counter.innerText = '0' + (hasPlus ? '+' : '');
+        
         const updateCount = () => {
-            const target = +counter.getAttribute('data-target') || parseInt(counter.innerText);
-            const count = +counter.innerText.replace(/\D/g, '');
-            const inc = target / speed;
+            const currentText = counter.innerText;
+            const count = +currentText.replace(/\D/g, '') || 0;
+            const inc = Math.max(1, Math.ceil(target / speed));
             
             if (count < target) {
-                counter.innerText = Math.ceil(count + inc) + (counter.innerText.includes('+') ? '+' : '');
-                setTimeout(updateCount, 1);
+                const newCount = Math.min(count + inc, target);
+                counter.innerText = newCount + (hasPlus ? '+' : '');
+                requestAnimationFrame(updateCount);
             } else {
                 // Special case for 24/7 Customer Support
                 if (target === 24 && counter.parentElement.querySelector('p').textContent === 'Customer Support') {
                     counter.innerText = '24/7';
                 } else {
-                    counter.innerText = target + (counter.innerText.includes('+') ? '+' : '');
+                    counter.innerText = target + (hasPlus ? '+' : '');
                 }
             }
         };
-        updateCount();
+        
+        // Small delay to ensure visibility
+        setTimeout(() => {
+            updateCount();
+        }, 100);
     });
 }
 
@@ -588,16 +606,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Trigger counter animation when about section is visible
     const aboutSection = document.querySelector('#about');
     if (aboutSection) {
+        // Check if section is already visible on load (mobile/initial view)
+        const checkIfVisible = () => {
+            const rect = aboutSection.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            if (isVisible && !countersAnimated) {
+                // Small delay to ensure DOM is ready
+                setTimeout(() => {
+                    animateCounters();
+                }, 300);
+            }
+        };
+        
+        // Check immediately
+        checkIfVisible();
+        
+        // Also use IntersectionObserver for scroll-triggered animation
         const aboutObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
+                if (entry.isIntersecting && !countersAnimated) {
+                    setTimeout(() => {
+                        animateCounters();
+                    }, 100);
                     aboutObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.5 });
+        }, { 
+            threshold: 0.1, // Lower threshold for better mobile detection
+            rootMargin: '0px 0px -100px 0px' // Trigger slightly before fully visible
+        });
         
         aboutObserver.observe(aboutSection);
+        
+        // Fallback: trigger after page load if still not animated
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (!countersAnimated) {
+                    checkIfVisible();
+                }
+            }, 500);
+        });
     }
 });
 

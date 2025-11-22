@@ -1984,12 +1984,12 @@ a.whatsapp-float,
     right: 20px !important;
     left: auto !important;
     top: auto !important;
-    width: 42px !important;
-    height: 42px !important;
-    min-width: 42px !important;
-    min-height: 42px !important;
-    max-width: 42px !important;
-    max-height: 42px !important;
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+    max-width: 50px !important;
+    max-height: 50px !important;
     background: #25D366 !important;
     background-color: #25D366 !important;
     border-radius: 50% !important;
@@ -2017,8 +2017,8 @@ a.whatsapp-float:hover,
 
 a.whatsapp-float svg,
 .whatsapp-float svg {
-    width: 20px !important;
-    height: 20px !important;
+    width: 24px !important;
+    height: 24px !important;
     fill: white !important;
     color: white !important;
 }
@@ -2027,12 +2027,12 @@ a.whatsapp-float svg,
 @media (max-width: 768px) {
     a.whatsapp-float,
     .whatsapp-float {
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-        max-width: 40px !important;
-        max-height: 40px !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        max-width: 48px !important;
+        max-height: 48px !important;
         bottom: 15px !important;
         right: 15px !important;
         left: auto !important;
@@ -2040,8 +2040,8 @@ a.whatsapp-float svg,
     
     a.whatsapp-float svg,
     .whatsapp-float svg {
-        width: 18px !important;
-        height: 18px !important;
+        width: 22px !important;
+        height: 22px !important;
         fill: white !important;
         color: white !important;
     }

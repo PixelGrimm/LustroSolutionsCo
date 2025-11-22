@@ -1755,6 +1755,13 @@ body {
 /* Exit Intent Popup */
 .exit-intent-popup {
     z-index: 10000 !important;
+    display: none !important;
+}
+
+.exit-intent-popup.show {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .exit-intent-content {
@@ -1857,6 +1864,13 @@ body {
 /* Time-Based Popup */
 .time-based-popup {
     z-index: 10000 !important;
+    display: none !important;
+}
+
+.time-based-popup.show {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .time-based-content {

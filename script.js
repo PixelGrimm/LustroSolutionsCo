@@ -587,7 +587,7 @@ function animateCounters() {
         
         // Small delay to ensure visibility
         setTimeout(() => {
-            updateCount();
+        updateCount();
         }, 100);
     });
 }
@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !countersAnimated) {
                     setTimeout(() => {
-                        animateCounters();
+                    animateCounters();
                     }, 100);
                     aboutObserver.unobserve(entry.target);
                 }
@@ -1149,6 +1149,27 @@ function closeExitIntentPopup() {
     }
 }
 
+// Test function to manually show exit intent popup (for debugging)
+function testExitIntentPopup() {
+    const popup = document.getElementById('exitIntentPopup');
+    if (popup) {
+        popup.style.display = 'flex';
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Test function to manually show time-based popup (for debugging)
+function testTimeBasedPopup() {
+    const popup = document.getElementById('timeBasedPopup');
+    if (popup) {
+        popup.style.display = 'flex';
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        startPopupTimer();
+    }
+}
+
 function initExitIntent() {
     // Don't show if already shown in this session
     if (localStorage.getItem('exitIntentShown')) {
@@ -1157,14 +1178,28 @@ function initExitIntent() {
 
     let exitIntentTriggered = false;
     
-    // Track mouse movement
+    // Better exit intent detection - track mouse leaving viewport at top
+    document.addEventListener('mouseleave', function(e) {
+        // Check if mouse is leaving the top of the viewport
+        if (e.clientY <= 0 && !exitIntentTriggered) {
+            exitIntentTriggered = true;
+            const popup = document.getElementById('exitIntentPopup');
+            if (popup) {
+                popup.style.display = 'flex';
+                popup.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                trackEvent('popup_show', 'exit_intent', 'exit_intent_popup', 1);
+            }
+        }
+    });
+    
+    // Fallback: Also check mouseout for older browsers
     document.addEventListener('mouseout', function(e) {
-        // Check if mouse is leaving the top of the page
         if (!e.toElement && !e.relatedTarget && e.clientY < 10 && !exitIntentTriggered) {
             exitIntentTriggered = true;
             const popup = document.getElementById('exitIntentPopup');
             if (popup) {
-                popup.style.display = 'block';
+                popup.style.display = 'flex';
                 popup.classList.add('show');
                 document.body.style.overflow = 'hidden';
                 trackEvent('popup_show', 'exit_intent', 'exit_intent_popup', 1);
@@ -1196,10 +1231,15 @@ function initTimeBasedPopup() {
 
     // Show popup after 30 seconds of being on the page
     setTimeout(() => {
+        // Double-check localStorage hasn't changed
+        if (localStorage.getItem('timeBasedPopupShown')) {
+            return;
+        }
+        
         // Check if user hasn't already interacted with quote form
         const popup = document.getElementById('timeBasedPopup');
-        if (popup && !localStorage.getItem('timeBasedPopupShown')) {
-            popup.style.display = 'block';
+        if (popup) {
+            popup.style.display = 'flex';
             popup.classList.add('show');
             document.body.style.overflow = 'hidden';
             trackEvent('popup_show', 'time_based', 'time_based_popup', 1);
@@ -1281,4 +1321,22 @@ document.addEventListener('DOMContentLoaded', function() {
             closeTimeBasedPopup();
         }
     });
+    
+    // Debug: Log popup initialization
+    console.log('Popups initialized:', {
+        exitIntent: !!document.getElementById('exitIntentPopup'),
+        timeBased: !!document.getElementById('timeBasedPopup'),
+        exitIntentShown: localStorage.getItem('exitIntentShown'),
+        timeBasedShown: localStorage.getItem('timeBasedPopupShown')
+    });
+    
+    // Add global test functions for debugging
+    window.testExitIntentPopup = testExitIntentPopup;
+    window.testTimeBasedPopup = testTimeBasedPopup;
+    window.clearPopupStorage = function() {
+        localStorage.removeItem('exitIntentShown');
+        localStorage.removeItem('timeBasedPopupShown');
+        localStorage.removeItem('urgencyBannerClosed');
+        console.log('Popup storage cleared. Refresh page to see popups again.');
+    };
 });
